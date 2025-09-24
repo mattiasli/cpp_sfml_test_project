@@ -1,9 +1,11 @@
 #include "../include/EventManager.hpp"
 
-EventManager::EventManager() {
+EventManager::EventManager(sf::RenderWindow& window)
+: window(window)
+{
 }
 
-void EventManager::processEvents(sf::RenderWindow& window)
+void EventManager::processEvents()
 {
         while (window.pollEvent(event))
         {
