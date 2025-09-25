@@ -1,7 +1,7 @@
 #include "../include/Game.hpp"
 
 Game::Game()
-: renderWindow(sf::VideoMode(constants::WindowWidth, constants::WindowHeight), "Key Path Walker"),
+: renderWindow(sf::VideoMode(constants::windowWidth, constants::windowHeight), "Key Path Walker"),
 handler(renderWindow)
 {
 }
@@ -13,7 +13,7 @@ void Game::run()
         while (renderWindow.isOpen())
         {
             deltaTime += clock.restart();
-            if(deltaTime.asMicroseconds() >= constants::TimePerTick)
+            if(deltaTime.asMicroseconds() >= constants::timePerTick)
             {
                 deltaTime = sf::Time::Zero;
 
@@ -39,11 +39,22 @@ void Game::updateLogic()
 
 void Game::render()
     {
+        renderWindow.clear();
+
+        handler.getMap().render();
+
         sf::RectangleShape rectangle(sf::Vector2f(50.f, 50.f));
         rectangle.setFillColor(sf::Color::Blue);
         rectangle.setPosition(x_pos,y_pos);
-
-        renderWindow.clear();
         renderWindow.draw(rectangle);
+
+        sf::Texture atlas;
+        atlas.loadFromFile("../res/spritesheet.png");
+        sf::Sprite sprite(atlas);
+        sprite.setTextureRect({0, 0, 16, 16});
+        sprite.setScale(4,4);
+        sprite.setPosition(50,50);
+        renderWindow.draw(sprite);
+
         renderWindow.display();
     }
