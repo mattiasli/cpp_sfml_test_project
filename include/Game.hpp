@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "../include/EventManager.hpp"
 #include "../include/Constants.hpp"
+#include "../include/Handler.hpp"
 
 class Game {
 public:
@@ -9,8 +9,8 @@ public:
     void run();
 
 private:
-    sf::RenderWindow window;
-    EventManager eventManager;
+    sf::RenderWindow renderWindow;
+    Handler handler;
 
     float x_pos = 50, y_pos = 50;
 

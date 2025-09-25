@@ -1,18 +1,18 @@
 #include "../include/EventManager.hpp"
 
-EventManager::EventManager(sf::RenderWindow& window)
-: window(window)
+EventManager::EventManager(sf::RenderWindow& renderWindow)
+: renderWindow(renderWindow)
 {
 }
 
 void EventManager::processEvents()
 {
-        while (window.pollEvent(event))
+        while (renderWindow.pollEvent(event))
         {
             switch (event.type)
             {
             case sf::Event::Closed:
-            window.close();
+            renderWindow.close();
             break;
 
             case sf::Event::KeyPressed:

@@ -1,8 +1,8 @@
 #include "../include/Game.hpp"
 
 Game::Game()
-: window(sf::VideoMode(constants::WindowWidth, constants::WindowHeight), "Key Path Walker"),
-eventManager(window)
+: renderWindow(sf::VideoMode(constants::WindowWidth, constants::WindowHeight), "Key Path Walker"),
+handler(renderWindow)
 {
 }
 
@@ -10,7 +10,7 @@ void Game::run()
     {
         sf::Clock clock;
         sf::Time deltaTime = sf::Time::Zero;
-        while (window.isOpen())
+        while (renderWindow.isOpen())
         {
             deltaTime += clock.restart();
             if(deltaTime.asMicroseconds() >= constants::TimePerTick)
@@ -26,15 +26,15 @@ void Game::run()
 
 void Game::processEvents()
     {
-        eventManager.processEvents();
+        handler.getEventManager().processEvents();
     }
 
 void Game::updateLogic()
     {
-        if(eventManager.getUpIsPressed()) y_pos -= 2.0f;
-        if(eventManager.getDownIsPressed()) y_pos += 2.0f;
-        if(eventManager.getLeftIsPressed()) x_pos -= 2.0f;
-        if(eventManager.getRightIsPressed()) x_pos += 2.0f;
+        if(handler.getEventManager().getUpIsPressed()) y_pos -= 2.0f;
+        if(handler.getEventManager().getDownIsPressed()) y_pos += 2.0f;
+        if(handler.getEventManager().getLeftIsPressed()) x_pos -= 2.0f;
+        if(handler.getEventManager().getRightIsPressed()) x_pos += 2.0f;
     }
 
 void Game::render()
@@ -43,7 +43,7 @@ void Game::render()
         rectangle.setFillColor(sf::Color::Blue);
         rectangle.setPosition(x_pos,y_pos);
 
-        window.clear();
-        window.draw(rectangle);
-        window.display();
+        renderWindow.clear();
+        renderWindow.draw(rectangle);
+        renderWindow.display();
     }

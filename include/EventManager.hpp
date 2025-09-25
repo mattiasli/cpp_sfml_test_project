@@ -3,7 +3,7 @@
 
 class EventManager {
 public:
-    EventManager(sf::RenderWindow& window);
+    EventManager(sf::RenderWindow& renderWindow);
 
     void processEvents();
 
@@ -12,7 +12,7 @@ public:
     bool getLeftIsPressed() const;
     bool getRightIsPressed() const;
 private:
-    sf::RenderWindow& window;
+    sf::RenderWindow& renderWindow;
     sf::Event event;
 
     bool upIsPressed = false, downIsPressed = false, leftIsPressed = false, rightIsPressed = false;
