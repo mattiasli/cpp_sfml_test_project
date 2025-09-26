@@ -3,7 +3,8 @@
 Handler::Handler(sf::RenderWindow& renderWindow)
 : renderWindow(renderWindow),
 eventManager(renderWindow),
-map(*this)
+map(*this),
+spriteManager(*this)
 {
 }
 
@@ -20,4 +21,9 @@ EventManager& Handler::getEventManager()
 Map& Handler::getMap()
 {
     return map;
+}
+
+SpriteManager& Handler::getSpriteManager()
+{
+    return spriteManager;
 }

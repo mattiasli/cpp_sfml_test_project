@@ -31,30 +31,19 @@ void Game::processEvents()
 
 void Game::updateLogic()
     {
-        if(handler.getEventManager().getUpIsPressed()) y_pos -= 2.0f;
-        if(handler.getEventManager().getDownIsPressed()) y_pos += 2.0f;
-        if(handler.getEventManager().getLeftIsPressed()) x_pos -= 2.0f;
-        if(handler.getEventManager().getRightIsPressed()) x_pos += 2.0f;
+        if(handler.getEventManager().getUpIsPressed()) y_pos -= 3.5f;
+        if(handler.getEventManager().getDownIsPressed()) y_pos += 3.5f;
+        if(handler.getEventManager().getLeftIsPressed()) x_pos -= 3.5f;
+        if(handler.getEventManager().getRightIsPressed()) x_pos += 3.5f;
     }
 
 void Game::render()
     {
         renderWindow.clear();
-
         handler.getMap().render();
 
-        sf::RectangleShape rectangle(sf::Vector2f(50.f, 50.f));
-        rectangle.setFillColor(sf::Color::Blue);
-        rectangle.setPosition(x_pos,y_pos);
-        renderWindow.draw(rectangle);
-
-        sf::Texture atlas;
-        atlas.loadFromFile("../res/spritesheet.png");
-        sf::Sprite sprite(atlas);
-        sprite.setTextureRect({0, 0, 16, 16});
-        sprite.setScale(4,4);
-        sprite.setPosition(50,50);
-        renderWindow.draw(sprite);
+        handler.getSpriteManager().getPlayerSprite()->setPosition(x_pos,y_pos);
+        renderWindow.draw(*handler.getSpriteManager().getPlayerSprite());
 
         renderWindow.display();
     }
