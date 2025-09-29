@@ -31,19 +31,12 @@ void Game::processEvents()
 
 void Game::updateLogic()
     {
-        if(handler.getEventManager().getUpIsPressed()) y_pos -= 3.5f;
-        if(handler.getEventManager().getDownIsPressed()) y_pos += 3.5f;
-        if(handler.getEventManager().getLeftIsPressed()) x_pos -= 3.5f;
-        if(handler.getEventManager().getRightIsPressed()) x_pos += 3.5f;
+        handler.getMap().updateLogic();
     }
 
 void Game::render()
     {
         renderWindow.clear();
         handler.getMap().render();
-
-        handler.getSpriteManager().getPlayerSprite()->setPosition(x_pos,y_pos);
-        renderWindow.draw(*handler.getSpriteManager().getPlayerSprite());
-
         renderWindow.display();
     }

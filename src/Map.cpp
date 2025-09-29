@@ -2,17 +2,23 @@
 #include "../include/Handler.hpp"
 
 Map::Map(Handler& handler)
-: handler(handler)
+: handler(handler),
+player(handler, 128, 128)
 {
+}
+
+void Map::updateLogic()
+{
+    player.updateLogic();
 }
 
 void Map::render()
 {
-    sf::Sprite* spritePointer = nullptr; 
+    sf::Sprite* spritePointer = nullptr;
     for(int y = 0; y < mapGrid.size() ; y++)
     {
         for(int x = 0; x < mapGrid[y].size() ; x++)
-        { 
+        {
             switch(mapGrid[y][x])
             {
                 case ' ':
@@ -32,7 +38,7 @@ void Map::render()
                 break;
                 default:
                 break;
-            }        
+            }
             if(spritePointer != nullptr)
             {
                 spritePointer->setPosition(x * constants::tileWidth * constants::scale, y * constants::tileWidth * constants::scale);
@@ -40,4 +46,6 @@ void Map::render()
             }
         }
     }
+
+    player.render();
 }
