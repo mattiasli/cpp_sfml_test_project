@@ -1,19 +1,14 @@
 #include "../include/Entity.hpp"
 #include "../include/Handler.hpp"
 
-Entity::Entity(Handler& handler, float xCoordinate, float yCoordinate)
+Entity::Entity(Handler& handler, sf::Vector2f worldCoordinate, BoundingBox boundingBox)
 : handler(handler),
-xCoordinate(xCoordinate),
-yCoordinate(yCoordinate)
+worldCoordinate(worldCoordinate),
+boundingBox(boundingBox)
 {
 }
 
-float Entity::getXCoordinate()
+sf::Vector2f Entity::getWorldCoordinate()
 {
-    return xCoordinate;
-}
-
-float Entity::getYCoordinate()
-{
-    return yCoordinate;
+    return worldCoordinate;
 }

@@ -3,7 +3,7 @@
 
 Map::Map(Handler& handler)
 : handler(handler),
-player(handler, 128, 128)
+player(handler, {128, 128,})
 {
 }
 

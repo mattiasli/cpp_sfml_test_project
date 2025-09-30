@@ -1,21 +1,23 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "BoundingBox.hpp"
 
 class Handler;
 
 class Entity {
 public:
-    Entity(Handler& handler, float xCoordinate, float yCoordinate);
+    Entity(Handler& handler, sf::Vector2f worldCoordinate, BoundingBox boundingBox);
 
     virtual ~Entity() = default;
 
     virtual void updateLogic() = 0;
     virtual void render() const = 0;
 
-    virtual float getXCoordinate();
-    virtual float getYCoordinate();
+    virtual sf::Vector2f getWorldCoordinate();
 
 protected:
     Handler& handler;
-    float xCoordinate, yCoordinate;
+    BoundingBox boundingBox;
+
+    sf::Vector2f worldCoordinate;
 };

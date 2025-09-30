@@ -4,6 +4,7 @@
 #include "../include/EventManager.hpp"
 #include "../include/Map.hpp"
 #include "../include/SpriteManager.hpp"
+#include "../include/CoordinateConverter.hpp"
 
 class Handler {
 public:
@@ -12,10 +13,12 @@ public:
     EventManager& getEventManager();
     Map& getMap();
     SpriteManager& getSpriteManager();
+    CoordinateConverter& getCoordinateConverter();
 
 private:
     sf::RenderWindow& renderWindow;
     EventManager eventManager;
     Map map;
     SpriteManager spriteManager;
+    CoordinateConverter coordinateConverter;
 };

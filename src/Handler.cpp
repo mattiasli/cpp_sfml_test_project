@@ -4,7 +4,8 @@ Handler::Handler(sf::RenderWindow& renderWindow)
 : renderWindow(renderWindow),
 eventManager(renderWindow),
 map(*this),
-spriteManager(*this)
+spriteManager(*this),
+coordinateConverter(*this)
 {
 }
 
@@ -26,4 +27,9 @@ Map& Handler::getMap()
 SpriteManager& Handler::getSpriteManager()
 {
     return spriteManager;
+}
+
+CoordinateConverter& Handler::getCoordinateConverter()
+{
+    return coordinateConverter;
 }

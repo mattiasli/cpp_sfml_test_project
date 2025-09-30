@@ -6,12 +6,12 @@ class Handler;
 
 class DynamicEntity : public Entity {
 public:
-    DynamicEntity(Handler& handler, float xCoordinate, float yCoordinate);
+    DynamicEntity(Handler& handler, sf::Vector2f worldCoordinate, BoundingBox boundingBox);
 
     virtual void updateLogic();
 
     virtual void updatePosition();
 
 protected:
-    float deltaX = 0, deltaY = 0;
+    sf::Vector2f deltaWorldCoordinate = {0, 0};
 };
