@@ -1,17 +1,12 @@
 #include "../include/Handler.hpp"
 
-Handler::Handler(sf::RenderWindow& renderWindow)
-: renderWindow(renderWindow),
-eventManager(renderWindow),
+Handler::Handler()
+: eventManager(*this),
 map(*this),
 spriteManager(*this),
-coordinateConverter(*this)
+coordinateConverter(*this),
+renderWindowManager(*this)
 {
-}
-
-sf::RenderWindow& Handler::getRenderWindow()
-{
-    return renderWindow;
 }
 
 EventManager& Handler::getEventManager()
@@ -32,4 +27,9 @@ SpriteManager& Handler::getSpriteManager()
 CoordinateConverter& Handler::getCoordinateConverter()
 {
     return coordinateConverter;
+}
+
+RenderWindowManager& Handler::getRenderWindowManager()
+{
+    return renderWindowManager;
 }

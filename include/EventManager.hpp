@@ -1,9 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+class Handler;
+
 class EventManager {
 public:
-    EventManager(sf::RenderWindow& renderWindow);
+    EventManager(Handler& handler);
 
     void processEvents();
 
@@ -12,6 +14,7 @@ public:
     bool getLeftIsPressed() const;
     bool getRightIsPressed() const;
 private:
+    Handler& handler;
     sf::RenderWindow& renderWindow;
     sf::Event event;
 

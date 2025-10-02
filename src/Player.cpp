@@ -31,5 +31,5 @@ void Player::processInput()
 void Player::render() const
 {
     handler.getSpriteManager().getPlayerSprite()->setPosition(worldCoordinate);
-    handler.getRenderWindow().draw(*handler.getSpriteManager().getPlayerSprite());
+    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getPlayerSprite());
 }

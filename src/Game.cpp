@@ -2,8 +2,8 @@
 #include <iostream>
 
 Game::Game()
-: renderWindow(sf::VideoMode(constants::windowWidth, constants::windowHeight), "Key Path Walker"),
-handler(renderWindow)
+: handler(),
+renderWindow(handler.getRenderWindowManager().getRenderWindow())
 {
 }
 

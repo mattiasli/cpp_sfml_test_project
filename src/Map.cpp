@@ -3,7 +3,7 @@
 
 Map::Map(Handler& handler)
 : handler(handler),
-player(handler, {128, 128,})
+player(handler, handler.getCoordinateConverter().getWorldCoordinate({4, 4}))
 {
     solidTable['#'] = true; // TODO: update to flyweight algorithm.
     solidTable['~'] = true;
@@ -45,7 +45,7 @@ void Map::render()
             if(spritePointer != nullptr)
             {
                 spritePointer->setPosition(x * constants::tileWidth * constants::scale, y * constants::tileWidth * constants::scale);
-                handler.getRenderWindow().draw(*spritePointer);
+                handler.getRenderWindowManager().getRenderWindow().draw(*spritePointer);
             }
         }
     }

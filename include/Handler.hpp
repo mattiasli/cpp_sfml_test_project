@@ -5,20 +5,21 @@
 #include "../include/Map.hpp"
 #include "../include/SpriteManager.hpp"
 #include "../include/CoordinateConverter.hpp"
+#include "../include/RenderWindowManager.hpp"
 
 class Handler {
 public:
-    Handler(sf::RenderWindow& renderWindow);
-    sf::RenderWindow& getRenderWindow();
+    Handler();
     EventManager& getEventManager();
     Map& getMap();
     SpriteManager& getSpriteManager();
     CoordinateConverter& getCoordinateConverter();
+    RenderWindowManager& getRenderWindowManager();
 
 private:
-    sf::RenderWindow& renderWindow;
     EventManager eventManager;
     Map map;
     SpriteManager spriteManager;
     CoordinateConverter coordinateConverter;
+    RenderWindowManager renderWindowManager;
 };
