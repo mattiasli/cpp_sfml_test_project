@@ -7,7 +7,7 @@ BoundingBox::BoundingBox(Handler& handler, sf::Vector2f worldCoordinate, sf::Vec
 {
 }
 
-void BoundingBox::setPosition(sf::Vector2f worldCoordinate)
+void BoundingBox::setWorldCoordinate(sf::Vector2f worldCoordinate)
 {
     floatRect.left = worldCoordinate.x;
     floatRect.top = worldCoordinate.y;
@@ -23,9 +23,34 @@ void BoundingBox::setYWorldCoordinate(float yWorldCoordinate)
     floatRect.top = yWorldCoordinate;
 }
 
+float BoundingBox::getWidth()
+{
+    return floatRect.width;
+}
+
+float BoundingBox::getHeight()
+{
+    return floatRect.height;
+}
+
+sf::Vector2f BoundingBox::getWorldCoordinate()
+{
+    return floatRect.getPosition();
+}
+
 sf::Vector2f BoundingBox::getCenterWorldCoordinate()
 {
     return floatRect.getPosition() + sf::Vector2f{floatRect.width / 2, floatRect.height / 2};
+}
+
+float BoundingBox::getXWorldCoordinate()
+{
+    return floatRect.left;
+}
+
+float BoundingBox::getYWorldCoordinate()
+{
+    return floatRect.top;
 }
 
 float BoundingBox::getLeftEdgeXWorldCoordinate()

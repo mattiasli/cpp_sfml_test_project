@@ -1,4 +1,5 @@
 #include "../include/Game.hpp"
+#include <iostream>
 
 Game::Game()
 : renderWindow(sf::VideoMode(constants::windowWidth, constants::windowHeight), "Key Path Walker"),
@@ -19,6 +20,7 @@ void Game::run()
             {
                 deltaTime += clock.restart();
             }
+            std::cout << "deltatime: " << deltaTime.asMicroseconds() << std::endl; // TODO, remove
             deltaTime = sf::Time::Zero;
 
             render();

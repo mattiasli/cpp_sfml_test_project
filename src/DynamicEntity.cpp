@@ -4,32 +4,38 @@
 DynamicEntity::DynamicEntity(Handler& handler, sf::Vector2f worldCoordinate, BoundingBox boundingBox)
 : Entity(handler, worldCoordinate, boundingBox),
 map(handler.getMap()),
-coordinateConverter(handler.getCoordinateConverter())
+coordinateConverter(handler.getCoordinateConverter()),
+deltaXBoundingBox(boundingBox),
+deltaYBoundingBox(boundingBox)
 {
 }
 
 void DynamicEntity::updateLogic()
 {
-    adjustDeltaWorldCoordinateForTileCollisions();
-    updatePosition();
-
+    updateBoundingBoxesWorldCoordinates();
+    adjustBoundingBoxForTileCollisions();
+    updateWorldCoordinate();
 }
 
-void DynamicEntity::updatePosition()
+void DynamicEntity::updateWorldCoordinate()
 {
-    worldCoordinate += deltaWorldCoordinate;
+    worldCoordinate.x = deltaXBoundingBox.getXWorldCoordinate();
+    worldCoordinate.y = deltaYBoundingBox.getYWorldCoordinate();
 }
 
-void DynamicEntity::adjustDeltaWorldCoordinateForTileCollisions()
+void DynamicEntity::updateBoundingBoxesWorldCoordinates()
 {
-    boundingBox.setPosition(worldCoordinate);
+    boundingBox.setWorldCoordinate(worldCoordinate);
+    deltaXBoundingBox.setWorldCoordinate(worldCoordinate + sf::Vector2f({deltaWorldCoordinate.x, 0}));
+    deltaYBoundingBox.setWorldCoordinate(worldCoordinate + sf::Vector2f({0, deltaWorldCoordinate.y}));
+}
 
-    boundingBox.setXWorldCoordinate(worldCoordinate.x + deltaWorldCoordinate.x);
-
-    int leftGridColumn = coordinateConverter.getXGridCoordinate(boundingBox.getLeftEdgeXWorldCoordinate());
-    int rightGridColumn = coordinateConverter.getXGridCoordinate(boundingBox.getRightEdgeXWorldCoordinate());
-    int topGridRow = coordinateConverter.getYGridCoordinate(boundingBox.getTopEdgeYWorldCoordinate());
-    int bottomGridRow = coordinateConverter.getYGridCoordinate(boundingBox.getBottomEdgeYWorldCoordinate());
+void DynamicEntity::adjustBoundingBoxForTileCollisions()
+{
+    int leftGridColumn = coordinateConverter.getXGridCoordinate(deltaXBoundingBox.getLeftEdgeXWorldCoordinate());
+    int rightGridColumn = coordinateConverter.getXGridCoordinate(deltaXBoundingBox.getRightEdgeXWorldCoordinate());
+    int topGridRow = coordinateConverter.getYGridCoordinate(deltaXBoundingBox.getTopEdgeYWorldCoordinate());
+    int bottomGridRow = coordinateConverter.getYGridCoordinate(deltaXBoundingBox.getBottomEdgeYWorldCoordinate());
 
     for(int y = topGridRow; y <= bottomGridRow ; y++)
     {
@@ -39,23 +45,20 @@ void DynamicEntity::adjustDeltaWorldCoordinateForTileCollisions()
             {
                 if(deltaWorldCoordinate.x > 0)
                 {
-                deltaWorldCoordinate.x += coordinateConverter.getXWorldCoordinate(x) - boundingBox.getRightEdgeXWorldCoordinate() - 1;
+                deltaXBoundingBox.setXWorldCoordinate(coordinateConverter.getXWorldCoordinate(x) - deltaXBoundingBox.getWidth());
                 }
                 else if(deltaWorldCoordinate.x < 0)
                 {
-                deltaWorldCoordinate.x += coordinateConverter.getXWorldCoordinate(x) + constants::tileWidth * constants::scale - boundingBox.getLeftEdgeXWorldCoordinate();
+                deltaXBoundingBox.setXWorldCoordinate(coordinateConverter.getXWorldCoordinate(x) + constants::tileWidth * constants::scale);
                 }
-                boundingBox.setPosition(worldCoordinate + sf::Vector2f{deltaWorldCoordinate.x, 0});
             }
         }
     }
 
-    boundingBox.setYWorldCoordinate(worldCoordinate.y + deltaWorldCoordinate.y);
-
-    leftGridColumn = coordinateConverter.getXGridCoordinate(boundingBox.getLeftEdgeXWorldCoordinate());
-    rightGridColumn = coordinateConverter.getXGridCoordinate(boundingBox.getRightEdgeXWorldCoordinate());
-    topGridRow = coordinateConverter.getYGridCoordinate(boundingBox.getTopEdgeYWorldCoordinate());
-    bottomGridRow = coordinateConverter.getYGridCoordinate(boundingBox.getBottomEdgeYWorldCoordinate());
+    leftGridColumn = coordinateConverter.getXGridCoordinate(deltaYBoundingBox.getLeftEdgeXWorldCoordinate());
+    rightGridColumn = coordinateConverter.getXGridCoordinate(deltaYBoundingBox.getRightEdgeXWorldCoordinate());
+    topGridRow = coordinateConverter.getYGridCoordinate(deltaYBoundingBox.getTopEdgeYWorldCoordinate());
+    bottomGridRow = coordinateConverter.getYGridCoordinate(deltaYBoundingBox.getBottomEdgeYWorldCoordinate());
 
     for(int y = topGridRow; y <= bottomGridRow ; y++)
     {
@@ -65,13 +68,12 @@ void DynamicEntity::adjustDeltaWorldCoordinateForTileCollisions()
             {
                 if(deltaWorldCoordinate.y > 0)
                 {
-                deltaWorldCoordinate.y += coordinateConverter.getXWorldCoordinate(y) - boundingBox.getBottomEdgeYWorldCoordinate() - 1;
+                deltaYBoundingBox.setYWorldCoordinate(coordinateConverter.getYWorldCoordinate(y) - deltaYBoundingBox.getHeight());
                 }
                 else if(deltaWorldCoordinate.y < 0)
                 {
-                deltaWorldCoordinate.y += coordinateConverter.getXWorldCoordinate(y) + constants::tileHeight * constants::scale - boundingBox.getTopEdgeYWorldCoordinate();
+                deltaYBoundingBox.setYWorldCoordinate(coordinateConverter.getYWorldCoordinate(y) + constants::tileHeight * constants::scale);
                 }
-                boundingBox.setPosition(worldCoordinate + sf::Vector2f{0, deltaWorldCoordinate.y});
             }
         }
     }

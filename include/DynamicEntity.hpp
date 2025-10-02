@@ -19,6 +19,10 @@ private:
     Map& map;
     CoordinateConverter& coordinateConverter;
 
-    virtual void updatePosition();
-    virtual void adjustDeltaWorldCoordinateForTileCollisions();
+    BoundingBox deltaXBoundingBox;
+    BoundingBox deltaYBoundingBox;
+
+    virtual void updateWorldCoordinate();
+    virtual void updateBoundingBoxesWorldCoordinates();
+    virtual void adjustBoundingBoxForTileCollisions();
 };
