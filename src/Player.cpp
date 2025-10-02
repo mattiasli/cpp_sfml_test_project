@@ -14,8 +14,9 @@ void Player::updateLogic()
     processInput();
     DynamicEntity::updateLogic();
 
-    std::cout << "x: " << handler.getCoordinateConverter().getGridCoordinate(boundingBox.getCenterWorldCoordinate()).x
-    << "y: " << handler.getCoordinateConverter().getGridCoordinate(boundingBox.getCenterWorldCoordinate()).y << std::endl; // TODO: remove
+    std::cout << " x: " << handler.getCoordinateConverter().getGridCoordinate(boundingBox.getCenterWorldCoordinate()).x
+    << " y: " << handler.getCoordinateConverter().getGridCoordinate(boundingBox.getCenterWorldCoordinate()).y
+    << " solid: " << handler.getMap().isGridCoordinateSolid(handler.getCoordinateConverter().getGridCoordinate(boundingBox.getCenterWorldCoordinate())) << std::endl; // TODO: remove
 }
 
 void Player::processInput()

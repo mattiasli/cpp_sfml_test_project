@@ -11,6 +11,14 @@ public:
 
     sf::Vector2i getGridCoordinate(sf::Vector2f worldCoordinate);
 
+    float getXWorldCoordinate(int xGridCoordinate);
+
+    float getYWorldCoordinate(int yGridCoordinate);
+
+    int getXGridCoordinate(float xWorldCoordinate);
+
+    int getYGridCoordinate(float yWorldCoordinate);
+
 private:
     Handler& handler;
 };

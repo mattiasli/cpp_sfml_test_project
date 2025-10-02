@@ -12,15 +12,16 @@ void Game::run()
         sf::Time deltaTime = sf::Time::Zero;
         while (renderWindow.isOpen())
         {
-            deltaTime += clock.restart();
-            if(deltaTime.asMicroseconds() >= constants::timePerTick)
-            {
-                deltaTime = sf::Time::Zero;
+            processEvents();
+            updateLogic();
 
-                processEvents();
-                updateLogic();
-                render();
+            while(deltaTime.asMicroseconds() < constants::timePerTick)
+            {
+                deltaTime += clock.restart();
             }
+            deltaTime = sf::Time::Zero;
+
+            render();
         }
     }
 

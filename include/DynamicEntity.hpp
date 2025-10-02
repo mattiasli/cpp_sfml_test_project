@@ -3,6 +3,8 @@
 #include "Entity.hpp"
 
 class Handler;
+class Map;
+class CoordinateConverter;
 
 class DynamicEntity : public Entity {
 public:
@@ -10,8 +12,13 @@ public:
 
     virtual void updateLogic();
 
-    virtual void updatePosition();
-
 protected:
     sf::Vector2f deltaWorldCoordinate = {0, 0};
+
+private:
+    Map& map;
+    CoordinateConverter& coordinateConverter;
+
+    virtual void updatePosition();
+    virtual void adjustDeltaWorldCoordinateForTileCollisions();
 };

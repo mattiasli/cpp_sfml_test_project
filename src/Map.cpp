@@ -5,6 +5,9 @@ Map::Map(Handler& handler)
 : handler(handler),
 player(handler, {128, 128,})
 {
+    solidTable['#'] = true; // TODO: update to flyweight algorithm.
+    solidTable['~'] = true;
+    solidTable['^'] = true;
 }
 
 void Map::updateLogic()
@@ -49,3 +52,14 @@ void Map::render()
 
     player.render();
 }
+
+bool Map::isTileSolid(char tile)
+{
+    return solidTable[(unsigned char)tile];
+}
+
+bool Map::isGridCoordinateSolid(sf::Vector2i gridCoordinate)
+{ // TODO,,,, check if its outside the grid.
+    return isTileSolid(mapGrid[gridCoordinate.y][gridCoordinate.x]);
+}
+

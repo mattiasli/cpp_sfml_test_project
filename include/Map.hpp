@@ -12,6 +12,10 @@ public:
 
     void render();
 
+    bool isTileSolid(char tile);
+
+    bool isGridCoordinateSolid(sf::Vector2i gridCoordinate);
+
 private:
     Handler& handler;
     std::vector<std::vector<char>> mapGrid {
@@ -48,5 +52,6 @@ private:
         {'#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}
     };
+    bool solidTable[256] = { false };
     Player player;
 };
