@@ -6,34 +6,44 @@ CoordinateConverter::CoordinateConverter(Handler& handler)
 {
 }
 
-sf::Vector2f CoordinateConverter::getWorldCoordinate(sf::Vector2i gridCoordinate)
+int CoordinateConverter::convertTo1DIndex(sf::Vector2i twoDCoordinate) const
+{
+    return twoDCoordinate.x + twoDCoordinate.y * handler.getMap().getGridWidth();
+}
+
+sf::Vector2i CoordinateConverter::convertTo2DCoordinate(int oneDIndex) const
+{
+    return {oneDIndex % handler.getMap().getGridWidth(), oneDIndex / handler.getMap().getGridWidth()};
+}
+
+sf::Vector2f CoordinateConverter::convertToWorldCoordinate(sf::Vector2i gridCoordinate) const
 {
     return {(float)(gridCoordinate.x * constants::tileWidth * constants::scale),
             (float)(gridCoordinate.y * constants::tileHeight * constants::scale)};
 }
 
-sf::Vector2i CoordinateConverter::getGridCoordinate(sf::Vector2f worldCoordinate)
+sf::Vector2i CoordinateConverter::convertToGridCoordinate(sf::Vector2f worldCoordinate) const
 {
     return {(int)worldCoordinate.x / (constants::tileWidth * constants::scale),
     (int)worldCoordinate.y / (constants::tileHeight * constants::scale)};
 }
 
-float CoordinateConverter::getXWorldCoordinate(int xGridCoordinate)
+float CoordinateConverter::convertToXWorldCoordinate(int xGridCoordinate) const
 {
     return (float)(xGridCoordinate * constants::tileWidth * constants::scale);
 }
 
-float CoordinateConverter::getYWorldCoordinate(int yGridCoordinate)
+float CoordinateConverter::convertToYWorldCoordinate(int yGridCoordinate) const
 {
     return (float)(yGridCoordinate * constants::tileHeight * constants::scale);
 }
 
-int CoordinateConverter::getXGridCoordinate(float xWorldCoordinate)
+int CoordinateConverter::convertToXGridCoordinate(float xWorldCoordinate) const
 {
     return (int)xWorldCoordinate / (constants::tileWidth * constants::scale);
 }
 
-int CoordinateConverter::getYGridCoordinate(float yWorldCoordinate)
+int CoordinateConverter::convertToYGridCoordinate(float yWorldCoordinate) const
 {
     return (int)yWorldCoordinate / (constants::tileHeight * constants::scale);
 }

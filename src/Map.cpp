@@ -3,7 +3,7 @@
 
 Map::Map(Handler& handler)
 : handler(handler),
-player(handler, handler.getCoordinateConverter().getWorldCoordinate({4, 4}))
+player(handler, handler.getCoordinateConverter().convertToWorldCoordinate({4, 4}))
 {
     solidTable['#'] = true; // TODO: update to flyweight algorithm.
     solidTable['~'] = true;
@@ -59,7 +59,25 @@ bool Map::isTileSolid(char tile)
 }
 
 bool Map::isGridCoordinateSolid(sf::Vector2i gridCoordinate)
-{ // TODO,,,, check if its outside the grid.
+{
     return isTileSolid(mapGrid[gridCoordinate.y][gridCoordinate.x]);
+}
+
+bool Map::isGridCoordinateInsideMapGrid(sf::Vector2i gridCoordinate) const
+{
+    return gridCoordinate.x >= 0 &&
+           gridCoordinate.y >= 0 &&
+           gridCoordinate.x < getGridWidth() &&
+           gridCoordinate.y < getGridHeight();
+}
+
+int Map::getGridWidth() const
+{
+    return mapGrid.size();
+}
+
+int Map::getGridHeight() const
+{
+    return mapGrid[0].size();
 }
 

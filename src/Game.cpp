@@ -38,8 +38,8 @@ void Game::updateLogic()
 
         if(handler.getEventManager().GetIsMouseLeftButtonDown()) // TODO, remove
             {
-            std::cout << "xgrid: " << handler.getCoordinateConverter().getXGridCoordinate(handler.getEventManager().GetMousePosition().x)
-            << "  ygrid: " << handler.getCoordinateConverter().getYGridCoordinate(handler.getEventManager().GetMousePosition().y) << std::endl;
+            std::cout << "xgrid: " << handler.getCoordinateConverter().convertToXGridCoordinate(handler.getEventManager().GetMousePosition().x)
+            << "  ygrid: " << handler.getCoordinateConverter().convertToYGridCoordinate(handler.getEventManager().GetMousePosition().y) << std::endl;
             }
     }
 

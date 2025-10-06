@@ -6,6 +6,7 @@
 #include "../include/SpriteManager.hpp"
 #include "../include/CoordinateConverter.hpp"
 #include "../include/RenderWindowManager.hpp"
+#include "../include/PathFinder.hpp"
 
 class Handler {
 public:
@@ -15,6 +16,7 @@ public:
     SpriteManager& getSpriteManager();
     CoordinateConverter& getCoordinateConverter();
     RenderWindowManager& getRenderWindowManager();
+    PathFinder& getPathFinder();
 
 private:
     EventManager eventManager;
@@ -22,4 +24,5 @@ private:
     SpriteManager spriteManager;
     CoordinateConverter coordinateConverter;
     RenderWindowManager renderWindowManager;
+    PathFinder pathFinder;
 };

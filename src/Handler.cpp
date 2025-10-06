@@ -5,7 +5,8 @@ Handler::Handler()
 map(*this),
 spriteManager(*this),
 coordinateConverter(*this),
-renderWindowManager(*this)
+renderWindowManager(*this),
+pathFinder(*this)
 {
 }
 
@@ -32,4 +33,9 @@ CoordinateConverter& Handler::getCoordinateConverter()
 RenderWindowManager& Handler::getRenderWindowManager()
 {
     return renderWindowManager;
+}
+
+PathFinder& Handler::getPathFinder()
+{
+    return pathFinder;
 }

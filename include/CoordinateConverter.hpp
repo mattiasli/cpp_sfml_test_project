@@ -7,17 +7,21 @@ class CoordinateConverter {
 public:
     CoordinateConverter(Handler& handler);
 
-    sf::Vector2f getWorldCoordinate(sf::Vector2i gridCoordinate);
+    int convertTo1DIndex(sf::Vector2i twoDCoordinate) const;
 
-    sf::Vector2i getGridCoordinate(sf::Vector2f worldCoordinate);
+    sf::Vector2i convertTo2DCoordinate(int oneDIndex) const;
 
-    float getXWorldCoordinate(int xGridCoordinate);
+    sf::Vector2f convertToWorldCoordinate(sf::Vector2i gridCoordinate) const;
 
-    float getYWorldCoordinate(int yGridCoordinate);
+    sf::Vector2i convertToGridCoordinate(sf::Vector2f worldCoordinate) const;
 
-    int getXGridCoordinate(float xWorldCoordinate);
+    float convertToXWorldCoordinate(int xGridCoordinate) const;
 
-    int getYGridCoordinate(float yWorldCoordinate);
+    float convertToYWorldCoordinate(int yGridCoordinate) const;
+
+    int convertToXGridCoordinate(float xWorldCoordinate) const;
+
+    int convertToYGridCoordinate(float yWorldCoordinate) const;
 
 private:
     Handler& handler;

@@ -32,47 +32,49 @@ void DynamicEntity::updateBoundingBoxesWorldCoordinates()
 
 void DynamicEntity::adjustBoundingBoxForTileCollisions()
 {
-    int leftGridColumn = coordinateConverter.getXGridCoordinate(deltaXBoundingBox.getLeftEdgeXWorldCoordinate());
-    int rightGridColumn = coordinateConverter.getXGridCoordinate(deltaXBoundingBox.getRightEdgeXWorldCoordinate());
-    int topGridRow = coordinateConverter.getYGridCoordinate(deltaXBoundingBox.getTopEdgeYWorldCoordinate());
-    int bottomGridRow = coordinateConverter.getYGridCoordinate(deltaXBoundingBox.getBottomEdgeYWorldCoordinate());
+    int leftGridColumn = coordinateConverter.convertToXGridCoordinate(deltaXBoundingBox.getLeftEdgeXWorldCoordinate());
+    int rightGridColumn = coordinateConverter.convertToXGridCoordinate(deltaXBoundingBox.getRightEdgeXWorldCoordinate());
+    int topGridRow = coordinateConverter.convertToYGridCoordinate(deltaXBoundingBox.getTopEdgeYWorldCoordinate());
+    int bottomGridRow = coordinateConverter.convertToYGridCoordinate(deltaXBoundingBox.getBottomEdgeYWorldCoordinate());
 
     for(int y = topGridRow; y <= bottomGridRow ; y++)
     {
         for(int x = leftGridColumn; x <= rightGridColumn ; x++)
         {
+            if(!map.isGridCoordinateInsideMapGrid({x, y})) continue;
             if(map.isGridCoordinateSolid({x, y}))
             {
                 if(deltaWorldCoordinate.x > 0)
                 {
-                deltaXBoundingBox.setXWorldCoordinate(coordinateConverter.getXWorldCoordinate(x) - deltaXBoundingBox.getWidth());
+                deltaXBoundingBox.setXWorldCoordinate(coordinateConverter.convertToXWorldCoordinate(x) - deltaXBoundingBox.getWidth());
                 }
                 else if(deltaWorldCoordinate.x < 0)
                 {
-                deltaXBoundingBox.setXWorldCoordinate(coordinateConverter.getXWorldCoordinate(x) + constants::tileWidth * constants::scale);
+                deltaXBoundingBox.setXWorldCoordinate(coordinateConverter.convertToXWorldCoordinate(x) + constants::tileWidth * constants::scale);
                 }
             }
         }
     }
 
-    leftGridColumn = coordinateConverter.getXGridCoordinate(deltaYBoundingBox.getLeftEdgeXWorldCoordinate());
-    rightGridColumn = coordinateConverter.getXGridCoordinate(deltaYBoundingBox.getRightEdgeXWorldCoordinate());
-    topGridRow = coordinateConverter.getYGridCoordinate(deltaYBoundingBox.getTopEdgeYWorldCoordinate());
-    bottomGridRow = coordinateConverter.getYGridCoordinate(deltaYBoundingBox.getBottomEdgeYWorldCoordinate());
+    leftGridColumn = coordinateConverter.convertToXGridCoordinate(deltaYBoundingBox.getLeftEdgeXWorldCoordinate());
+    rightGridColumn = coordinateConverter.convertToXGridCoordinate(deltaYBoundingBox.getRightEdgeXWorldCoordinate());
+    topGridRow = coordinateConverter.convertToYGridCoordinate(deltaYBoundingBox.getTopEdgeYWorldCoordinate());
+    bottomGridRow = coordinateConverter.convertToYGridCoordinate(deltaYBoundingBox.getBottomEdgeYWorldCoordinate());
 
     for(int y = topGridRow; y <= bottomGridRow ; y++)
     {
         for(int x = leftGridColumn; x <= rightGridColumn ; x++)
         {
+            if(!map.isGridCoordinateInsideMapGrid({x, y})) continue;
             if(map.isGridCoordinateSolid({x, y}))
             {
                 if(deltaWorldCoordinate.y > 0)
                 {
-                deltaYBoundingBox.setYWorldCoordinate(coordinateConverter.getYWorldCoordinate(y) - deltaYBoundingBox.getHeight());
+                deltaYBoundingBox.setYWorldCoordinate(coordinateConverter.convertToYWorldCoordinate(y) - deltaYBoundingBox.getHeight());
                 }
                 else if(deltaWorldCoordinate.y < 0)
                 {
-                deltaYBoundingBox.setYWorldCoordinate(coordinateConverter.getYWorldCoordinate(y) + constants::tileHeight * constants::scale);
+                deltaYBoundingBox.setYWorldCoordinate(coordinateConverter.convertToYWorldCoordinate(y) + constants::tileHeight * constants::scale);
                 }
             }
         }
