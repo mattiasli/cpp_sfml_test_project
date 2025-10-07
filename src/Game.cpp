@@ -1,5 +1,4 @@
 #include "../include/Game.hpp"
-#include <iostream>
 
 Game::Game()
 : handler(),
@@ -20,7 +19,6 @@ void Game::run()
             {
                 deltaTime += clock.restart();
             }
-            // std::cout << "deltatime: " << deltaTime.asMicroseconds() << std::endl; // TODO, remove
             deltaTime = sf::Time::Zero;
 
             render();
@@ -35,12 +33,6 @@ void Game::processEvents()
 void Game::updateLogic()
     {
         handler.getMap().updateLogic();
-
-        if(handler.getEventManager().GetIsMouseLeftButtonDown()) // TODO, remove
-            {
-            std::cout << "xgrid: " << handler.getCoordinateConverter().convertToXGridCoordinate(handler.getEventManager().GetMousePosition().x)
-            << "  ygrid: " << handler.getCoordinateConverter().convertToYGridCoordinate(handler.getEventManager().GetMousePosition().y) << std::endl;
-            }
     }
 
 void Game::render()

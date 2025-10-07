@@ -9,10 +9,10 @@ public:
 
     void processEvents();
 
-    bool getUpIsPressed() const;
-    bool getDownIsPressed() const;
-    bool getLeftIsPressed() const;
-    bool getRightIsPressed() const;
+    bool getIsKeyboardUpKeyDown() const;
+    bool getIsKeyboardDownKeyDown() const;
+    bool getIsKeyboardLeftKeyDown() const;
+    bool getIsKeyboardRightKeyDown() const;
 
     sf::Vector2i GetMousePosition() const;
     bool GetIsMouseLeftButtonPressed() const;
@@ -27,7 +27,7 @@ private:
     sf::RenderWindow& renderWindow;
     sf::Event event;
 
-    bool upIsPressed = false, downIsPressed = false, leftIsPressed = false, rightIsPressed = false;
+    bool isKeyboardUpKeyDown = false, isKeyboardDownKeyDown = false, isKeyboardLeftKeyDown = false, isKeyboardRightKeyDown = false;
 
     sf::Vector2i mousePosition = {0, 0};
     bool isMouseLeftButtonPressed = false, isMouseLeftButtonDown = false, isMouseLeftButtonReleased = false;

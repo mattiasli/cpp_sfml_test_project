@@ -18,10 +18,10 @@ void Player::processInput()
 {
     deltaWorldCoordinate = {0, 0};
 
-    if(handler.getEventManager().getUpIsPressed()) deltaWorldCoordinate -= {0, 4};
-    if(handler.getEventManager().getDownIsPressed()) deltaWorldCoordinate += {0, 4};
-    if(handler.getEventManager().getLeftIsPressed()) deltaWorldCoordinate -= {4, 0};
-    if(handler.getEventManager().getRightIsPressed()) deltaWorldCoordinate += {4, 0};
+    if(handler.getEventManager().getIsKeyboardUpKeyDown()) deltaWorldCoordinate -= {0, 4};
+    if(handler.getEventManager().getIsKeyboardDownKeyDown()) deltaWorldCoordinate += {0, 4};
+    if(handler.getEventManager().getIsKeyboardLeftKeyDown()) deltaWorldCoordinate -= {4, 0};
+    if(handler.getEventManager().getIsKeyboardRightKeyDown()) deltaWorldCoordinate += {4, 0};
 }
 
 void Player::render() const

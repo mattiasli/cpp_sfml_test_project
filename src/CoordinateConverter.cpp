@@ -6,12 +6,12 @@ CoordinateConverter::CoordinateConverter(Handler& handler)
 {
 }
 
-int CoordinateConverter::convertTo1DIndex(sf::Vector2i twoDCoordinate) const
+int CoordinateConverter::convertTo1DIndex(sf::Vector2i twoDGridCoordinate) const
 {
-    return twoDCoordinate.x + twoDCoordinate.y * handler.getMap().getGridWidth();
+    return twoDGridCoordinate.x + twoDGridCoordinate.y * handler.getMap().getGridWidth();
 }
 
-sf::Vector2i CoordinateConverter::convertTo2DCoordinate(int oneDIndex) const
+sf::Vector2i CoordinateConverter::convertTo2DGridCoordinate(int oneDIndex) const
 {
     return {oneDIndex % handler.getMap().getGridWidth(), oneDIndex / handler.getMap().getGridWidth()};
 }

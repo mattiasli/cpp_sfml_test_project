@@ -7,9 +7,9 @@ class CoordinateConverter {
 public:
     CoordinateConverter(Handler& handler);
 
-    int convertTo1DIndex(sf::Vector2i twoDCoordinate) const;
+    int convertTo1DIndex(sf::Vector2i twoDGridCoordinate) const;
 
-    sf::Vector2i convertTo2DCoordinate(int oneDIndex) const;
+    sf::Vector2i convertTo2DGridCoordinate(int oneDIndex) const;
 
     sf::Vector2f convertToWorldCoordinate(sf::Vector2i gridCoordinate) const;
 

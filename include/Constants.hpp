@@ -10,4 +10,6 @@ namespace constants {
     constexpr int tileHeight = 16;
     constexpr int defaultSpriteWidth = 16;
     constexpr int defaulSpriteHeight = 16;
+
+    inline const sf::Vector2i invalidCoordinate {-1, -1};
 }

@@ -27,22 +27,22 @@ void EventManager::processEvents()
             {
                 case sf::Keyboard::Up:
                 case sf::Keyboard::W:
-                upIsPressed = true;
+                isKeyboardUpKeyDown = true;
                 break;
 
                 case sf::Keyboard::Down:
                 case sf::Keyboard::S:
-                downIsPressed = true;
+                isKeyboardDownKeyDown = true;
                 break;
 
                 case sf::Keyboard::Left:
                 case sf::Keyboard::A:
-                leftIsPressed = true;
+                isKeyboardLeftKeyDown = true;
                 break;
 
                 case sf::Keyboard::Right:
                 case sf::Keyboard::D:
-                rightIsPressed = true;
+                isKeyboardRightKeyDown = true;
                 break;
 
                 default:
@@ -55,22 +55,22 @@ void EventManager::processEvents()
             {
                 case sf::Keyboard::Up:
                 case sf::Keyboard::W:
-                upIsPressed = false;
+                isKeyboardUpKeyDown = false;
                 break;
 
                 case sf::Keyboard::Down:
                 case sf::Keyboard::S:
-                downIsPressed = false;
+                isKeyboardDownKeyDown = false;
                 break;
 
                 case sf::Keyboard::Left:
                 case sf::Keyboard::A:
-                leftIsPressed = false;
+                isKeyboardLeftKeyDown = false;
                 break;
 
                 case sf::Keyboard::Right:
                 case sf::Keyboard::D:
-                rightIsPressed = false;
+                isKeyboardRightKeyDown = false;
                 break;
 
                 default:
@@ -132,24 +132,24 @@ void EventManager::resetInputState()
     isMouseRightButtonReleased = false;
 }
 
-bool EventManager::getUpIsPressed() const
+bool EventManager::getIsKeyboardUpKeyDown() const
 {
-    return upIsPressed;
+    return isKeyboardUpKeyDown;
 }
 
-bool EventManager::getDownIsPressed() const
+bool EventManager::getIsKeyboardDownKeyDown() const
 {
-    return downIsPressed;
+    return isKeyboardDownKeyDown;
 }
 
-bool EventManager::getLeftIsPressed() const
+bool EventManager::getIsKeyboardLeftKeyDown() const
 {
-    return leftIsPressed;
+    return isKeyboardLeftKeyDown;
 }
 
-bool EventManager::getRightIsPressed() const
+bool EventManager::getIsKeyboardRightKeyDown() const
 {
-    return rightIsPressed;
+    return isKeyboardRightKeyDown;
 }
 
 sf::Vector2i EventManager::GetMousePosition() const
