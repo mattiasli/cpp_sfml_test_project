@@ -1,74 +1,118 @@
 #include "../include/BoundingBox.hpp"
 #include "../include/Handler.hpp"
 
-BoundingBox::BoundingBox(Handler& handler, sf::Vector2f worldCoordinate, sf::Vector2f size)
+BoundingBox::BoundingBox(Handler& handler, sf::Vector2f entityWorldCoordinate, sf::Vector2f size, sf::Vector2f rectangleOffsetWorldCoordinat)
 : handler(handler),
-  floatRect(worldCoordinate.x, worldCoordinate.y, size.x, size.y)
+  entityWorldCoordinate(entityWorldCoordinate),
+  rectangle(entityWorldCoordinate + rectangleOffsetWorldCoordinate, size),
+  rectangleOffsetWorldCoordinate(rectangleOffsetWorldCoordinat)
 {
 }
 
-void BoundingBox::setWorldCoordinate(sf::Vector2f worldCoordinate)
+void BoundingBox::setEntityWorldCoordinate(sf::Vector2f entityWorldCoordinat)
 {
-    floatRect.left = worldCoordinate.x;
-    floatRect.top = worldCoordinate.y;
+    entityWorldCoordinate = entityWorldCoordinat;
+    updateRectangleFromEntityWorldCoordinate();
 }
 
-void BoundingBox::setXWorldCoordinate(float xWorldCoordinate)
+void BoundingBox::setEntityXWorldCoordinate(float entityXWorldCoordinate)
 {
-    floatRect.left = xWorldCoordinate;
+    entityWorldCoordinate.x = entityXWorldCoordinate;
+    updateRectangleFromEntityWorldCoordinate();
 }
 
-void BoundingBox::setYWorldCoordinate(float yWorldCoordinate)
+void BoundingBox::setEntityYWorldCoordinate(float entityYWorldCoordinate)
 {
-    floatRect.top = yWorldCoordinate;
+    entityWorldCoordinate.y = entityYWorldCoordinate;
+    updateRectangleFromEntityWorldCoordinate();
 }
 
-float BoundingBox::getWidth()
+void BoundingBox::updateRectangleFromEntityWorldCoordinate()
 {
-    return floatRect.width;
+    rectangle.left = entityWorldCoordinate.x + rectangleOffsetWorldCoordinate.x * constants::scale;
+    rectangle.top = entityWorldCoordinate.y + rectangleOffsetWorldCoordinate.y * constants::scale;
 }
 
-float BoundingBox::getHeight()
+sf::Vector2f BoundingBox::getEntityWorldCoordinate() const
 {
-    return floatRect.height;
+    return entityWorldCoordinate;
 }
 
-sf::Vector2f BoundingBox::getWorldCoordinate()
+float BoundingBox::getEntityXWorldCoordinate() const
 {
-    return floatRect.getPosition();
+    return entityWorldCoordinate.x;
 }
 
-sf::Vector2f BoundingBox::getCenterWorldCoordinate()
+float BoundingBox::getEntityYWorldCoordinate() const
 {
-    return floatRect.getPosition() + sf::Vector2f{floatRect.width / 2, floatRect.height / 2};
+    return entityWorldCoordinate.y;
 }
 
-float BoundingBox::getXWorldCoordinate()
+void BoundingBox::setRectangleWorldCoordinate(sf::Vector2f rectangleWorldCoordinate)
 {
-    return floatRect.left;
+    rectangle.left = rectangleWorldCoordinate.x;
+    rectangle.top = rectangleWorldCoordinate.y;
+    updateEntityWorldCoordinateFromRectangle();
 }
 
-float BoundingBox::getYWorldCoordinate()
+void BoundingBox::setRectangleXWorldCoordinate(float rectangleXWorldCoordinate)
 {
-    return floatRect.top;
+    rectangle.left = rectangleXWorldCoordinate;
+    updateEntityWorldCoordinateFromRectangle();
 }
 
-float BoundingBox::getLeftEdgeXWorldCoordinate()
+void BoundingBox::setRectangleYWorldCoordinate(float rectangleYWorldCoordinate)
 {
-    return floatRect.left;
+    rectangle.top = rectangleYWorldCoordinate;
+    updateEntityWorldCoordinateFromRectangle();
 }
 
-float BoundingBox::getRightEdgeXWorldCoordinate()
+void BoundingBox::updateEntityWorldCoordinateFromRectangle()
 {
-    return floatRect.left + floatRect.width - 1;
+    entityWorldCoordinate = rectangle.getPosition() - rectangleOffsetWorldCoordinate * static_cast<float>(constants::scale);
 }
 
-float BoundingBox::getTopEdgeYWorldCoordinate()
+sf::Vector2f BoundingBox::getRectangleWorldCoordinate() const
 {
-    return floatRect.top;
+    return rectangle.getPosition();
 }
 
-float BoundingBox::getBottomEdgeYWorldCoordinate()
+float BoundingBox::getRectangleXWorldCoordinate() const
 {
-    return floatRect.top + floatRect.height - 1;
+    return rectangle.left;
+}
+
+float BoundingBox::getRectangleYWorldCoordinate() const
+{
+    return rectangle.top;
+}
+
+float BoundingBox::getWidth() const
+{
+    return rectangle.width * constants::scale;
+}
+
+float BoundingBox::getHeight() const
+{
+    return rectangle.height * constants::scale;
+}
+
+float BoundingBox::getLeftEdgeXWorldCoordinate() const
+{
+    return rectangle.left;
+}
+
+float BoundingBox::getRightEdgeXWorldCoordinate() const
+{
+    return rectangle.left + rectangle.width * constants::scale - 1;
+}
+
+float BoundingBox::getTopEdgeYWorldCoordinate() const
+{
+    return rectangle.top;
+}
+
+float BoundingBox::getBottomEdgeYWorldCoordinate() const
+{
+    return rectangle.top + rectangle.height * constants::scale - 1;
 }

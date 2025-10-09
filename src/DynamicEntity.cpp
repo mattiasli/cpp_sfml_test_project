@@ -12,22 +12,25 @@ deltaYBoundingBox(boundingBox)
 
 void DynamicEntity::updateLogic()
 {
-    updateBoundingBoxesWorldCoordinates();
-    adjustBoundingBoxForTileCollisions();
-    updateWorldCoordinate();
+    if(deltaWorldCoordinate != constants::zeroVector)
+    {
+        updateBoundingBoxesWorldCoordinates();
+        adjustBoundingBoxForTileCollisions();
+        updateWorldCoordinate();
+    }
 }
 
 void DynamicEntity::updateWorldCoordinate()
 {
-    worldCoordinate.x = deltaXBoundingBox.getXWorldCoordinate();
-    worldCoordinate.y = deltaYBoundingBox.getYWorldCoordinate();
+    worldCoordinate.x = deltaXBoundingBox.getEntityXWorldCoordinate();
+    worldCoordinate.y = deltaYBoundingBox.getEntityYWorldCoordinate();
 }
 
 void DynamicEntity::updateBoundingBoxesWorldCoordinates()
 {
-    boundingBox.setWorldCoordinate(worldCoordinate);
-    deltaXBoundingBox.setWorldCoordinate(worldCoordinate + sf::Vector2f({deltaWorldCoordinate.x, 0}));
-    deltaYBoundingBox.setWorldCoordinate(worldCoordinate + sf::Vector2f({0, deltaWorldCoordinate.y}));
+    boundingBox.setEntityWorldCoordinate(worldCoordinate);
+    deltaXBoundingBox.setEntityWorldCoordinate(worldCoordinate + sf::Vector2f({deltaWorldCoordinate.x, 0}));
+    deltaYBoundingBox.setEntityWorldCoordinate(worldCoordinate + sf::Vector2f({0, deltaWorldCoordinate.y}));
 }
 
 void DynamicEntity::adjustBoundingBoxForTileCollisions()
@@ -46,11 +49,11 @@ void DynamicEntity::adjustBoundingBoxForTileCollisions()
             {
                 if(deltaWorldCoordinate.x > 0)
                 {
-                deltaXBoundingBox.setXWorldCoordinate(coordinateConverter.convertToXWorldCoordinate(x) - deltaXBoundingBox.getWidth());
+                deltaXBoundingBox.setRectangleXWorldCoordinate(coordinateConverter.convertToXWorldCoordinate(x) - deltaXBoundingBox.getWidth());
                 }
                 else if(deltaWorldCoordinate.x < 0)
                 {
-                deltaXBoundingBox.setXWorldCoordinate(coordinateConverter.convertToXWorldCoordinate(x) + constants::tileWidth * constants::scale);
+                deltaXBoundingBox.setRectangleXWorldCoordinate(coordinateConverter.convertToXWorldCoordinate(x) + constants::tileWidth * constants::scale);
                 }
             }
         }
@@ -70,11 +73,11 @@ void DynamicEntity::adjustBoundingBoxForTileCollisions()
             {
                 if(deltaWorldCoordinate.y > 0)
                 {
-                deltaYBoundingBox.setYWorldCoordinate(coordinateConverter.convertToYWorldCoordinate(y) - deltaYBoundingBox.getHeight());
+                deltaYBoundingBox.setRectangleYWorldCoordinate(coordinateConverter.convertToYWorldCoordinate(y) - deltaYBoundingBox.getHeight());
                 }
                 else if(deltaWorldCoordinate.y < 0)
                 {
-                deltaYBoundingBox.setYWorldCoordinate(coordinateConverter.convertToYWorldCoordinate(y) + constants::tileHeight * constants::scale);
+                deltaYBoundingBox.setRectangleYWorldCoordinate(coordinateConverter.convertToYWorldCoordinate(y) + constants::tileHeight * constants::scale);
                 }
             }
         }

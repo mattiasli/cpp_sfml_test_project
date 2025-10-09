@@ -42,7 +42,7 @@ std::vector<sf::Vector2i> PathFinder::aStarPath(sf::Vector2i startGridCoordinate
             return reconstructPath(nodeStatusVector, goalGridCoordinate);
         }
 
-        for(int i = 0; i < deltaGridCoordinate.size(); i++)
+        for(std::size_t i = 0; i < deltaGridCoordinate.size(); i++)
         {
             const sf::Vector2i adjacentGridCoordinate = currentOpenSetNode.gridCoordinate + deltaGridCoordinate[i];
 

@@ -17,7 +17,6 @@ public:
 
 protected:
     Handler& handler;
-    BoundingBox boundingBox;
-
     sf::Vector2f worldCoordinate;
+    BoundingBox boundingBox;
 };

@@ -19,9 +19,9 @@ void Map::updateLogic()
 void Map::render()
 {
     sf::Sprite* spritePointer = nullptr;
-    for(int y = 0; y < mapGrid.size() ; y++)
+    for(std::size_t y = 0; y < mapGrid.size() ; y++)
     {
-        for(int x = 0; x < mapGrid[y].size() ; x++)
+        for(std::size_t x = 0; x < mapGrid[y].size() ; x++)
         {
             switch(mapGrid[y][x])
             {
@@ -50,8 +50,6 @@ void Map::render()
             }
         }
     }
-
-
 
             if(handler.getEventManager().GetIsMouseLeftButtonDown()) // TODO, remove
             {
