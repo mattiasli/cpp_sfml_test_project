@@ -8,7 +8,7 @@ coordinateConverter(handler.getCoordinateConverter())
 {
 }
 
-std::vector<sf::Vector2i> PathFinder::aStarPath(sf::Vector2i startGridCoordinate, sf::Vector2i goalGridCoordinate)
+std::vector<sf::Vector2i> PathFinder::computeAStarPath(sf::Vector2i startGridCoordinate, sf::Vector2i goalGridCoordinate)
 {
     if(map.isGridCoordinateSolid(startGridCoordinate) ||
        !map.isGridCoordinateInsideMapGrid(goalGridCoordinate))

@@ -1,11 +1,11 @@
 #include "../include/BoundingBox.hpp"
 #include "../include/Handler.hpp"
 
-BoundingBox::BoundingBox(Handler& handler, sf::Vector2f entityWorldCoordinate, sf::Vector2f size, sf::Vector2f rectangleOffsetWorldCoordinat)
+BoundingBox::BoundingBox(Handler& handler, sf::Vector2f entityWorldCoordinate, sf::Vector2f size, sf::Vector2f rectangleOffsetRelativeWorldCoordinate)
 : handler(handler),
   entityWorldCoordinate(entityWorldCoordinate),
-  rectangle(entityWorldCoordinate + rectangleOffsetWorldCoordinate, size),
-  rectangleOffsetWorldCoordinate(rectangleOffsetWorldCoordinat)
+  rectangle(entityWorldCoordinate + rectangleOffsetRelativeWorldCoordinate * static_cast<float>(constants::scale), size),
+  rectangleOffsetRelativeWorldCoordinate(rectangleOffsetRelativeWorldCoordinate)
 {
 }
 
@@ -29,8 +29,8 @@ void BoundingBox::setEntityYWorldCoordinate(float entityYWorldCoordinate)
 
 void BoundingBox::updateRectangleFromEntityWorldCoordinate()
 {
-    rectangle.left = entityWorldCoordinate.x + rectangleOffsetWorldCoordinate.x * constants::scale;
-    rectangle.top = entityWorldCoordinate.y + rectangleOffsetWorldCoordinate.y * constants::scale;
+    rectangle.left = entityWorldCoordinate.x + rectangleOffsetRelativeWorldCoordinate.x * constants::scale;
+    rectangle.top = entityWorldCoordinate.y + rectangleOffsetRelativeWorldCoordinate.y * constants::scale;
 }
 
 sf::Vector2f BoundingBox::getEntityWorldCoordinate() const
@@ -69,7 +69,7 @@ void BoundingBox::setRectangleYWorldCoordinate(float rectangleYWorldCoordinate)
 
 void BoundingBox::updateEntityWorldCoordinateFromRectangle()
 {
-    entityWorldCoordinate = rectangle.getPosition() - rectangleOffsetWorldCoordinate * static_cast<float>(constants::scale);
+    entityWorldCoordinate = rectangle.getPosition() - rectangleOffsetRelativeWorldCoordinate * static_cast<float>(constants::scale);
 }
 
 sf::Vector2f BoundingBox::getRectangleWorldCoordinate() const
@@ -115,4 +115,9 @@ float BoundingBox::getTopEdgeYWorldCoordinate() const
 float BoundingBox::getBottomEdgeYWorldCoordinate() const
 {
     return rectangle.top + rectangle.height * constants::scale - 1;
+}
+
+sf::Vector2f BoundingBox::getCenterWorldCoordinate() const
+{
+    return rectangle.getPosition() + sf::Vector2f((rectangle.width * constants::scale) / 2, (rectangle.height * constants::scale) / 2);
 }

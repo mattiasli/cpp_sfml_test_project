@@ -1,6 +1,5 @@
 #include "../include/Map.hpp"
 #include "../include/Handler.hpp"
-#include <iostream>
 
 Map::Map(Handler& handler)
 : handler(handler),
@@ -50,26 +49,6 @@ void Map::render()
             }
         }
     }
-
-            if(handler.getEventManager().GetIsMouseLeftButtonDown()) // TODO, remove
-            {
-            std::cout << "xgrid: " << handler.getCoordinateConverter().convertToXGridCoordinate(handler.getEventManager().GetMousePosition().x)
-            << "  ygrid: " << handler.getCoordinateConverter().convertToYGridCoordinate(handler.getEventManager().GetMousePosition().y) << std::endl;
-
-
-            std::vector<sf::Vector2i> tempv = handler.getPathFinder().aStarPath(handler.getCoordinateConverter().convertToGridCoordinate(player.getWorldCoordinate()),
-                                                                                handler.getCoordinateConverter().convertToGridCoordinate((sf::Vector2f)handler.getEventManager().GetMousePosition()));
-
-            for(sf::Vector2i coord : tempv)
-            {
-                handler.getSpriteManager().getWaterSprite()->setPosition(handler.getCoordinateConverter().convertToWorldCoordinate(coord));
-                handler.getSpriteManager().getWaterSprite()->setColor(sf::Color::Magenta);
-
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getWaterSprite());
-                handler.getSpriteManager().getWaterSprite()->setColor(sf::Color::White);
-                std::cout << "x: "<< coord.x << "   y: " << coord.y << std::endl;
-            }
-            }
 
     player.render();
 }

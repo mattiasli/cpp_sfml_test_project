@@ -15,10 +15,11 @@ public:
     void render() const;
 
 private:
-
     static constexpr float boundingBoxWidth = 12.f;
     static constexpr float boundingBoxHeight = 14.f;
-    static constexpr float boundingBoxOffsetXWorldCoordinate = 2.f;
-    static constexpr float boundingBoxOffsetYWorldCoordinate = 1.f;
+    static constexpr float boundingBoxOffsetRelativeXWorldCoordinate = 2.f;
+    static constexpr float boundingBoxOffsetRelativeYWorldCoordinate = 1.f;
     static constexpr float movementSpeed = 1.f;
+
+    float getMovementSpeed() override;
 };

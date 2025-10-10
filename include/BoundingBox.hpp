@@ -5,7 +5,7 @@ class Handler;
 
 class BoundingBox {
 public:
-    BoundingBox(Handler& handler, sf::Vector2f entityWorldCoordinate, sf::Vector2f size, sf::Vector2f rectangleOffsetWorldCoordinate);
+    BoundingBox(Handler& handler, sf::Vector2f entityWorldCoordinate, sf::Vector2f size, sf::Vector2f rectangleOffsetRelativeWorldCoordinate);
 
     void setEntityWorldCoordinate(sf::Vector2f entityWorldCoordinate);
     void setEntityXWorldCoordinate(float entityXWorldCoordinate);
@@ -30,13 +30,14 @@ public:
     float getRightEdgeXWorldCoordinate() const;
     float getTopEdgeYWorldCoordinate() const;
     float getBottomEdgeYWorldCoordinate() const;
+    sf::Vector2f getCenterWorldCoordinate() const;
 
 private:
     Handler& handler;
 
     sf::Vector2f entityWorldCoordinate;
     sf::FloatRect rectangle;
-    sf::Vector2f rectangleOffsetWorldCoordinate;
+    sf::Vector2f rectangleOffsetRelativeWorldCoordinate;
 
     void updateRectangleFromEntityWorldCoordinate();
     void updateEntityWorldCoordinateFromRectangle();

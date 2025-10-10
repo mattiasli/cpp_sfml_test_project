@@ -13,16 +13,29 @@ public:
     virtual void updateLogic();
 
 protected:
+    struct PathStatus
+    {
+        std::vector<sf::Vector2i> gridCoordinateVector;
+        std::size_t index = 0;
+    };
     sf::Vector2f deltaWorldCoordinate = {0, 0};
+    PathStatus pathStatus;
 
 private:
+    static constexpr float boundingBoxWidth = 16.f;
+    static constexpr float boundingBoxHeight = 16.f;
+    static constexpr float boundingBoxOffsetRelativeXWorldCoordinate = 0.f;
+    static constexpr float boundingBoxOffsetRelativeYWorldCoordinate = 0.f;
+    static constexpr float movementSpeed = 1.f;
+
     Map& map;
     CoordinateConverter& coordinateConverter;
-
     BoundingBox deltaXBoundingBox;
     BoundingBox deltaYBoundingBox;
 
-    virtual void updateWorldCoordinate();
-    virtual void updateBoundingBoxesWorldCoordinates();
-    virtual void adjustBoundingBoxForTileCollisions();
+    void updateWorldCoordinate();
+    void updateBoundingBoxesWorldCoordinates();
+    void adjustBoundingBoxForTileCollisions();
+    void updateDeltaWorldCoordinateFromPathStatus();
+    virtual float getMovementSpeed();
 };

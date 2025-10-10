@@ -12,6 +12,10 @@ deltaYBoundingBox(boundingBox)
 
 void DynamicEntity::updateLogic()
 {
+    if(!pathStatus.gridCoordinateVector.empty())
+    {
+        updateDeltaWorldCoordinateFromPathStatus();
+    }
     if(deltaWorldCoordinate != constants::zeroVector)
     {
         updateBoundingBoxesWorldCoordinates();
@@ -82,4 +86,58 @@ void DynamicEntity::adjustBoundingBoxForTileCollisions()
             }
         }
     }
+}
+
+void DynamicEntity::updateDeltaWorldCoordinateFromPathStatus() // TODO: this->
+{
+    sf::Vector2f targetRelativeWorldCoordinate;
+    float distanceSquared;
+    sf::Vector2f tenativeDeltaWorldCoordinate;
+    if(this->pathStatus.index < this->pathStatus.gridCoordinateVector.size())
+    {
+        while(this->pathStatus.index < this->pathStatus.gridCoordinateVector.size())
+        {
+            targetRelativeWorldCoordinate = coordinateConverter.convertToWorldCoordinate(pathStatus.gridCoordinateVector[pathStatus.index]) - getWorldCoordinate();
+            distanceSquared = targetRelativeWorldCoordinate.x * targetRelativeWorldCoordinate.x + targetRelativeWorldCoordinate.y * targetRelativeWorldCoordinate.y;
+            if(distanceSquared > constants::defaultArriveRadius * constants::scale * constants::defaultArriveRadius * constants::scale) break;
+            this->pathStatus.index++;
+        }
+
+        if(distanceSquared == 0.f)
+        {
+            this->pathStatus.index = 0;
+            this->pathStatus.gridCoordinateVector.clear();
+            this->deltaWorldCoordinate = constants::zeroVector;
+            return;
+        }
+        else
+        {
+            this->deltaWorldCoordinate = (targetRelativeWorldCoordinate / std::sqrt(distanceSquared)) * getMovementSpeed() * static_cast<float>(constants::scale);
+            return;
+        }
+    }
+    else
+    {
+        targetRelativeWorldCoordinate = coordinateConverter.convertToWorldCoordinate(pathStatus.gridCoordinateVector.back()) - getWorldCoordinate();
+        distanceSquared = targetRelativeWorldCoordinate.x * targetRelativeWorldCoordinate.x + targetRelativeWorldCoordinate.y * targetRelativeWorldCoordinate.y;
+        tenativeDeltaWorldCoordinate = (targetRelativeWorldCoordinate / std::sqrt(distanceSquared)) * getMovementSpeed() * static_cast<float>(constants::scale);
+
+        if(tenativeDeltaWorldCoordinate.x * tenativeDeltaWorldCoordinate.x + tenativeDeltaWorldCoordinate.y * tenativeDeltaWorldCoordinate.y < distanceSquared)
+        {
+            this->deltaWorldCoordinate = tenativeDeltaWorldCoordinate;
+            return;
+        }
+        else
+        {
+            this->pathStatus.index = 0;
+            this->pathStatus.gridCoordinateVector.clear();
+            this->deltaWorldCoordinate = targetRelativeWorldCoordinate;
+            return;
+        }
+    }
+}
+
+float DynamicEntity::getMovementSpeed()
+{
+    return movementSpeed;
 }
