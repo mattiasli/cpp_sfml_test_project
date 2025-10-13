@@ -13,6 +13,7 @@ public:
     virtual void updateLogic();
 
 protected:
+    void setPathStatus(std::vector<sf::Vector2i> gridCoordinateVector);
     struct PathStatus
     {
         std::vector<sf::Vector2i> gridCoordinateVector;

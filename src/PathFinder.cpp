@@ -18,6 +18,7 @@ std::vector<sf::Vector2i> PathFinder::computeAStarPath(sf::Vector2i startGridCoo
 
     std::vector<NodeStatus> nodeStatusVector(static_cast<std::size_t>(map.getGridWidth() * map.getGridHeight()));
     std::priority_queue<OpenSetNode> openSetNodePriorityQueue;
+    OpenSetNode closestReachableOpenSetNode = {std::numeric_limits<int>::max(), 0, constants::invalidCoordinate};
 
     nodeStatusVector[coordinateConverter.convertTo1DIndex(startGridCoordinate)].gValue = 0;
     openSetNodePriorityQueue.push(OpenSetNode{hValue(startGridCoordinate, goalGridCoordinate), 0, startGridCoordinate});
@@ -35,6 +36,14 @@ std::vector<sf::Vector2i> PathFinder::computeAStarPath(sf::Vector2i startGridCoo
         else
         {
             currentNodeStatus.isClosed = 1;
+
+            if(currentOpenSetNode.fValue - currentOpenSetNode.gValue < closestReachableOpenSetNode.fValue - closestReachableOpenSetNode.gValue ||
+               (currentOpenSetNode.fValue - currentOpenSetNode.gValue == closestReachableOpenSetNode.fValue - closestReachableOpenSetNode.gValue && currentOpenSetNode.gValue < closestReachableOpenSetNode.gValue))
+            {
+                closestReachableOpenSetNode.gValue = currentOpenSetNode.gValue;
+                closestReachableOpenSetNode.fValue = currentOpenSetNode.fValue;
+                closestReachableOpenSetNode.gridCoordinate = currentOpenSetNode.gridCoordinate;
+            }
         }
 
         if(currentOpenSetNode.gridCoordinate == goalGridCoordinate)
@@ -64,7 +73,15 @@ std::vector<sf::Vector2i> PathFinder::computeAStarPath(sf::Vector2i startGridCoo
             }
         }
     }
+
+    if(closestReachableOpenSetNode.gridCoordinate != constants::invalidCoordinate)
+    {
+    return reconstructPath(nodeStatusVector, closestReachableOpenSetNode.gridCoordinate);
+    }
+    else
+    {
     return {};
+    }
 }
 
 int PathFinder::hValue(sf::Vector2i currentGridCoordinate, sf::Vector2i goalGridCoordinate)

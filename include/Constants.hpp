@@ -13,6 +13,7 @@ namespace constants {
 
     inline const sf::Vector2f zeroVector {0, 0};
     inline const sf::Vector2i invalidCoordinate {-1, -1};
+    inline const size_t invalidIndex = -1;
 
     inline constexpr float defaultArriveRadius = 1.5f;
 }

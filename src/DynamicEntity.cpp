@@ -88,6 +88,43 @@ void DynamicEntity::adjustBoundingBoxForTileCollisions()
     }
 }
 
+void DynamicEntity::setPathStatus(std::vector<sf::Vector2i> gridCoordinateVector)
+{
+    std::size_t tentativeIndex = constants::invalidIndex;
+
+    if(!gridCoordinateVector.empty() &&
+       (this->pathStatus.index < this->pathStatus.gridCoordinateVector.size()))
+    {
+        const sf::Vector2i previousTargetGridCoorinate = this->pathStatus.gridCoordinateVector[this->pathStatus.index];
+        float shortestDistanceSquared = std::numeric_limits<float>::max();
+
+        for(std::size_t i = 0; i < gridCoordinateVector.size(); i++)
+        {
+            sf::Vector2i distanceRelativeGridCoordinate = gridCoordinateVector[i] - previousTargetGridCoorinate;
+            float distanceSquared = distanceRelativeGridCoordinate.x * distanceRelativeGridCoordinate.x + distanceRelativeGridCoordinate.y * distanceRelativeGridCoordinate.y;
+            if(distanceSquared < shortestDistanceSquared)
+            {
+                shortestDistanceSquared = distanceSquared;
+                tentativeIndex = i;
+            }
+        }
+    }
+
+    this->pathStatus.gridCoordinateVector = std::move(gridCoordinateVector);
+
+    if(tentativeIndex != constants::invalidIndex &&
+       !this->pathStatus.gridCoordinateVector.empty())
+    {
+        this->pathStatus.index = tentativeIndex;
+        return;
+    }
+    else
+    {
+        this->pathStatus.index = 0;
+        return;
+    }
+}
+
 void DynamicEntity::updateDeltaWorldCoordinateFromPathStatus() // TODO: this->
 {
     sf::Vector2f targetRelativeWorldCoordinate;

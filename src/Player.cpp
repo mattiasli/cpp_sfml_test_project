@@ -21,9 +21,8 @@ void Player::processInput()
 
     if(handler.getEventManager().GetIsMouseLeftButtonPressed())
     {
-        pathStatus.index = 0;
-        pathStatus.gridCoordinateVector = handler.getPathFinder().computeAStarPath(handler.getCoordinateConverter().convertToGridCoordinate(boundingBox.getCenterWorldCoordinate()),
-                                                                                   handler.getCoordinateConverter().convertToGridCoordinate((sf::Vector2f)handler.getEventManager().GetMousePosition()));
+        setPathStatus(handler.getPathFinder().computeAStarPath(handler.getCoordinateConverter().convertToGridCoordinate(boundingBox.getCenterWorldCoordinate()),
+                                                               handler.getCoordinateConverter().convertToGridCoordinate((sf::Vector2f)handler.getEventManager().GetMousePosition())));
     }
     if(handler.getEventManager().getIsKeyboardUpKeyDown())
     {
