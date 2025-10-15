@@ -1,7 +1,7 @@
-#include "../include/DynamicEntity.hpp"
-#include "../include/Handler.hpp"
+#include "../../../include/entities/dynamicentities/DynamicEntity.hpp"
+#include "../../../include/core/Handler.hpp"
 
-DynamicEntity::DynamicEntity(Handler& handler, sf::Vector2f worldCoordinate, BoundingBox boundingBox)
+DynamicEntity::DynamicEntity(Handler& handler, sf::Vector2f worldCoordinate, const BoundingBox& boundingBox)
 : Entity(handler, worldCoordinate, boundingBox),
 map(handler.getMap()),
 coordinateConverter(handler.getCoordinateConverter()),
@@ -21,6 +21,7 @@ void DynamicEntity::updateLogic()
         updateBoundingBoxesWorldCoordinates();
         adjustBoundingBoxForTileCollisions();
         updateWorldCoordinate();
+        deltaWorldCoordinate = constants::zeroVector;
     }
 }
 
@@ -174,7 +175,7 @@ void DynamicEntity::updateDeltaWorldCoordinateFromPathStatus() // TODO: this->
     }
 }
 
-float DynamicEntity::getMovementSpeed()
+float DynamicEntity::getMovementSpeed() const
 {
-    return movementSpeed;
+    return defaultMovementSpeed;
 }

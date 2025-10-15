@@ -1,5 +1,5 @@
-#include "../include/EventManager.hpp"
-#include "../include/Handler.hpp"
+#include "../../include/core/EventManager.hpp"
+#include "../../include/core/Handler.hpp"
 
 EventManager::EventManager(Handler& handler)
 : handler(handler),
@@ -152,37 +152,37 @@ bool EventManager::getIsKeyboardRightKeyDown() const
     return isKeyboardRightKeyDown;
 }
 
-sf::Vector2i EventManager::GetMousePosition() const
+sf::Vector2i EventManager::getMousePosition() const
 {
     return mousePosition;
 }
 
-bool EventManager::GetIsMouseLeftButtonPressed() const
+bool EventManager::getIsMouseLeftButtonPressed() const
 {
     return isMouseLeftButtonPressed;
 }
 
-bool EventManager::GetIsMouseLeftButtonDown() const
+bool EventManager::getIsMouseLeftButtonDown() const
 {
     return isMouseLeftButtonDown;
 }
 
-bool EventManager::GetIsMouseLeftButtonReleased() const
+bool EventManager::getIsMouseLeftButtonReleased() const
 {
     return isMouseLeftButtonReleased;
 }
 
-bool EventManager::GetIsMouseRightButtonPressed() const
+bool EventManager::getIsMouseRightButtonPressed() const
 {
     return isMouseRightButtonPressed;
 }
 
-bool EventManager::GetIsMouseRightButtonDown() const
+bool EventManager::getIsMouseRightButtonDown() const
 {
     return isMouseRightButtonDown;
 }
 
-bool EventManager::GetIsMouseRightButtonReleased() const
+bool EventManager::getIsMouseRightButtonReleased() const
 {
     return isMouseRightButtonReleased;
 }

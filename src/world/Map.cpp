@@ -1,9 +1,10 @@
-#include "../include/Map.hpp"
-#include "../include/Handler.hpp"
+#include "../../include/world/Map.hpp"
+#include "../../include/core/Handler.hpp"
 
 Map::Map(Handler& handler)
 : handler(handler),
-player(handler, handler.getCoordinateConverter().convertToWorldCoordinate({4, 4}))
+player(handler, handler.getCoordinateConverter().convertToWorldCoordinate({4, 4})),
+snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({8, 6}))
 {
     solidTable['#'] = true; // TODO: update to flyweight algorithm.
     solidTable['~'] = true;
@@ -13,6 +14,7 @@ player(handler, handler.getCoordinateConverter().convertToWorldCoordinate({4, 4}
 void Map::updateLogic()
 {
     player.updateLogic();
+    snake.updateLogic();
 }
 
 void Map::render()
@@ -51,6 +53,7 @@ void Map::render()
     }
 
     player.render();
+    snake.render();
 }
 
 bool Map::isTileSolid(char tile)

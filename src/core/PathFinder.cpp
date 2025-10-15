@@ -1,5 +1,5 @@
-#include "../include/PathFinder.hpp"
-#include "../include/Handler.hpp"
+#include "../../include/core/PathFinder.hpp"
+#include "../../include/core/Handler.hpp"
 
 PathFinder::PathFinder(Handler& handler)
 : handler(handler),

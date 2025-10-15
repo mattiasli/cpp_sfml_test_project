@@ -1,4 +1,4 @@
-#include "../include/Game.hpp"
+#include "../../include/application/Game.hpp"
 
 Game::Game()
 : handler(),
@@ -15,7 +15,7 @@ void Game::run()
             processEvents();
             updateLogic();
 
-            while(deltaTime.asMicroseconds() < constants::timePerTick)
+            while(deltaTime.asMicroseconds() < constants::microsecondsPerTick)
             {
                 deltaTime += clock.restart();
             }

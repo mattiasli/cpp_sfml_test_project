@@ -5,7 +5,7 @@
 #include <queue>
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "../include/Constants.hpp"
+#include "Constants.hpp"
 
 class Handler;
 class Map;
@@ -15,7 +15,7 @@ class PathFinder {
 public:
     PathFinder(Handler& handler);
 
-    std::vector<sf::Vector2i> computeAStarPath(sf::Vector2i startNode, sf::Vector2i goalNode);
+    std::vector<sf::Vector2i> computeAStarPath(sf::Vector2i startGridCoordinate, sf::Vector2i goalGridCoordinate);
 
 private:
     struct NodeStatus

@@ -1,12 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "BoundingBox.hpp"
+#include "../core/BoundingBox.hpp"
 
 class Handler;
 
 class Entity {
 public:
-    Entity(Handler& handler, sf::Vector2f worldCoordinate, BoundingBox boundingBox);
+    Entity(Handler& handler, sf::Vector2f worldCoordinate, const BoundingBox& boundingBox);
 
     virtual ~Entity() = default;
 

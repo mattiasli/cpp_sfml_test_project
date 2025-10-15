@@ -1,4 +1,4 @@
-#include "../include/Handler.hpp"
+#include "../../include/core/Handler.hpp"
 
 Handler::Handler()
 : eventManager(*this),
@@ -6,7 +6,8 @@ map(*this),
 spriteManager(*this),
 coordinateConverter(*this),
 renderWindowManager(*this),
-pathFinder(*this)
+pathFinder(*this),
+probabilityManager(*this)
 {
 }
 
@@ -38,4 +39,9 @@ RenderWindowManager& Handler::getRenderWindowManager()
 PathFinder& Handler::getPathFinder()
 {
     return pathFinder;
+}
+
+ProbabilityManager& Handler::getProbabilityManager()
+{
+    return probabilityManager;
 }

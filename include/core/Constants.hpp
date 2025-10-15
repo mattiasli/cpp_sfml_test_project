@@ -3,7 +3,7 @@
 namespace constants {
     inline constexpr int windowWidth  = 1920;
     inline constexpr int windowHeight = 1080;
-    inline constexpr double timePerTick = 1000000.0 / 60.0;
+    inline constexpr double microsecondsPerTick = 1000000.0 / 60.0;
 
     inline constexpr int scale = 4;
     inline constexpr int tileWidth = 16;
@@ -16,4 +16,5 @@ namespace constants {
     inline const size_t invalidIndex = -1;
 
     inline constexpr float defaultArriveRadius = 1.5f;
+    inline constexpr float defaultMaxMovementSpeed = 2.f;
 }

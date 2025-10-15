@@ -7,6 +7,7 @@ class SpriteManager {
 public:
     SpriteManager(Handler& handler);
 
+    sf::Sprite* getSnakeSprite();
     sf::Sprite* getPlayerSprite();
     sf::Sprite* getDirtSprite();
     sf::Sprite* getGrassSprite();
@@ -19,6 +20,7 @@ private:
 
     sf::Texture spriteAtlas;
 
+    sf::Sprite snakeSprite;
     sf::Sprite playerSprite;
     sf::Sprite dirtSprite;
     sf::Sprite grassSprite;

@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Entity.hpp"
+#include "../Entity.hpp"
 
 class Handler;
 class Map;
@@ -8,9 +8,9 @@ class CoordinateConverter;
 
 class DynamicEntity : public Entity {
 public:
-    DynamicEntity(Handler& handler, sf::Vector2f worldCoordinate, BoundingBox boundingBox);
+    DynamicEntity(Handler& handler, sf::Vector2f worldCoordinate, const BoundingBox& boundingBox);
 
-    virtual void updateLogic();
+    virtual void updateLogic() override;
 
 protected:
     void setPathStatus(std::vector<sf::Vector2i> gridCoordinateVector);
@@ -23,11 +23,7 @@ protected:
     PathStatus pathStatus;
 
 private:
-    static constexpr float boundingBoxWidth = 16.f;
-    static constexpr float boundingBoxHeight = 16.f;
-    static constexpr float boundingBoxOffsetRelativeXWorldCoordinate = 0.f;
-    static constexpr float boundingBoxOffsetRelativeYWorldCoordinate = 0.f;
-    static constexpr float movementSpeed = 1.f;
+    static constexpr float defaultMovementSpeed = 1.f;
 
     Map& map;
     CoordinateConverter& coordinateConverter;
@@ -38,5 +34,5 @@ private:
     void updateBoundingBoxesWorldCoordinates();
     void adjustBoundingBoxForTileCollisions();
     void updateDeltaWorldCoordinateFromPathStatus();
-    virtual float getMovementSpeed();
+    virtual float getMovementSpeed() const;
 };

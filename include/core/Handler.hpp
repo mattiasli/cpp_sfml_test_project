@@ -1,12 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "../include/Constants.hpp"
-#include "../include/EventManager.hpp"
-#include "../include/Map.hpp"
-#include "../include/SpriteManager.hpp"
-#include "../include/CoordinateConverter.hpp"
-#include "../include/RenderWindowManager.hpp"
-#include "../include/PathFinder.hpp"
+#include "Constants.hpp"
+#include "EventManager.hpp"
+#include "../world/Map.hpp"
+#include "../graphics/SpriteManager.hpp"
+#include "CoordinateConverter.hpp"
+#include "../graphics/RenderWindowManager.hpp"
+#include "PathFinder.hpp"
+#include "ProbabilityManager.hpp"
 
 class Handler {
 public:
@@ -17,6 +18,7 @@ public:
     CoordinateConverter& getCoordinateConverter();
     RenderWindowManager& getRenderWindowManager();
     PathFinder& getPathFinder();
+    ProbabilityManager& getProbabilityManager();
 
 private:
     EventManager eventManager;
@@ -25,4 +27,5 @@ private:
     CoordinateConverter coordinateConverter;
     RenderWindowManager renderWindowManager;
     PathFinder pathFinder;
+    ProbabilityManager probabilityManager;
 };

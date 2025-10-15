@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "../include/Handler.hpp"
+#include "../core/Handler.hpp"
 
 class Game {
 public:

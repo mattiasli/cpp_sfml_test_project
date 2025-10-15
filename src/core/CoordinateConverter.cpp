@@ -1,5 +1,5 @@
-#include "../include/CoordinateConverter.hpp"
-#include "../include/Handler.hpp"
+#include "../../include/core/CoordinateConverter.hpp"
+#include "../../include/core/Handler.hpp"
 
 CoordinateConverter::CoordinateConverter(Handler& handler)
 : handler(handler)

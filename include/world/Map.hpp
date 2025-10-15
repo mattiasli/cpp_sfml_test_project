@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Player.hpp"
+#include "../entities/dynamicentities/Player.hpp"
+#include "../entities/dynamicentities/Snake.hpp"
 
 class Handler;
 
@@ -56,4 +57,5 @@ private:
     };
     bool solidTable[256] = { false };
     Player player;
+    Snake snake;
 };

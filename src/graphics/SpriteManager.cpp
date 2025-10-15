@@ -1,10 +1,14 @@
-#include "../include/SpriteManager.hpp"
-#include "../include/Handler.hpp"
+#include "../../include/graphics/SpriteManager.hpp"
+#include "../../include/core/Handler.hpp"
 
 SpriteManager::SpriteManager(Handler& handler)
 : handler(handler)
 {
     spriteAtlas.loadFromFile("../res/spritesheet.png");
+
+    snakeSprite.setTexture(spriteAtlas);
+    snakeSprite.setTextureRect({0 * constants::defaultSpriteWidth, 4 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight});
+    snakeSprite.setScale(constants::scale , constants::scale);
 
     playerSprite.setTexture(spriteAtlas);
     playerSprite.setTextureRect({0 * constants::defaultSpriteWidth, 3 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight});
@@ -29,6 +33,11 @@ SpriteManager::SpriteManager(Handler& handler)
     waterSprite.setTexture(spriteAtlas);
     waterSprite.setTextureRect({0 * constants::tileWidth, 2 * constants::tileHeight, 1 * constants::tileWidth, 1 * constants::tileHeight});
     waterSprite.setScale(constants::scale , constants::scale);
+}
+
+sf::Sprite* SpriteManager::getSnakeSprite()
+{
+    return &snakeSprite;
 }
 
 sf::Sprite* SpriteManager::getPlayerSprite()

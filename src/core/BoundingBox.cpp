@@ -1,5 +1,5 @@
-#include "../include/BoundingBox.hpp"
-#include "../include/Handler.hpp"
+#include "../../include/core/BoundingBox.hpp"
+#include "../../include/core/Handler.hpp"
 
 BoundingBox::BoundingBox(Handler& handler, sf::Vector2f entityWorldCoordinate, sf::Vector2f size, sf::Vector2f rectangleOffsetRelativeWorldCoordinate)
 : handler(handler),

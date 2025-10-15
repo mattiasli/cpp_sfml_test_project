@@ -14,13 +14,13 @@ public:
     bool getIsKeyboardLeftKeyDown() const;
     bool getIsKeyboardRightKeyDown() const;
 
-    sf::Vector2i GetMousePosition() const;
-    bool GetIsMouseLeftButtonPressed() const;
-    bool GetIsMouseLeftButtonDown() const;
-    bool GetIsMouseLeftButtonReleased() const;
-    bool GetIsMouseRightButtonPressed() const;
-    bool GetIsMouseRightButtonDown() const;
-    bool GetIsMouseRightButtonReleased() const;
+    sf::Vector2i getMousePosition() const;
+    bool getIsMouseLeftButtonPressed() const;
+    bool getIsMouseLeftButtonDown() const;
+    bool getIsMouseLeftButtonReleased() const;
+    bool getIsMouseRightButtonPressed() const;
+    bool getIsMouseRightButtonDown() const;
+    bool getIsMouseRightButtonReleased() const;
 
 private:
     Handler& handler;

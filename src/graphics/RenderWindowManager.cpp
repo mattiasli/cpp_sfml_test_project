@@ -1,5 +1,5 @@
-#include "../include/RenderWindowManager.hpp"
-#include "../include/Handler.hpp"
+#include "../../include/graphics/RenderWindowManager.hpp"
+#include "../../include/core/Handler.hpp"
 
 RenderWindowManager::RenderWindowManager(Handler& handler)
 : handler(handler),
