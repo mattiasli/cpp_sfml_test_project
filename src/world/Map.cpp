@@ -18,6 +18,12 @@ Map::Map(Handler& handler)
     tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 3})));
     tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({8, 3})));
 
+    tempEntityVector.push_back(new Wolf(handler, handler.getCoordinateConverter().convertToWorldCoordinate({1, 1})));
+    tempEntityVector.push_back(new Wolf(handler, handler.getCoordinateConverter().convertToWorldCoordinate({3, 3})));
+    tempEntityVector.push_back(new Wolf(handler, handler.getCoordinateConverter().convertToWorldCoordinate({29, 29})));
+    tempEntityVector.push_back(new Wolf(handler, handler.getCoordinateConverter().convertToWorldCoordinate({29, 27})));
+    tempEntityVector.push_back(new Wolf(handler, handler.getCoordinateConverter().convertToWorldCoordinate({15, 15})));
+    tempEntityVector.push_back(new Wolf(handler, handler.getCoordinateConverter().convertToWorldCoordinate({16, 16})));
 }
 
 void Map::updateLogic()

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "../entities/dynamicentities/DynamicEntity.hpp"
 #include "../entities/dynamicentities/Player.hpp"
+#include "../entities/dynamicentities/Wolf.hpp"
 #include "../entities/dynamicentities/Snake.hpp"
 
 class Handler;

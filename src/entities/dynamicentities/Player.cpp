@@ -52,8 +52,58 @@ void Player::processInput()
 
 void Player::render() const
 {
-    handler.getSpriteManager().getPlayerSprite()->setPosition(worldCoordinate);
-    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getPlayerSprite());
+    if(deltaWorldCoordinate == constants::zeroVector)
+    {
+        switch (direction)
+        {
+            case constants::Direction::Up:
+                handler.getSpriteManager().getCapedWarriorIdleUpAnimation()->getSprite()->setPosition(worldCoordinate);
+                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorIdleUpAnimation()->getSprite());
+            break;
+            case constants::Direction::Down:
+                handler.getSpriteManager().getCapedWarriorIdleDownAnimation()->getSprite()->setPosition(worldCoordinate);
+                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorIdleDownAnimation()->getSprite());
+            break;
+            case constants::Direction::Left:
+                handler.getSpriteManager().getCapedWarriorIdleLeftAnimation()->getSprite()->setPosition(worldCoordinate);
+                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorIdleLeftAnimation()->getSprite());
+            break;
+            case constants::Direction::Right:
+                handler.getSpriteManager().getCapedWarriorIdleRightAnimation()->getSprite()->setPosition(worldCoordinate);
+                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorIdleRightAnimation()->getSprite());
+            break;
+            default:
+                handler.getSpriteManager().getCapedWarriorIdleDownAnimation()->getSprite()->setPosition(worldCoordinate);
+                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorIdleDownAnimation()->getSprite());
+            break;
+        }
+    }
+    else
+    {
+        switch (direction)
+        {
+            case constants::Direction::Up:
+                handler.getSpriteManager().getCapedWarriorRunUpAnimation()->getSprite()->setPosition(worldCoordinate);
+                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorRunUpAnimation()->getSprite());
+            break;
+            case constants::Direction::Down:
+                handler.getSpriteManager().getCapedWarriorRunDownAnimation()->getSprite()->setPosition(worldCoordinate);
+                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorRunDownAnimation()->getSprite());
+            break;
+            case constants::Direction::Left:
+                handler.getSpriteManager().getCapedWarriorRunLeftAnimation()->getSprite()->setPosition(worldCoordinate);
+                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorRunLeftAnimation()->getSprite());
+            break;
+            case constants::Direction::Right:
+                handler.getSpriteManager().getCapedWarriorRunRightAnimation()->getSprite()->setPosition(worldCoordinate);
+                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorRunRightAnimation()->getSprite());
+            break;
+            default:
+                handler.getSpriteManager().getCapedWarriorRunDownAnimation()->getSprite()->setPosition(worldCoordinate);
+                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorRunDownAnimation()->getSprite());
+            break;
+        }
+    }
 }
 
 float Player::getMovementSpeed() const
