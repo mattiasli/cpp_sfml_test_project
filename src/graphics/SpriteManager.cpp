@@ -6,10 +6,6 @@ SpriteManager::SpriteManager(Handler& handler)
 {
     spriteAtlas.loadFromFile("../res/spritesheet.png");
 
-    snakeSprite.setTexture(spriteAtlas);
-    snakeSprite.setTextureRect({0 * constants::defaultSpriteWidth, 4 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight});
-    snakeSprite.setScale(constants::scale , constants::scale);
-
     playerSprite.setTexture(spriteAtlas);
     playerSprite.setTextureRect({0 * constants::defaultSpriteWidth, 3 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight});
     playerSprite.setScale(constants::scale , constants::scale);
@@ -33,11 +29,51 @@ SpriteManager::SpriteManager(Handler& handler)
     waterSprite.setTexture(spriteAtlas);
     waterSprite.setTextureRect({0 * constants::tileWidth, 2 * constants::tileHeight, 1 * constants::tileWidth, 1 * constants::tileHeight});
     waterSprite.setScale(constants::scale , constants::scale);
+
+    snakeIdleLeftAnimation = new Animation(handler, spriteAtlas, {{0 * constants::defaultSpriteWidth, 5 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
+                                                                  {1 * constants::defaultSpriteWidth, 5 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
+                                                                  {2 * constants::defaultSpriteWidth, 5 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
+                                                                  {3 * constants::defaultSpriteWidth, 5 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 500000.0);
+    animationVector.push_back(snakeIdleLeftAnimation);
+
+    snakeIdleRightAnimation = new Animation(handler, spriteAtlas, {{0 * constants::defaultSpriteWidth, 4 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
+                                                                   {1 * constants::defaultSpriteWidth, 4 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
+                                                                   {2 * constants::defaultSpriteWidth, 4 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
+                                                                   {3 * constants::defaultSpriteWidth, 4 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 500000.0);
+    animationVector.push_back(snakeIdleRightAnimation);
+
+    snakeWalkUpAnimation = new Animation(handler, spriteAtlas, {{0 * constants::defaultSpriteWidth, 9 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
+                                                                {1 * constants::defaultSpriteWidth, 9 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
+                                                                {2 * constants::defaultSpriteWidth, 9 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
+                                                                {3 * constants::defaultSpriteWidth, 9 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 250000.0);
+    animationVector.push_back(snakeWalkUpAnimation);
+
+    snakeWalkDownAnimation = new Animation(handler, spriteAtlas, {{0 * constants::defaultSpriteWidth, 8 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
+                                                                  {1 * constants::defaultSpriteWidth, 8 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
+                                                                  {2 * constants::defaultSpriteWidth, 8 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
+                                                                  {3 * constants::defaultSpriteWidth, 8 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 250000.0);
+    animationVector.push_back(snakeWalkDownAnimation);
+
+    snakeWalkLeftAnimation = new Animation(handler, spriteAtlas, {{0 * constants::defaultSpriteWidth, 7 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
+                                                                  {1 * constants::defaultSpriteWidth, 7 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
+                                                                  {2 * constants::defaultSpriteWidth, 7 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
+                                                                  {3 * constants::defaultSpriteWidth, 7 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 250000.0);
+    animationVector.push_back(snakeWalkLeftAnimation);
+
+    snakeWalkRightAnimation = new Animation(handler, spriteAtlas, {{0 * constants::defaultSpriteWidth, 6 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
+                                                                   {1 * constants::defaultSpriteWidth, 6 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
+                                                                   {2 * constants::defaultSpriteWidth, 6 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
+                                                                   {3 * constants::defaultSpriteWidth, 6 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 250000.0);
+    animationVector.push_back(snakeWalkRightAnimation);
+
 }
 
-sf::Sprite* SpriteManager::getSnakeSprite()
+void SpriteManager::updateLogic()
 {
-    return &snakeSprite;
+    for(Animation* animation : animationVector)
+    {
+        animation->updateLogic();
+    }
 }
 
 sf::Sprite* SpriteManager::getPlayerSprite()
@@ -68,4 +104,34 @@ sf::Sprite* SpriteManager::getGroveSprite()
 sf::Sprite* SpriteManager::getWaterSprite()
 {
     return &waterSprite;
+}
+
+Animation* SpriteManager::getSnakeIdleLeftAnimation()
+{
+    return snakeIdleLeftAnimation;
+}
+
+Animation* SpriteManager::getSnakeIdleRightAnimation()
+{
+    return snakeIdleRightAnimation;
+}
+
+Animation* SpriteManager::getSnakeWalkUpAnimation()
+{
+    return snakeWalkUpAnimation;
+}
+
+Animation* SpriteManager::getSnakeWalkDownAnimation()
+{
+    return snakeWalkDownAnimation;
+}
+
+Animation* SpriteManager::getSnakeWalkLeftAnimation()
+{
+    return snakeWalkLeftAnimation;
+}
+
+Animation* SpriteManager::getSnakeWalkRightAnimation()
+{
+    return snakeWalkRightAnimation;
 }

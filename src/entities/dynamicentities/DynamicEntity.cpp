@@ -18,10 +18,10 @@ void DynamicEntity::updateLogic()
     }
     if(deltaWorldCoordinate != constants::zeroVector)
     {
+        updateDirectionsFromDeltaWorldCoordinate();
         updateBoundingBoxesWorldCoordinates();
         adjustBoundingBoxForTileCollisions();
         updateWorldCoordinate();
-        deltaWorldCoordinate = constants::zeroVector;
     }
 }
 
@@ -160,17 +160,55 @@ void DynamicEntity::updateDeltaWorldCoordinateFromPathStatus() // TODO: this->
         distanceSquared = targetRelativeWorldCoordinate.x * targetRelativeWorldCoordinate.x + targetRelativeWorldCoordinate.y * targetRelativeWorldCoordinate.y;
         tenativeDeltaWorldCoordinate = (targetRelativeWorldCoordinate / std::sqrt(distanceSquared)) * getMovementSpeed() * static_cast<float>(constants::scale);
 
-        if(tenativeDeltaWorldCoordinate.x * tenativeDeltaWorldCoordinate.x + tenativeDeltaWorldCoordinate.y * tenativeDeltaWorldCoordinate.y < distanceSquared)
+        if(distanceSquared == 0.f)
         {
-            this->deltaWorldCoordinate = tenativeDeltaWorldCoordinate;
+            this->pathStatus.index = 0;
+            this->pathStatus.gridCoordinateVector.clear();
+            this->deltaWorldCoordinate = constants::zeroVector;
             return;
         }
         else
         {
-            this->pathStatus.index = 0;
-            this->pathStatus.gridCoordinateVector.clear();
-            this->deltaWorldCoordinate = targetRelativeWorldCoordinate;
-            return;
+            if(tenativeDeltaWorldCoordinate.x * tenativeDeltaWorldCoordinate.x + tenativeDeltaWorldCoordinate.y * tenativeDeltaWorldCoordinate.y < distanceSquared)
+            {
+                this->deltaWorldCoordinate = tenativeDeltaWorldCoordinate;
+                return;
+            }
+            else
+            {
+                this->deltaWorldCoordinate = targetRelativeWorldCoordinate;
+                return;
+            }
+        }
+    }
+}
+
+void DynamicEntity::updateDirectionsFromDeltaWorldCoordinate()
+{
+    if(std::abs(deltaWorldCoordinate.y) > std::abs(deltaWorldCoordinate.x))
+    {
+        if(deltaWorldCoordinate.y >= 0)
+        {
+            direction = constants::Direction::Down;
+            lastVerticalDirection = constants::Direction::Down;
+        }
+        else
+        {
+            direction = constants::Direction::Up;
+            lastVerticalDirection = constants::Direction::Up;
+        }
+    }
+    else
+    {
+        if(deltaWorldCoordinate.x >= 0)
+        {
+            direction = constants::Direction::Right;
+            lastHorizontalDirection = constants::Direction::Right;
+        }
+        else
+        {
+            direction = constants::Direction::Left;
+            lastHorizontalDirection = constants::Direction::Left;
         }
     }
 }

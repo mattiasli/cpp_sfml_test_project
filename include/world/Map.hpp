@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "../entities/dynamicentities/DynamicEntity.hpp"
 #include "../entities/dynamicentities/Player.hpp"
 #include "../entities/dynamicentities/Snake.hpp"
 
@@ -56,6 +57,5 @@ private:
         {'#', '~', '~', '~', '~', '~', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '^', '~', '~', '~', '~'}
     };
     bool solidTable[256] = { false };
-    Player player;
-    Snake snake;
+    std::vector<DynamicEntity*> tempEntityVector;
 };

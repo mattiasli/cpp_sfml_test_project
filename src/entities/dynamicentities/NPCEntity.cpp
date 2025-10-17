@@ -27,11 +27,11 @@ void NPCEntity::updateAction()
     if(waitTimeRemainingMicroseconds <= 0)
         {
         waitTimeRemainingMicroseconds = handler.getProbabilityManager().generateUniformFloat(getMinWaitTimeMicroseconds(), getMaxWaitTimeMicroseconds());
-        const int goalXGridCoordinate = handler.getProbabilityManager().generateUniformInteger(0, handler.getMap().getGridWidth() - 1);
-        const int goalYGridCoordinate = handler.getProbabilityManager().generateUniformInteger(0, handler.getMap().getGridHeight() - 1);
         updateMovementSpeed();
+        const sf::Vector2i goalGridCoordinate = {handler.getProbabilityManager().generateUniformInteger(0, handler.getMap().getGridWidth() - 1),
+                                                 handler.getProbabilityManager().generateUniformInteger(0, handler.getMap().getGridHeight() - 1)};
         setPathStatus(handler.getPathFinder().computeAStarPath(handler.getCoordinateConverter().convertToGridCoordinate(getWorldCoordinate()),
-                                                               sf::Vector2i(goalXGridCoordinate, goalYGridCoordinate)));
+                                                               goalGridCoordinate));
         }
     }
 }

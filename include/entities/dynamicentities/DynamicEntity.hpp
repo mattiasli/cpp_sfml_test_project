@@ -21,6 +21,8 @@ protected:
     };
     sf::Vector2f deltaWorldCoordinate = {0, 0};
     PathStatus pathStatus;
+    constants::Direction lastHorizontalDirection;
+    constants::Direction lastVerticalDirection;
 
 private:
     static constexpr float defaultMovementSpeed = 1.f;
@@ -34,5 +36,6 @@ private:
     void updateBoundingBoxesWorldCoordinates();
     void adjustBoundingBoxForTileCollisions();
     void updateDeltaWorldCoordinateFromPathStatus();
+    void updateDirectionsFromDeltaWorldCoordinate();
     virtual float getMovementSpeed() const;
 };

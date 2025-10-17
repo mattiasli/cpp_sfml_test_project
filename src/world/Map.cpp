@@ -2,19 +2,32 @@
 #include "../../include/core/Handler.hpp"
 
 Map::Map(Handler& handler)
-: handler(handler),
-player(handler, handler.getCoordinateConverter().convertToWorldCoordinate({4, 4})),
-snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({8, 6}))
+: handler(handler)
 {
     solidTable['#'] = true; // TODO: update to flyweight algorithm.
     solidTable['~'] = true;
     solidTable['^'] = true;
+
+    tempEntityVector.push_back(new Player(handler, handler.getCoordinateConverter().convertToWorldCoordinate({8, 3}))); // TODO: fix this to something more robust.
+    tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({8, 6})));
+    tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({8, 5})));
+    tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({8, 4})));
+    tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 6})));
+    tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 5})));
+    tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 4})));
+    tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 3})));
+    tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({8, 3})));
+
 }
 
 void Map::updateLogic()
 {
-    player.updateLogic();
-    snake.updateLogic();
+
+    for(auto& de : tempEntityVector)
+    {
+    de->updateLogic();
+    }
+    handler.getSpriteManager().updateLogic();
 }
 
 void Map::render()
@@ -52,8 +65,10 @@ void Map::render()
         }
     }
 
-    player.render();
-    snake.render();
+    for(DynamicEntity* de : tempEntityVector) // TODO: fix this to something more robust.
+    {
+    de->render();
+    }
 }
 
 bool Map::isTileSolid(char tile)

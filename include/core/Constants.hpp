@@ -1,6 +1,9 @@
 #pragma once
+#include <cstdint>
 
 namespace constants {
+    enum class Direction : std::uint8_t {Up, Down, Left, Right};
+
     inline constexpr int windowWidth  = 1920;
     inline constexpr int windowHeight = 1080;
     inline constexpr double microsecondsPerTick = 1000000.0 / 60.0;
@@ -15,6 +18,6 @@ namespace constants {
     inline const sf::Vector2i invalidCoordinate {-1, -1};
     inline const size_t invalidIndex = -1;
 
-    inline constexpr float defaultArriveRadius = 1.5f;
-    inline constexpr float defaultMaxMovementSpeed = 2.f;
+    inline constexpr float defaultArriveRadius = 0.75f;
+    inline constexpr float defaultMaxMovementSpeed = 1.25f;
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../core/BoundingBox.hpp"
+#include "../core/Constants.hpp"
 
 class Handler;
 
@@ -19,4 +20,5 @@ protected:
     Handler& handler;
     sf::Vector2f worldCoordinate;
     BoundingBox boundingBox;
+    constants::Direction direction;
 };

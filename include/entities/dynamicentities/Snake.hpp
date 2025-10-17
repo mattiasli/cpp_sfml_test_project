@@ -16,11 +16,11 @@ private:
     static constexpr float boundingBoxOffsetRelativeXWorldCoordinate = 3.f;
     static constexpr float boundingBoxOffsetRelativeYWorldCoordinate = 3.f;
 
-    static constexpr double minWaitTimeMicroseconds = 1000000.0;
-    static constexpr double maxWaitTimeMicroseconds = 16000000.0;
+    static constexpr double minWaitTimeMicroseconds = 2000000.0;
+    static constexpr double maxWaitTimeMicroseconds = 64000000.0;
 
     static constexpr float defaultMovementSpeedExpectedValue = 0.25f;
-    static constexpr float defaultMovementSpeedStandardDeviation = 1.25f;
+    static constexpr float defaultMovementSpeedStandardDeviation = 0.5f;
 
     float movementSpeed;
 
