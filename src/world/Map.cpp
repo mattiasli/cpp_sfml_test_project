@@ -9,10 +9,14 @@ Map::Map(Handler& handler)
     solidTable['^'] = true;
 
     tempEntityVector.push_back(new Player(handler, handler.getCoordinateConverter().convertToWorldCoordinate({8, 3}))); // TODO: fix this to something more robust.
-    tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({8, 6})));
-    tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({8, 5})));
-    tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({8, 4})));
-    tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 6})));
+
+    tempEntityVector.push_back(new GuardSwordsman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({1, 1})));
+    tempEntityVector.push_back(new GuardSwordsman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({2, 1})));
+    tempEntityVector.push_back(new GuardSwordsman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({3, 1})));
+    tempEntityVector.push_back(new GuardSwordsman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({4, 1})));
+    tempEntityVector.push_back(new GuardSwordsman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({5, 1})));
+    tempEntityVector.push_back(new GuardSwordsman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({11, 1})));
+
     tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 5})));
     tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 4})));
     tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 3})));

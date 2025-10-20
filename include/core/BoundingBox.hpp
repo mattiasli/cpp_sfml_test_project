@@ -23,7 +23,7 @@ public:
     float getRectangleXWorldCoordinate() const;
     float getRectangleYWorldCoordinate() const;
 
-    float getWidth() const;
+    float getWidth() const; // TODO: naming.
     float getHeight() const;
 
     float getLeftEdgeXWorldCoordinate() const;

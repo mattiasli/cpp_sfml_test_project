@@ -26,138 +26,95 @@ SpriteManager::SpriteManager(Handler& handler)
     waterSprite.setTextureRect({0 * constants::tileWidth, 2 * constants::tileHeight, 1 * constants::tileWidth, 1 * constants::tileHeight});
     waterSprite.setScale(constants::scale , constants::scale);
 
-    capedWarriorIdleUpAnimation = new Animation(handler, spriteAtlas, {{4 * constants::defaultSpriteWidth, 7 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                       {5 * constants::defaultSpriteWidth, 7 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                       {6 * constants::defaultSpriteWidth, 7 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                       {7 * constants::defaultSpriteWidth, 7 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 500000.0);
+    capedWarriorIdleUpAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({4, 7}, {1, 1}, 4), 500000.0);
     animationVector.push_back(capedWarriorIdleUpAnimation);
 
-    capedWarriorIdleDownAnimation = new Animation(handler, spriteAtlas, {{4 * constants::defaultSpriteWidth, 6 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                         {5 * constants::defaultSpriteWidth, 6 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                         {6 * constants::defaultSpriteWidth, 6 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                         {7 * constants::defaultSpriteWidth, 6 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 500000.0);
+    capedWarriorIdleDownAnimation = new Animation(handler, spriteAtlas,  computeTextureRectangleSequence({4, 6}, {1, 1}, 4), 500000.0);
     animationVector.push_back(capedWarriorIdleDownAnimation);
 
-    capedWarriorIdleLeftAnimation = new Animation(handler, spriteAtlas, {{4 * constants::defaultSpriteWidth, 5 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                         {5 * constants::defaultSpriteWidth, 5 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                         {6 * constants::defaultSpriteWidth, 5 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                         {7 * constants::defaultSpriteWidth, 5 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 500000.0);
+    capedWarriorIdleLeftAnimation = new Animation(handler, spriteAtlas,  computeTextureRectangleSequence({4, 5}, {1, 1}, 4), 500000.0);
     animationVector.push_back(capedWarriorIdleLeftAnimation);
 
-    capedWarriorIdleRightAnimation = new Animation(handler, spriteAtlas, {{4 * constants::defaultSpriteWidth, 4 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                          {5 * constants::defaultSpriteWidth, 4 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                          {6 * constants::defaultSpriteWidth, 4 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                          {7 * constants::defaultSpriteWidth, 4 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 500000.0);
+    capedWarriorIdleRightAnimation = new Animation(handler, spriteAtlas,  computeTextureRectangleSequence({4, 4}, {1, 1}, 4), 500000.0);
     animationVector.push_back(capedWarriorIdleRightAnimation);
 
-    capedWarriorRunUpAnimation = new Animation(handler, spriteAtlas, {{4 * constants::defaultSpriteWidth, 11 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                      {5 * constants::defaultSpriteWidth, 11 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                      {6 * constants::defaultSpriteWidth, 11 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                      {7 * constants::defaultSpriteWidth, 11 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 125000.0);
+    capedWarriorRunUpAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({4, 11}, {1, 1}, 4), 125000.0);
     animationVector.push_back(capedWarriorRunUpAnimation);
 
-    capedWarriorRunDownAnimation = new Animation(handler, spriteAtlas, {{4 * constants::defaultSpriteWidth, 10 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                        {5 * constants::defaultSpriteWidth, 10 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                        {6 * constants::defaultSpriteWidth, 10 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                        {7 * constants::defaultSpriteWidth, 10 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 125000.0);
+    capedWarriorRunDownAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({4, 10}, {1, 1}, 4), 125000.0);
     animationVector.push_back(capedWarriorRunDownAnimation);
 
-    capedWarriorRunLeftAnimation = new Animation(handler, spriteAtlas, {{4 * constants::defaultSpriteWidth, 9 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                        {5 * constants::defaultSpriteWidth, 9 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                        {6 * constants::defaultSpriteWidth, 9 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                        {7 * constants::defaultSpriteWidth, 9 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 125000.0);
+    capedWarriorRunLeftAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({4, 9}, {1, 1}, 4), 125000.0);
     animationVector.push_back(capedWarriorRunLeftAnimation);
 
-    capedWarriorRunRightAnimation = new Animation(handler, spriteAtlas, {{4 * constants::defaultSpriteWidth, 8 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                         {5 * constants::defaultSpriteWidth, 8 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                         {6 * constants::defaultSpriteWidth, 8 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                         {7 * constants::defaultSpriteWidth, 8 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 125000.0);
+    capedWarriorRunRightAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({4, 8}, {1, 1}, 4), 125000.0);
     animationVector.push_back(capedWarriorRunRightAnimation);
 
-    wolfIdleUpAnimation = new Animation(handler, spriteAtlas, {{8 * constants::defaultSpriteWidth, 7 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                               {9 * constants::defaultSpriteWidth, 7 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                               {10 * constants::defaultSpriteWidth, 7 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                               {11 * constants::defaultSpriteWidth, 7 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 500000.0);
+    guardSwordsmanIdleUpAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({12, 7}, {1, 1}, 4), 500000.0);
+    animationVector.push_back(guardSwordsmanIdleUpAnimation);
+
+    guardSwordsmanIdleDownAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({12, 6}, {1, 1}, 4), 500000.0);
+    animationVector.push_back(guardSwordsmanIdleDownAnimation);
+
+    guardSwordsmanIdleLeftAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({12, 5}, {1, 1}, 4), 500000.0);
+    animationVector.push_back(guardSwordsmanIdleLeftAnimation);
+
+    guardSwordsmanIdleRightAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({12, 4}, {1, 1}, 4), 500000.0);
+    animationVector.push_back(guardSwordsmanIdleRightAnimation);
+
+    guardSwordsmanRunUpAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({12, 11}, {1, 1}, 4), 125000.0);
+    animationVector.push_back(guardSwordsmanRunUpAnimation);
+
+    guardSwordsmanRunDownAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({12, 10}, {1, 1}, 4), 125000.0);
+    animationVector.push_back(guardSwordsmanRunDownAnimation);
+
+    guardSwordsmanRunLeftAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({12, 9}, {1, 1}, 4), 125000.0);
+    animationVector.push_back(guardSwordsmanRunLeftAnimation);
+
+    guardSwordsmanRunRightAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({12, 8}, {1, 1}, 4), 125000.0);
+    animationVector.push_back(guardSwordsmanRunRightAnimation);
+
+    wolfIdleUpAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({8, 7}, {1, 1}, 4), 500000.0);
     animationVector.push_back(wolfIdleUpAnimation);
 
-    wolfIdleDownAnimation = new Animation(handler, spriteAtlas, {{8 * constants::defaultSpriteWidth, 6 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                 {9 * constants::defaultSpriteWidth, 6 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                 {10 * constants::defaultSpriteWidth, 6 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                 {11 * constants::defaultSpriteWidth, 6 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 500000.0);
+    wolfIdleDownAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({8, 6}, {1, 1}, 4), 500000.0);
     animationVector.push_back(wolfIdleDownAnimation);
 
-    wolfIdleLeftAnimation = new Animation(handler, spriteAtlas, {{8 * constants::defaultSpriteWidth, 5 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                 {9 * constants::defaultSpriteWidth, 5 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                 {10 * constants::defaultSpriteWidth, 5 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                 {11 * constants::defaultSpriteWidth, 5 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 500000.0);
+    wolfIdleLeftAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({8, 5}, {1, 1}, 4), 500000.0);
     animationVector.push_back(wolfIdleLeftAnimation);
 
-    wolfIdleRightAnimation = new Animation(handler, spriteAtlas, {{8 * constants::defaultSpriteWidth, 4 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                  {9 * constants::defaultSpriteWidth, 4 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                  {10 * constants::defaultSpriteWidth, 4 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                  {11 * constants::defaultSpriteWidth, 4 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 500000.0);
+    wolfIdleRightAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({8, 4}, {1, 1}, 4), 500000.0);
     animationVector.push_back(wolfIdleRightAnimation);
 
-    wolfRunUpAnimation = new Animation(handler, spriteAtlas, {{8 * constants::defaultSpriteWidth, 11 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                              {9 * constants::defaultSpriteWidth, 11 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                              {10 * constants::defaultSpriteWidth, 11 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                              {11 * constants::defaultSpriteWidth, 11 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 125000.0);
+    wolfRunUpAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({8, 11}, {1, 1}, 4), 125000.0);
     animationVector.push_back(wolfRunUpAnimation);
 
-    wolfRunDownAnimation = new Animation(handler, spriteAtlas, {{8 * constants::defaultSpriteWidth, 10 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                {9 * constants::defaultSpriteWidth, 10 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                {10 * constants::defaultSpriteWidth, 10 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                {11 * constants::defaultSpriteWidth, 10 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 125000.0);
+    wolfRunDownAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({8, 10}, {1, 1}, 4), 125000.0);
     animationVector.push_back(wolfRunDownAnimation);
 
-    wolfRunLeftAnimation = new Animation(handler, spriteAtlas, {{8 * constants::defaultSpriteWidth, 9 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                {9 * constants::defaultSpriteWidth, 9 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                {10 * constants::defaultSpriteWidth, 9 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                {11 * constants::defaultSpriteWidth, 9 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 125000.0);
+    wolfRunLeftAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({8, 9}, {1, 1}, 4), 125000.0);
     animationVector.push_back(wolfRunLeftAnimation);
 
-    wolfRunRightAnimation = new Animation(handler, spriteAtlas, {{8 * constants::defaultSpriteWidth, 8 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                 {9 * constants::defaultSpriteWidth, 8 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                 {10 * constants::defaultSpriteWidth, 8 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                 {11 * constants::defaultSpriteWidth, 8 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 125000.0);
+    wolfRunRightAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({8, 8}, {1, 1}, 4), 125000.0);
     animationVector.push_back(wolfRunRightAnimation);
 
-    snakeIdleLeftAnimation = new Animation(handler, spriteAtlas, {{0 * constants::defaultSpriteWidth, 5 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                  {1 * constants::defaultSpriteWidth, 5 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                  {2 * constants::defaultSpriteWidth, 5 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                  {3 * constants::defaultSpriteWidth, 5 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 500000.0);
+    snakeIdleLeftAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({0, 5}, {1, 1}, 4), 500000.0);
     animationVector.push_back(snakeIdleLeftAnimation);
 
-    snakeIdleRightAnimation = new Animation(handler, spriteAtlas, {{0 * constants::defaultSpriteWidth, 4 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                   {1 * constants::defaultSpriteWidth, 4 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                   {2 * constants::defaultSpriteWidth, 4 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                   {3 * constants::defaultSpriteWidth, 4 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 500000.0);
+    snakeIdleRightAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({0, 4}, {1, 1}, 4), 500000.0);
     animationVector.push_back(snakeIdleRightAnimation);
 
-    snakeWalkUpAnimation = new Animation(handler, spriteAtlas, {{0 * constants::defaultSpriteWidth, 9 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                {1 * constants::defaultSpriteWidth, 9 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                {2 * constants::defaultSpriteWidth, 9 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                {3 * constants::defaultSpriteWidth, 9 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 250000.0);
+    snakeWalkUpAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({0, 9}, {1, 1}, 4), 250000.0);
     animationVector.push_back(snakeWalkUpAnimation);
 
-    snakeWalkDownAnimation = new Animation(handler, spriteAtlas, {{0 * constants::defaultSpriteWidth, 8 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                  {1 * constants::defaultSpriteWidth, 8 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                  {2 * constants::defaultSpriteWidth, 8 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                  {3 * constants::defaultSpriteWidth, 8 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 250000.0);
+    snakeWalkDownAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({0, 8}, {1, 1}, 4), 250000.0);
     animationVector.push_back(snakeWalkDownAnimation);
 
-    snakeWalkLeftAnimation = new Animation(handler, spriteAtlas, {{0 * constants::defaultSpriteWidth, 7 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                  {1 * constants::defaultSpriteWidth, 7 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                  {2 * constants::defaultSpriteWidth, 7 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                  {3 * constants::defaultSpriteWidth, 7 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 250000.0);
+    snakeWalkLeftAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({0, 7}, {1, 1}, 4), 250000.0);
     animationVector.push_back(snakeWalkLeftAnimation);
 
-    snakeWalkRightAnimation = new Animation(handler, spriteAtlas, {{0 * constants::defaultSpriteWidth, 6 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                   {1 * constants::defaultSpriteWidth, 6 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                   {2 * constants::defaultSpriteWidth, 6 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight},
-                                                                   {3 * constants::defaultSpriteWidth, 6 * constants::defaulSpriteHeight, 1 * constants::defaultSpriteWidth, 1 * constants::defaulSpriteHeight}}, 250000.0);
+    snakeWalkRightAnimation = new Animation(handler, spriteAtlas, computeTextureRectangleSequence({0, 6}, {1, 1}, 4), 250000.0);
     animationVector.push_back(snakeWalkRightAnimation);
-
 }
 
 void SpriteManager::updateLogic()
@@ -167,6 +124,23 @@ void SpriteManager::updateLogic()
         animation->updateLogic();
     }
 }
+
+std::vector<sf::IntRect> SpriteManager::computeTextureRectangleSequence(sf::Vector2i startTexureGridIndex, sf::Vector2i rectangleTextureGridSize, std::uint8_t seqenceLength)
+{
+    std::vector<sf::IntRect> textureRectangleSequence;
+    textureRectangleSequence.reserve(seqenceLength);
+
+    for(std::uint8_t i = 0; i < seqenceLength; i++)
+    {
+        textureRectangleSequence.emplace_back((startTexureGridIndex.x + i) * constants::defaultSpriteWidth,
+                                              startTexureGridIndex.y * constants::defaulSpriteHeight,
+                                              rectangleTextureGridSize.x * constants::defaultSpriteWidth,
+                                              rectangleTextureGridSize.y * constants::defaultSpriteWidth);
+    }
+
+    return textureRectangleSequence;
+}
+
 
 sf::Sprite* SpriteManager::getDirtSprite()
 {
@@ -231,6 +205,46 @@ Animation* SpriteManager::getCapedWarriorRunLeftAnimation()
 Animation* SpriteManager::getCapedWarriorRunRightAnimation()
 {
     return capedWarriorRunRightAnimation;
+}
+
+Animation* SpriteManager::getGuardSwordsmanIdleUpAnimation()
+{
+    return guardSwordsmanIdleUpAnimation;
+}
+
+Animation* SpriteManager::getGuardSwordsmanIdleDownAnimation()
+{
+    return guardSwordsmanIdleDownAnimation;
+}
+
+Animation* SpriteManager::getGuardSwordsmanIdleLeftAnimation()
+{
+    return guardSwordsmanIdleLeftAnimation;
+}
+
+Animation* SpriteManager::getGuardSwordsmanIdleRightAnimation()
+{
+    return guardSwordsmanIdleRightAnimation;
+}
+
+Animation* SpriteManager::getGuardSwordsmanRunUpAnimation()
+{
+    return guardSwordsmanRunUpAnimation;
+}
+
+Animation* SpriteManager::getGuardSwordsmanRunDownAnimation()
+{
+    return guardSwordsmanRunDownAnimation;
+}
+
+Animation* SpriteManager::getGuardSwordsmanRunLeftAnimation()
+{
+    return guardSwordsmanRunLeftAnimation;
+}
+
+Animation* SpriteManager::getGuardSwordsmanRunRightAnimation()
+{
+    return guardSwordsmanRunRightAnimation;
 }
 
 Animation* SpriteManager::getWolfIdleUpAnimation()

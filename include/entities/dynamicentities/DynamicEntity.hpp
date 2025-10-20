@@ -25,7 +25,7 @@ protected:
     constants::Direction lastVerticalDirection;
 
 private:
-    static constexpr float defaultMovementSpeed = 1.f;
+    static constexpr float defaultMovementSpeed = 0.5f;
 
     Map& map;
     CoordinateConverter& coordinateConverter;
