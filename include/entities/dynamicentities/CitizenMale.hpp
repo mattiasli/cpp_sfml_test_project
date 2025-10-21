@@ -4,9 +4,9 @@
 
 class Handler;
 
-class GuardSwordsman : public NPCEntity {
+class CitizenMale : public NPCEntity {
 public:
-    GuardSwordsman(Handler& handler, sf::Vector2f worldCoordinate);
+    CitizenMale(Handler& handler, sf::Vector2f worldCoordinate);
 
     void render() const override;
 
@@ -19,7 +19,7 @@ private:
     static constexpr double minWaitTimeMicroseconds = 4000000.0;
     static constexpr double maxWaitTimeMicroseconds = 32000000.0;
 
-    static constexpr float defaultMovementSpeedExpectedValue = 0.375f;
+    static constexpr float defaultMovementSpeedExpectedValue = 0.25f;
     static constexpr float defaultMovementSpeedStandardDeviation = 0.25f;
 
     float movementSpeed;

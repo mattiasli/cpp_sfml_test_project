@@ -24,8 +24,11 @@ protected:
     constants::Direction lastHorizontalDirection;
     constants::Direction lastVerticalDirection;
 
+    virtual float getRunAnimationThreshold() const;
+
 private:
     static constexpr float defaultMovementSpeed = 0.5f;
+    static constexpr float defaultRunAnimationThreshold = 0.25f;
 
     Map& map;
     CoordinateConverter& coordinateConverter;

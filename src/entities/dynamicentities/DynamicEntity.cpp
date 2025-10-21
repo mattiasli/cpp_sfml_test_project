@@ -217,3 +217,8 @@ float DynamicEntity::getMovementSpeed() const
 {
     return defaultMovementSpeed;
 }
+
+float DynamicEntity::getRunAnimationThreshold() const
+{
+    return defaultRunAnimationThreshold;
+}

@@ -40,28 +40,57 @@ void Wolf::render() const
     }
     else
     {
-        switch (direction)
+        if(movementSpeed < getRunAnimationThreshold())
         {
-            case constants::Direction::Up:
-                handler.getSpriteManager().getWolfRunUpAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getWolfRunUpAnimation()->getSprite());
-            break;
-            case constants::Direction::Down:
-                handler.getSpriteManager().getWolfRunDownAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getWolfRunDownAnimation()->getSprite());
-            break;
-            case constants::Direction::Left:
-                handler.getSpriteManager().getWolfRunLeftAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getWolfRunLeftAnimation()->getSprite());
-            break;
-            case constants::Direction::Right:
-                handler.getSpriteManager().getWolfRunRightAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getWolfRunRightAnimation()->getSprite());
-            break;
-            default:
-                handler.getSpriteManager().getWolfRunDownAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getWolfRunDownAnimation()->getSprite());
-            break;
+            switch (direction)
+            {
+                case constants::Direction::Up:
+                    handler.getSpriteManager().getWolfWalkUpAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getWolfWalkUpAnimation()->getSprite());
+                break;
+                case constants::Direction::Down:
+                    handler.getSpriteManager().getWolfWalkDownAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getWolfWalkDownAnimation()->getSprite());
+                break;
+                case constants::Direction::Left:
+                    handler.getSpriteManager().getWolfWalkLeftAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getWolfWalkLeftAnimation()->getSprite());
+                break;
+                case constants::Direction::Right:
+                    handler.getSpriteManager().getWolfWalkRightAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getWolfWalkRightAnimation()->getSprite());
+                break;
+                default:
+                    handler.getSpriteManager().getWolfWalkDownAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getWolfWalkDownAnimation()->getSprite());
+                break;
+            }
+        }
+        else
+        {
+            switch (direction)
+            {
+                case constants::Direction::Up:
+                    handler.getSpriteManager().getWolfRunUpAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getWolfRunUpAnimation()->getSprite());
+                break;
+                case constants::Direction::Down:
+                    handler.getSpriteManager().getWolfRunDownAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getWolfRunDownAnimation()->getSprite());
+                break;
+                case constants::Direction::Left:
+                    handler.getSpriteManager().getWolfRunLeftAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getWolfRunLeftAnimation()->getSprite());
+                break;
+                case constants::Direction::Right:
+                    handler.getSpriteManager().getWolfRunRightAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getWolfRunRightAnimation()->getSprite());
+                break;
+                default:
+                    handler.getSpriteManager().getWolfRunDownAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getWolfRunDownAnimation()->getSprite());
+                break;
+            }
         }
     }
 }

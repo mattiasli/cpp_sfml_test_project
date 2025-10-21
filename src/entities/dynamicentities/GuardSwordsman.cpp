@@ -40,28 +40,57 @@ void GuardSwordsman::render() const
     }
     else
     {
-        switch (direction)
+        if(movementSpeed < getRunAnimationThreshold())
         {
-            case constants::Direction::Up:
-                handler.getSpriteManager().getGuardSwordsmanRunUpAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getGuardSwordsmanRunUpAnimation()->getSprite());
-            break;
-            case constants::Direction::Down:
-                handler.getSpriteManager().getGuardSwordsmanRunDownAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getGuardSwordsmanRunDownAnimation()->getSprite());
-            break;
-            case constants::Direction::Left:
-                handler.getSpriteManager().getGuardSwordsmanRunLeftAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getGuardSwordsmanRunLeftAnimation()->getSprite());
-            break;
-            case constants::Direction::Right:
-                handler.getSpriteManager().getGuardSwordsmanRunRightAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getGuardSwordsmanRunRightAnimation()->getSprite());
-            break;
-            default:
-                handler.getSpriteManager().getGuardSwordsmanRunDownAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getGuardSwordsmanRunDownAnimation()->getSprite());
-            break;
+            switch (direction)
+            {
+                case constants::Direction::Up:
+                    handler.getSpriteManager().getGuardSwordsmanWalkUpAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getGuardSwordsmanWalkUpAnimation()->getSprite());
+                break;
+                case constants::Direction::Down:
+                    handler.getSpriteManager().getGuardSwordsmanWalkDownAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getGuardSwordsmanWalkDownAnimation()->getSprite());
+                break;
+                case constants::Direction::Left:
+                    handler.getSpriteManager().getGuardSwordsmanWalkLeftAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getGuardSwordsmanWalkLeftAnimation()->getSprite());
+                break;
+                case constants::Direction::Right:
+                    handler.getSpriteManager().getGuardSwordsmanWalkRightAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getGuardSwordsmanWalkRightAnimation()->getSprite());
+                break;
+                default:
+                    handler.getSpriteManager().getGuardSwordsmanWalkDownAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getGuardSwordsmanWalkDownAnimation()->getSprite());
+                break;
+            }
+        }
+        else
+        {
+            switch (direction)
+            {
+                case constants::Direction::Up:
+                    handler.getSpriteManager().getGuardSwordsmanRunUpAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getGuardSwordsmanRunUpAnimation()->getSprite());
+                break;
+                case constants::Direction::Down:
+                    handler.getSpriteManager().getGuardSwordsmanRunDownAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getGuardSwordsmanRunDownAnimation()->getSprite());
+                break;
+                case constants::Direction::Left:
+                    handler.getSpriteManager().getGuardSwordsmanRunLeftAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getGuardSwordsmanRunLeftAnimation()->getSprite());
+                break;
+                case constants::Direction::Right:
+                    handler.getSpriteManager().getGuardSwordsmanRunRightAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getGuardSwordsmanRunRightAnimation()->getSprite());
+                break;
+                default:
+                    handler.getSpriteManager().getGuardSwordsmanRunDownAnimation()->getSprite()->setPosition(worldCoordinate);
+                    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getGuardSwordsmanRunDownAnimation()->getSprite());
+                break;
+            }
         }
     }
 }

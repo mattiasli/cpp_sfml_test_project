@@ -3,6 +3,8 @@
 #include "../entities/dynamicentities/DynamicEntity.hpp"
 #include "../entities/dynamicentities/Player.hpp"
 #include "../entities/dynamicentities/GuardSwordsman.hpp"
+#include "../entities/dynamicentities/CitizenMale.hpp"
+#include "../entities/dynamicentities/CitizenFemale.hpp"
 #include "../entities/dynamicentities/Wolf.hpp"
 #include "../entities/dynamicentities/Snake.hpp"
 

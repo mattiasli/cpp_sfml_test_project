@@ -17,6 +17,16 @@ Map::Map(Handler& handler)
     tempEntityVector.push_back(new GuardSwordsman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({5, 1})));
     tempEntityVector.push_back(new GuardSwordsman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({11, 1})));
 
+    tempEntityVector.push_back(new CitizenMale(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 5})));
+    tempEntityVector.push_back(new CitizenMale(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 4})));
+    tempEntityVector.push_back(new CitizenMale(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 3})));
+    tempEntityVector.push_back(new CitizenMale(handler, handler.getCoordinateConverter().convertToWorldCoordinate({8, 3})));
+
+    tempEntityVector.push_back(new CitizenFemale(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 5})));
+    tempEntityVector.push_back(new CitizenFemale(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 4})));
+    tempEntityVector.push_back(new CitizenFemale(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 3})));
+    tempEntityVector.push_back(new CitizenFemale(handler, handler.getCoordinateConverter().convertToWorldCoordinate({8, 3})));
+
     tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 5})));
     tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 4})));
     tempEntityVector.push_back(new Snake(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 3})));
