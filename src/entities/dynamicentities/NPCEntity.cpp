@@ -13,11 +13,6 @@ void NPCEntity::updateLogic()
     DynamicEntity::updateLogic();
 }
 
-void NPCEntity::updateMovementSpeed()
-{
-    return;
-}
-
 void NPCEntity::updateAction()
 {
     if(pathStatus.gridCoordinateVector.empty())
@@ -27,7 +22,7 @@ void NPCEntity::updateAction()
     if(waitTimeRemainingMicroseconds <= 0)
         {
         waitTimeRemainingMicroseconds = handler.getProbabilityManager().generateUniformFloat(getMinWaitTimeMicroseconds(), getMaxWaitTimeMicroseconds());
-        updateMovementSpeed();
+        applyPathFollowingMovementSpeed();
         const sf::Vector2i goalGridCoordinate = {handler.getProbabilityManager().generateUniformInteger(0, handler.getMap().getGridWidth() - 1),
                                                  handler.getProbabilityManager().generateUniformInteger(0, handler.getMap().getGridHeight() - 1)};
         setPathStatus(handler.getPathFinder().computeAStarPath(handler.getCoordinateConverter().convertToGridCoordinate(getWorldCoordinate()),

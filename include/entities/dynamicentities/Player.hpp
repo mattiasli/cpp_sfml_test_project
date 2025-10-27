@@ -21,5 +21,5 @@ private:
     static constexpr float boundingBoxOffsetRelativeYWorldCoordinate = 1.f;
     static constexpr float defaultMovementSpeed = 1.f;
 
-    float getMovementSpeed() const override;
+    float getDefaultMovementSpeed() const override;
 };

@@ -37,7 +37,9 @@ Map::Map(Handler& handler)
     tempEntityVector.push_back(new Wolf(handler, handler.getCoordinateConverter().convertToWorldCoordinate({29, 29})));
     tempEntityVector.push_back(new Wolf(handler, handler.getCoordinateConverter().convertToWorldCoordinate({29, 27})));
     tempEntityVector.push_back(new Wolf(handler, handler.getCoordinateConverter().convertToWorldCoordinate({15, 15})));
-    tempEntityVector.push_back(new Wolf(handler, handler.getCoordinateConverter().convertToWorldCoordinate({16, 16})));
+
+    tempEntityVector.push_back(new GuardSwordsman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({16, 16})));
+
 }
 
 void Map::updateLogic()

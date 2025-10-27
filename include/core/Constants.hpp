@@ -1,7 +1,10 @@
 #pragma once
+#include <cmath>
 #include <cstdint>
 
 namespace constants {
+    enum class EntityType : std::uint8_t {CapedWarrior, GuardSwordsman, CitizenMale, CitizenFemale, Wolf, Snake};
+    enum class EntityState : std::uint8_t {Idle, Walk, Run};
     enum class Direction : std::uint8_t {Up, Down, Left, Right};
 
     inline constexpr int windowWidth  = 1920;
@@ -15,6 +18,7 @@ namespace constants {
     inline constexpr int defaulSpriteHeight = 16;
 
     inline const sf::Vector2f zeroVector {0, 0};
+    inline const float sin45 {std::sin(45)};
     inline const sf::Vector2i invalidCoordinate {-1, -1};
     inline const size_t invalidIndex = -1;
 

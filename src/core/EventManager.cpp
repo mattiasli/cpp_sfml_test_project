@@ -27,21 +27,25 @@ void EventManager::processEvents()
             {
                 case sf::Keyboard::Up:
                 case sf::Keyboard::W:
+                isKeyboardUpKeyPressed = true;
                 isKeyboardUpKeyDown = true;
                 break;
 
                 case sf::Keyboard::Down:
                 case sf::Keyboard::S:
+                isKeyboardDownKeyPressed = true;
                 isKeyboardDownKeyDown = true;
                 break;
 
                 case sf::Keyboard::Left:
                 case sf::Keyboard::A:
+                isKeyboardLeftKeyPressed = true;
                 isKeyboardLeftKeyDown = true;
                 break;
 
                 case sf::Keyboard::Right:
                 case sf::Keyboard::D:
+                isKeyboardRightKeyPressed = true;
                 isKeyboardRightKeyDown = true;
                 break;
 
@@ -56,21 +60,25 @@ void EventManager::processEvents()
                 case sf::Keyboard::Up:
                 case sf::Keyboard::W:
                 isKeyboardUpKeyDown = false;
+                isKeyboardUpKeyReleased = true;
                 break;
 
                 case sf::Keyboard::Down:
                 case sf::Keyboard::S:
                 isKeyboardDownKeyDown = false;
+                isKeyboardDownKeyReleased = true;
                 break;
 
                 case sf::Keyboard::Left:
                 case sf::Keyboard::A:
                 isKeyboardLeftKeyDown = false;
+                isKeyboardLeftKeyReleased = true;
                 break;
 
                 case sf::Keyboard::Right:
                 case sf::Keyboard::D:
                 isKeyboardRightKeyDown = false;
+                isKeyboardRightKeyReleased = true;
                 break;
 
                 default:
@@ -126,10 +134,39 @@ void EventManager::processEvents()
 
 void EventManager::resetInputState()
 {
+    isKeyboardUpKeyPressed = false;
+    isKeyboardUpKeyReleased = false;
+    isKeyboardDownKeyPressed = false;
+    isKeyboardDownKeyReleased = false;
+    isKeyboardLeftKeyPressed = false;
+    isKeyboardLeftKeyReleased = false;
+    isKeyboardRightKeyPressed = false;
+    isKeyboardRightKeyReleased = false;
+
     isMouseLeftButtonPressed = false;
     isMouseLeftButtonReleased = false;
     isMouseRightButtonPressed = false;
     isMouseRightButtonReleased = false;
+}
+
+bool EventManager::getIsKeyboardUpKeyPressed() const
+{
+    return isKeyboardUpKeyPressed;
+}
+
+bool EventManager::getIsKeyboardDownKeyPressed() const
+{
+    return isKeyboardDownKeyPressed;
+}
+
+bool EventManager::getIsKeyboardLeftKeyPressed() const
+{
+    return isKeyboardLeftKeyPressed;
+}
+
+bool EventManager::getIsKeyboardRightKeyPressed() const
+{
+    return isKeyboardRightKeyPressed;
 }
 
 bool EventManager::getIsKeyboardUpKeyDown() const
@@ -150,6 +187,26 @@ bool EventManager::getIsKeyboardLeftKeyDown() const
 bool EventManager::getIsKeyboardRightKeyDown() const
 {
     return isKeyboardRightKeyDown;
+}
+
+bool EventManager::getIsKeyboardUpKeyReleased() const
+{
+    return isKeyboardUpKeyReleased;
+}
+
+bool EventManager::getIsKeyboardDownKeyReleased() const
+{
+    return isKeyboardDownKeyReleased;
+}
+
+bool EventManager::getIsKeyboardLeftKeyReleased() const
+{
+    return isKeyboardLeftKeyReleased;
+}
+
+bool EventManager::getIsKeyboardRightKeyReleased() const
+{
+    return isKeyboardRightKeyReleased;
 }
 
 sf::Vector2i EventManager::getMousePosition() const

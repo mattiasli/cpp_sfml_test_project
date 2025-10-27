@@ -12,6 +12,7 @@ deltaYBoundingBox(boundingBox)
 
 void DynamicEntity::updateLogic()
 {
+    updateEntityStateFromMovementSpeed();
     if(!pathStatus.gridCoordinateVector.empty())
     {
         updateDeltaWorldCoordinateFromPathStatus();
@@ -126,6 +127,21 @@ void DynamicEntity::setPathStatus(std::vector<sf::Vector2i> gridCoordinateVector
     }
 }
 
+void DynamicEntity::applyPathFollowingMovementSpeed()
+{
+    movementSpeed = getDefaultMovementSpeed();
+}
+
+float DynamicEntity::getRunEntityStateThreshold() const
+{
+    return runEntityStateThreshold;
+}
+
+float DynamicEntity::getDefaultMovementSpeed() const
+{
+    return defaultMovementSpeed;
+}
+
 void DynamicEntity::updateDeltaWorldCoordinateFromPathStatus() // TODO: this->
 {
     sf::Vector2f targetRelativeWorldCoordinate;
@@ -146,6 +162,7 @@ void DynamicEntity::updateDeltaWorldCoordinateFromPathStatus() // TODO: this->
             this->pathStatus.index = 0;
             this->pathStatus.gridCoordinateVector.clear();
             this->deltaWorldCoordinate = constants::zeroVector;
+            this->movementSpeed = 0.f;
             return;
         }
         else
@@ -165,6 +182,7 @@ void DynamicEntity::updateDeltaWorldCoordinateFromPathStatus() // TODO: this->
             this->pathStatus.index = 0;
             this->pathStatus.gridCoordinateVector.clear();
             this->deltaWorldCoordinate = constants::zeroVector;
+            this->movementSpeed = 0.f;
             return;
         }
         else
@@ -180,6 +198,22 @@ void DynamicEntity::updateDeltaWorldCoordinateFromPathStatus() // TODO: this->
                 return;
             }
         }
+    }
+}
+
+void DynamicEntity::updateEntityStateFromMovementSpeed()
+{
+    if(getMovementSpeed() == 0.f)
+    {
+        entityState = constants::EntityState::Idle;
+    }
+    else if(getMovementSpeed() < getRunEntityStateThreshold())
+    {
+        entityState = constants::EntityState::Walk;
+    }
+    else
+    {
+        entityState = constants::EntityState::Run;
     }
 }
 
@@ -215,10 +249,5 @@ void DynamicEntity::updateDirectionsFromDeltaWorldCoordinate()
 
 float DynamicEntity::getMovementSpeed() const
 {
-    return defaultMovementSpeed;
-}
-
-float DynamicEntity::getRunAnimationThreshold() const
-{
-    return defaultRunAnimationThreshold;
+    return movementSpeed;
 }

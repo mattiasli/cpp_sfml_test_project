@@ -10,6 +10,9 @@ public:
 
     void render() const override;
 
+protected:
+    void applyPathFollowingMovementSpeed() override;
+
 private:
     static constexpr float boundingBoxWidth = 10.f;
     static constexpr float boundingBoxHeight = 10.f;
@@ -22,10 +25,6 @@ private:
     static constexpr float defaultMovementSpeedExpectedValue = 0.25f;
     static constexpr float defaultMovementSpeedStandardDeviation = 0.5f;
 
-    float movementSpeed;
-
-    void updateMovementSpeed() override;
-    float getMovementSpeed() const override;
     double getMinWaitTimeMicroseconds() const override;
     double getMaxWaitTimeMicroseconds() const override;
 };

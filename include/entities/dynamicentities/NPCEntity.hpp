@@ -16,7 +16,6 @@ private:
 
     double waitTimeRemainingMicroseconds;
 
-    virtual void updateMovementSpeed();
     virtual void updateAction();
     virtual double getMinWaitTimeMicroseconds() const;
     virtual double getMaxWaitTimeMicroseconds() const;

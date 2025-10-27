@@ -13,22 +13,27 @@ public:
     virtual void updateLogic() override;
 
 protected:
-    void setPathStatus(std::vector<sf::Vector2i> gridCoordinateVector);
     struct PathStatus
     {
         std::vector<sf::Vector2i> gridCoordinateVector;
         std::size_t index = 0;
     };
-    sf::Vector2f deltaWorldCoordinate = {0, 0};
-    PathStatus pathStatus;
-    constants::Direction lastHorizontalDirection;
-    constants::Direction lastVerticalDirection;
 
-    virtual float getRunAnimationThreshold() const;
+    sf::Vector2f deltaWorldCoordinate = {0, 0};
+    float movementSpeed = 0.f;
+    constants::EntityState entityState = constants::EntityState::Idle;
+    constants::Direction lastHorizontalDirection = constants::Direction::Left;
+    constants::Direction lastVerticalDirection = constants::Direction::Up;
+    PathStatus pathStatus;
+
+    void setPathStatus(std::vector<sf::Vector2i> gridCoordinateVector);
+    virtual void applyPathFollowingMovementSpeed();
+    virtual float getRunEntityStateThreshold() const;
+    virtual float getDefaultMovementSpeed() const;
 
 private:
     static constexpr float defaultMovementSpeed = 0.5f;
-    static constexpr float defaultRunAnimationThreshold = 0.25f;
+    static constexpr float runEntityStateThreshold = 0.25f;
 
     Map& map;
     CoordinateConverter& coordinateConverter;
@@ -39,6 +44,7 @@ private:
     void updateBoundingBoxesWorldCoordinates();
     void adjustBoundingBoxForTileCollisions();
     void updateDeltaWorldCoordinateFromPathStatus();
+    void updateEntityStateFromMovementSpeed();
     void updateDirectionsFromDeltaWorldCoordinate();
-    virtual float getMovementSpeed() const;
+    float getMovementSpeed() const;
 };

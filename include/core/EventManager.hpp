@@ -9,10 +9,18 @@ public:
 
     void processEvents();
 
+    bool getIsKeyboardUpKeyPressed() const;
+    bool getIsKeyboardDownKeyPressed() const;
+    bool getIsKeyboardLeftKeyPressed() const;
+    bool getIsKeyboardRightKeyPressed() const;
     bool getIsKeyboardUpKeyDown() const;
     bool getIsKeyboardDownKeyDown() const;
     bool getIsKeyboardLeftKeyDown() const;
     bool getIsKeyboardRightKeyDown() const;
+    bool getIsKeyboardUpKeyReleased() const;
+    bool getIsKeyboardDownKeyReleased() const;
+    bool getIsKeyboardLeftKeyReleased() const;
+    bool getIsKeyboardRightKeyReleased() const;
 
     sf::Vector2i getMousePosition() const;
     bool getIsMouseLeftButtonPressed() const;
@@ -27,7 +35,10 @@ private:
     sf::RenderWindow& renderWindow;
     sf::Event event;
 
-    bool isKeyboardUpKeyDown = false, isKeyboardDownKeyDown = false, isKeyboardLeftKeyDown = false, isKeyboardRightKeyDown = false;
+    bool isKeyboardUpKeyPressed = false, isKeyboardUpKeyDown = false, isKeyboardUpKeyReleased = false;
+    bool isKeyboardDownKeyPressed = false, isKeyboardDownKeyDown = false, isKeyboardDownKeyReleased = false;
+    bool isKeyboardLeftKeyPressed = false, isKeyboardLeftKeyDown = false, isKeyboardLeftKeyReleased = false;
+    bool isKeyboardRightKeyPressed = false, isKeyboardRightKeyDown = false, isKeyboardRightKeyReleased = false;
 
     sf::Vector2i mousePosition = {0, 0};
     bool isMouseLeftButtonPressed = false, isMouseLeftButtonDown = false, isMouseLeftButtonReleased = false;

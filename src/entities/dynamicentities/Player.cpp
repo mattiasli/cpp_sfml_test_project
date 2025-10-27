@@ -21,92 +21,64 @@ void Player::processInput()
 
     if(handler.getEventManager().getIsMouseLeftButtonPressed())
     {
+        applyPathFollowingMovementSpeed();
         setPathStatus(handler.getPathFinder().computeAStarPath(handler.getCoordinateConverter().convertToGridCoordinate(boundingBox.getCenterWorldCoordinate()),
                                                                handler.getCoordinateConverter().convertToGridCoordinate((sf::Vector2f)handler.getEventManager().getMousePosition())));
     }
+
+    sf::Vector2f arrowKeyDirection = constants::zeroVector;
     if(handler.getEventManager().getIsKeyboardUpKeyDown())
     {
         pathStatus.index = 0;
         pathStatus.gridCoordinateVector.clear();
-        deltaWorldCoordinate -= {0, defaultMovementSpeed * constants::scale};
+        arrowKeyDirection -= {0.f, 1.f};
     }
     if(handler.getEventManager().getIsKeyboardDownKeyDown())
     {
         pathStatus.index = 0;
         pathStatus.gridCoordinateVector.clear();
-        deltaWorldCoordinate += {0, defaultMovementSpeed * constants::scale};
+        arrowKeyDirection += {0.f, 1.f};
     }
     if(handler.getEventManager().getIsKeyboardLeftKeyDown())
     {
         pathStatus.index = 0;
         pathStatus.gridCoordinateVector.clear();
-        deltaWorldCoordinate -= {defaultMovementSpeed * constants::scale, 0};
+        arrowKeyDirection -= {1.f, 0.f};
     }
     if(handler.getEventManager().getIsKeyboardRightKeyDown())
     {
         pathStatus.index = 0;
         pathStatus.gridCoordinateVector.clear();
-        deltaWorldCoordinate += {defaultMovementSpeed * constants::scale, 0};
+        arrowKeyDirection += {1.f, 0.f};
+    }
+
+    if(pathStatus.gridCoordinateVector.empty() &&
+       arrowKeyDirection == constants::zeroVector)
+    {
+        movementSpeed = 0.f;
+    }
+
+    if(arrowKeyDirection != constants::zeroVector)
+    {
+        movementSpeed = getDefaultMovementSpeed();
+        if(arrowKeyDirection.x != 0.f && arrowKeyDirection.y != 0.f)
+        {
+            deltaWorldCoordinate = arrowKeyDirection * constants::sin45 * movementSpeed * static_cast<float>(constants::scale);
+        }
+        else
+        {
+            deltaWorldCoordinate = arrowKeyDirection * movementSpeed * static_cast<float>(constants::scale);
+        }
     }
 }
 
 void Player::render() const
 {
-    if(deltaWorldCoordinate == constants::zeroVector)
-    {
-        switch (direction)
-        {
-            case constants::Direction::Up:
-                handler.getSpriteManager().getCapedWarriorIdleUpAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorIdleUpAnimation()->getSprite());
-            break;
-            case constants::Direction::Down:
-                handler.getSpriteManager().getCapedWarriorIdleDownAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorIdleDownAnimation()->getSprite());
-            break;
-            case constants::Direction::Left:
-                handler.getSpriteManager().getCapedWarriorIdleLeftAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorIdleLeftAnimation()->getSprite());
-            break;
-            case constants::Direction::Right:
-                handler.getSpriteManager().getCapedWarriorIdleRightAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorIdleRightAnimation()->getSprite());
-            break;
-            default:
-                handler.getSpriteManager().getCapedWarriorIdleDownAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorIdleDownAnimation()->getSprite());
-            break;
-        }
-    }
-    else
-    {
-        switch (direction)
-        {
-            case constants::Direction::Up:
-                handler.getSpriteManager().getCapedWarriorRunUpAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorRunUpAnimation()->getSprite());
-            break;
-            case constants::Direction::Down:
-                handler.getSpriteManager().getCapedWarriorRunDownAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorRunDownAnimation()->getSprite());
-            break;
-            case constants::Direction::Left:
-                handler.getSpriteManager().getCapedWarriorRunLeftAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorRunLeftAnimation()->getSprite());
-            break;
-            case constants::Direction::Right:
-                handler.getSpriteManager().getCapedWarriorRunRightAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorRunRightAnimation()->getSprite());
-            break;
-            default:
-                handler.getSpriteManager().getCapedWarriorRunDownAnimation()->getSprite()->setPosition(worldCoordinate);
-                handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getCapedWarriorRunDownAnimation()->getSprite());
-            break;
-        }
-    }
+    handler.getSpriteManager().getAnimation(constants::EntityType::CapedWarrior, entityState, direction)->getSprite()->setPosition(worldCoordinate);
+    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getAnimation(constants::EntityType::CapedWarrior, entityState, direction)->getSprite());
 }
 
-float Player::getMovementSpeed() const
+float Player::getDefaultMovementSpeed() const
 {
     return defaultMovementSpeed;
 }

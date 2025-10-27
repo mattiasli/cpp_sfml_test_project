@@ -20,5 +20,5 @@ protected:
     Handler& handler;
     sf::Vector2f worldCoordinate;
     BoundingBox boundingBox;
-    constants::Direction direction;
+    constants::Direction direction = constants::Direction::Up;
 };
