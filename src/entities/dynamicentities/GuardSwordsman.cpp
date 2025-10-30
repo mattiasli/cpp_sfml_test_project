@@ -11,8 +11,8 @@ GuardSwordsman::GuardSwordsman(Handler& handler, sf::Vector2f worldCoordinate)
 
 void GuardSwordsman::render() const
 {
-    handler.getSpriteManager().getAnimation(constants::EntityType::GuardSwordsman, entityState, direction)->getSprite()->setPosition(worldCoordinate);
-    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getAnimation(constants::EntityType::GuardSwordsman, entityState, direction)->getSprite());
+    handler.getSpriteManager().getAnimator(constants::EntityType::GuardSwordsman, entityState, direction)->getSprite()->setPosition(worldCoordinate);
+    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getAnimator(constants::EntityType::GuardSwordsman, entityState, direction)->getSprite());
 }
 
 void GuardSwordsman::applyPathFollowingMovementSpeed()

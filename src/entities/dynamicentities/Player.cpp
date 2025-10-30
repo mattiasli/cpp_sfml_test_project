@@ -74,8 +74,8 @@ void Player::processInput()
 
 void Player::render() const
 {
-    handler.getSpriteManager().getAnimation(constants::EntityType::CapedWarrior, entityState, direction)->getSprite()->setPosition(worldCoordinate);
-    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getAnimation(constants::EntityType::CapedWarrior, entityState, direction)->getSprite());
+    handler.getSpriteManager().getAnimator(constants::EntityType::CapedWarrior, entityState, direction)->getSprite()->setPosition(worldCoordinate);
+    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getAnimator(constants::EntityType::CapedWarrior, entityState, direction)->getSprite());
 }
 
 float Player::getDefaultMovementSpeed() const

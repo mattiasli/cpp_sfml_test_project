@@ -5,19 +5,15 @@ class Handler;
 
 class Animation {
 public:
-    Animation(Handler& handler, sf::Texture& spriteAtlas, std::vector<sf::IntRect> textureRectangleSequence, double frameDurationMicroseconds);
+    Animation(Handler& handler, sf::Texture& spriteAtlas, std::vector<sf::IntRect> textureRectangleSequence, double defaultFrameDurationMicroseconds);
 
-    void updateLogic();
-    sf::Sprite* getSprite();
+    sf::Texture& getSpriteAtlas() const;
+    const std::vector<sf::IntRect>& getTextureRectangleSequence() const;
+    double getDefaultFrameDurationMicroseconds() const;
 
 private:
     Handler& handler;
-
     sf::Texture& spriteAtlas;
     std::vector<sf::IntRect> textureRectangleSequence;
-    double frameDurationMicroseconds;
-
-    double deltaTimeMicroseconds = 0;
-    double totalDurationMicroseconds;
-    sf::Sprite sprite;
+    double defaultFrameDurationMicroseconds;
 };

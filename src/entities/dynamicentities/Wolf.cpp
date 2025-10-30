@@ -11,8 +11,8 @@ Wolf::Wolf(Handler& handler, sf::Vector2f worldCoordinate)
 
 void Wolf::render() const
 {
-    handler.getSpriteManager().getAnimation(constants::EntityType::Wolf, entityState, direction)->getSprite()->setPosition(worldCoordinate);
-    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getAnimation(constants::EntityType::Wolf, entityState, direction)->getSprite());
+    handler.getSpriteManager().getAnimator(constants::EntityType::Wolf, entityState, direction)->getSprite()->setPosition(worldCoordinate);
+    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getAnimator(constants::EntityType::Wolf, entityState, direction)->getSprite());
 }
 
 void Wolf::applyPathFollowingMovementSpeed()

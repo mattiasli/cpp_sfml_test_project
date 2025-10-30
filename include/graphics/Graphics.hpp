@@ -4,13 +4,13 @@
 
 namespace graphics {
 
-    struct AnimationKey
+    struct EntityVisualKey
     {
         constants::EntityType entityType;
         constants::EntityState entityState;
         constants::Direction direction;
 
-        bool operator==(const AnimationKey& other) const
+        bool operator==(const EntityVisualKey& other) const
         {
             return entityType == other.entityType &&
                    entityState == other.entityState &&
@@ -18,13 +18,13 @@ namespace graphics {
         }
     };
 
-    struct AnimationKeyHash
+    struct EntityVisualKeyHash
     {
-        std::uint64_t operator()(const AnimationKey& animationKey) const
+        std::uint64_t operator()(const EntityVisualKey& entityVisualKey) const
         {
-            return static_cast<std::uint64_t>(animationKey.entityType) * 1000000
-                   + static_cast<std::uint64_t>(animationKey.entityState) * 1000
-                   + static_cast<std::uint64_t>(animationKey.direction);
+            return static_cast<std::uint64_t>(entityVisualKey.entityType) * 1000000
+                   + static_cast<std::uint64_t>(entityVisualKey.entityState) * 1000
+                   + static_cast<std::uint64_t>(entityVisualKey.direction);
         }
     };
 }

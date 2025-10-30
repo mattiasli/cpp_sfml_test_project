@@ -1,9 +1,10 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include "Animation.hpp"
-#include <cstdint>
+#include <memory>
 #include <unordered_map>
+#include <SFML/Graphics.hpp>
 #include "../graphics/Graphics.hpp"
+#include "Animation.hpp"
+#include "Animator.hpp"
 
 class Handler;
 
@@ -21,7 +22,7 @@ public:
     sf::Sprite* getGroveSprite();
     sf::Sprite* getWaterSprite();
 
-    Animation* getAnimation(constants::EntityType entityType, constants::EntityState entityState, constants::Direction direction);
+    Animator* getAnimator(constants::EntityType entityType, constants::EntityState entityState, constants::Direction direction);
 
 private:
     Handler& handler;
@@ -34,7 +35,9 @@ private:
     sf::Sprite groveSprite;
     sf::Sprite waterSprite;
 
-    Animation* nullAnimation;
-    std::unordered_map<graphics::AnimationKey, Animation*, graphics::AnimationKeyHash> animationMap;
-    std::vector<Animation*> animationVector;
+    std::unique_ptr<Animation> nullAnimation;
+    std::unique_ptr<Animator> nullAnimator;
+    std::unordered_map<graphics::EntityVisualKey, std::unique_ptr<Animation>, graphics::EntityVisualKeyHash> animationMap;
+    std::unordered_map<graphics::EntityVisualKey, std::unique_ptr<Animator>, graphics::EntityVisualKeyHash> animatorMap;
+    std::vector<Animator*> animatorVector;
 };

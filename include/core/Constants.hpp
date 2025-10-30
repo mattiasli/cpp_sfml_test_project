@@ -15,9 +15,10 @@ namespace constants {
     inline constexpr int tileWidth = 16;
     inline constexpr int tileHeight = 16;
     inline constexpr int defaultSpriteWidth = 16;
-    inline constexpr int defaulSpriteHeight = 16;
+    inline constexpr int defaultSpriteHeight = 16;
 
     inline const sf::Vector2f zeroVector {0, 0};
+    inline const sf::IntRect zeroRectangle {0, 0, 0, 0};
     inline const float sin45 {std::sin(45)};
     inline const sf::Vector2i invalidCoordinate {-1, -1};
     inline const size_t invalidIndex = -1;
