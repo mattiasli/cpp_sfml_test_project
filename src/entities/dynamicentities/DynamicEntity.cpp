@@ -12,6 +12,7 @@ deltaYBoundingBox(boundingBox)
 
 void DynamicEntity::updateLogic()
 {
+    updateDirectionsFromDeltaWorldCoordinate();
     updateEntityStateFromMovementSpeed();
     if(!pathStatus.gridCoordinateVector.empty())
     {
@@ -19,7 +20,6 @@ void DynamicEntity::updateLogic()
     }
     if(deltaWorldCoordinate != constants::zeroVector)
     {
-        updateDirectionsFromDeltaWorldCoordinate();
         updateBoundingBoxesWorldCoordinates();
         adjustBoundingBoxForTileCollisions();
         updateWorldCoordinate();
@@ -219,6 +219,11 @@ void DynamicEntity::updateEntityStateFromMovementSpeed()
 
 void DynamicEntity::updateDirectionsFromDeltaWorldCoordinate()
 {
+    if(deltaWorldCoordinate == constants::zeroVector)
+    {
+        return;
+    }
+
     if(std::abs(deltaWorldCoordinate.y) > std::abs(deltaWorldCoordinate.x))
     {
         if(deltaWorldCoordinate.y >= 0)

@@ -27,26 +27,31 @@ void EventManager::processEvents()
             {
                 case sf::Keyboard::Up:
                 case sf::Keyboard::W:
-                isKeyboardUpKeyPressed = true;
+                if (!isKeyboardUpKeyDown) isKeyboardUpKeyPressed = true;
                 isKeyboardUpKeyDown = true;
                 break;
 
                 case sf::Keyboard::Down:
                 case sf::Keyboard::S:
-                isKeyboardDownKeyPressed = true;
+                if (!isKeyboardDownKeyDown) isKeyboardDownKeyPressed = true;
                 isKeyboardDownKeyDown = true;
                 break;
 
                 case sf::Keyboard::Left:
                 case sf::Keyboard::A:
-                isKeyboardLeftKeyPressed = true;
+                if (!isKeyboardLeftKeyDown) isKeyboardLeftKeyPressed = true;
                 isKeyboardLeftKeyDown = true;
                 break;
 
                 case sf::Keyboard::Right:
                 case sf::Keyboard::D:
-                isKeyboardRightKeyPressed = true;
+                if (!isKeyboardRightKeyDown) isKeyboardRightKeyPressed = true;
                 isKeyboardRightKeyDown = true;
+                break;
+
+                case sf::Keyboard::Z:
+                if (!isKeyboardZKeyDown) isKeyboardZKeyPressed = true;
+                isKeyboardZKeyDown = true;
                 break;
 
                 default:
@@ -79,6 +84,11 @@ void EventManager::processEvents()
                 case sf::Keyboard::D:
                 isKeyboardRightKeyDown = false;
                 isKeyboardRightKeyReleased = true;
+                break;
+
+                case sf::Keyboard::Z:
+                isKeyboardZKeyDown = false;
+                isKeyboardZKeyReleased = true;
                 break;
 
                 default:
@@ -142,6 +152,9 @@ void EventManager::resetInputState()
     isKeyboardLeftKeyReleased = false;
     isKeyboardRightKeyPressed = false;
     isKeyboardRightKeyReleased = false;
+
+    isKeyboardZKeyPressed = false;
+    isKeyboardZKeyReleased = false;
 
     isMouseLeftButtonPressed = false;
     isMouseLeftButtonReleased = false;
@@ -207,6 +220,21 @@ bool EventManager::getIsKeyboardLeftKeyReleased() const
 bool EventManager::getIsKeyboardRightKeyReleased() const
 {
     return isKeyboardRightKeyReleased;
+}
+
+bool EventManager::getIsKeyboardZKeyPressed() const
+{
+    return isKeyboardZKeyPressed;
+}
+
+bool EventManager::getIsKeyboardZKeyDown() const
+{
+    return isKeyboardZKeyDown;
+}
+
+bool EventManager::getIsKeyboardZKeyReleased() const
+{
+    return isKeyboardZKeyReleased;
 }
 
 sf::Vector2i EventManager::getMousePosition() const

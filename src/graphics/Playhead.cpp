@@ -1,27 +1,39 @@
 #include "../../include/graphics/Playhead.hpp"
 #include "../../include/core/Handler.hpp"
 
-Playhead::Playhead(Handler& handler, Animation* animation)
+Playhead::Playhead(Handler& handler, Animation* animation, graphics::AnimationMode animationMode)
 : handler(handler),
 animation(animation),
+animationMode(animationMode),
+frameDurationMicroseconds(animation->getDefaultFrameDurationMicroseconds()),
 totalDurationMicroseconds(animation->getTextureRectangleSequence().size() * animation->getDefaultFrameDurationMicroseconds())
 {
 }
 
 void Playhead::updateLogic()
 {
-    if(animation != nullptr)
+    if(animation == nullptr || isFinished) return;
+
+    elapsedTimeMicroseconds += constants::microsecondsPerTick;
+
+    if(animationMode == graphics::AnimationMode::Shared)
     {
-        deltaTimeMicroseconds += constants::microsecondsPerTick;
-        deltaTimeMicroseconds = std::fmod(deltaTimeMicroseconds, totalDurationMicroseconds);
-        if (deltaTimeMicroseconds < 0.0)
+        elapsedTimeMicroseconds = std::fmod(elapsedTimeMicroseconds, totalDurationMicroseconds);
+        if (elapsedTimeMicroseconds < 0.0) elapsedTimeMicroseconds += totalDurationMicroseconds;
+
+        index = static_cast<std::size_t>(elapsedTimeMicroseconds / frameDurationMicroseconds);
+    }
+    else
+    {
+        if(elapsedTimeMicroseconds >= totalDurationMicroseconds)
         {
-            deltaTimeMicroseconds += totalDurationMicroseconds;
+            elapsedTimeMicroseconds = totalDurationMicroseconds;
+            index = animation->getTextureRectangleSequence().size() - 1;
+            isFinished = true;
         }
-        index = static_cast<std::size_t>(std::floor(deltaTimeMicroseconds / animation->getDefaultFrameDurationMicroseconds()));
-        if(index >= static_cast<std::size_t>(animation->getTextureRectangleSequence().size()))
+        else
         {
-            index = static_cast<std::size_t>(animation->getTextureRectangleSequence().size()) - 1;
+            index = static_cast<std::size_t>(elapsedTimeMicroseconds / frameDurationMicroseconds);
         }
     }
 }
@@ -36,4 +48,9 @@ const sf::IntRect& Playhead::getTextureRectangle() const
     {
         return constants::zeroRectangle;
     }
+}
+
+bool Playhead::getIsFinished() const
+{
+    return isFinished;
 }

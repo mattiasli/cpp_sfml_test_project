@@ -4,7 +4,7 @@
 SpriteManager::SpriteManager(Handler& handler)
 : handler(handler)
 {
-    spriteAtlas.loadFromFile("../res/spritesheet.png");
+    loadSpriteAtlas();
 
     dirtSprite.setTexture(spriteAtlas);
     dirtSprite.setTextureRect({0 * constants::tileWidth, 1 * constants::tileHeight, 1 * constants::tileWidth, 1 * constants::tileHeight});
@@ -43,6 +43,8 @@ SpriteManager::SpriteManager(Handler& handler)
     animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Run, constants::Direction::Down}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({4, 14}, {1, 1}, 4), 125000.0);
     animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Run, constants::Direction::Left}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({4, 13}, {1, 1}, 4), 125000.0);
     animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Run, constants::Direction::Right}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({4, 12}, {1, 1}, 4), 125000.0);
+
+    animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Attack, constants::Direction::Left}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({0, 16}, {2, 2}, 4), 62500.0);
 
     animationMap[{constants::EntityType::GuardSwordsman, constants::EntityState::Idle, constants::Direction::Up}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({12, 7}, {1, 1}, 4), 500000.0);
     animationMap[{constants::EntityType::GuardSwordsman, constants::EntityState::Idle, constants::Direction::Down}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({12, 6}, {1, 1}, 4), 500000.0);
@@ -110,19 +112,53 @@ SpriteManager::SpriteManager(Handler& handler)
         animatorMap.emplace(pair.first, std::make_unique<Animator>(handler, pair.second.get()));
     }
 
-    animatorVector.clear();
-    animatorVector.reserve(animatorMap.size());
+    sharedAnimatorList.clear();
     for (const std::pair<const graphics::EntityVisualKey, std::unique_ptr<Animator>>& pair : animatorMap)
     {
-        animatorVector.push_back(pair.second.get());
+        sharedAnimatorList.push_front(pair.second.get());
     }
 }
 
 void SpriteManager::updateLogic()
 {
-    for(Animator* animator : animatorVector)
+    for(Animator* animator : sharedAnimatorList)
     {
         animator->updateLogic();
+    }
+
+    for(auto iterator = instanceAnimatorList.before_begin(); std::next(iterator) != instanceAnimatorList.end(); )
+    {
+        std::shared_ptr<Animator>& animator = *std::next(iterator);
+
+        if(animator->getPlayhead().getIsFinished())
+        {
+            instanceAnimatorList.erase_after(iterator);    // TODO: make sure there are no memory leaks.
+        }
+        else
+        {
+            animator->updateLogic();
+            iterator++;
+        }
+    }
+}
+
+void SpriteManager::loadSpriteAtlas() // TODO: improve.
+{
+    if(std::filesystem::exists("res/spritesheet.png"))
+    {
+        spriteAtlas.loadFromFile("res/spritesheet.png");
+    }
+    else if(std::filesystem::exists("spritesheet.png"))
+    {
+        spriteAtlas.loadFromFile("spritesheet.png");
+    }
+    else if(std::filesystem::exists("../res/spritesheet.png"))
+    {
+        spriteAtlas.loadFromFile("../res/spritesheet.png");
+    }
+    else if(std::filesystem::exists("../spritesheet.png"))
+    {
+        spriteAtlas.loadFromFile("../spritesheet.png");
     }
 }
 
@@ -133,7 +169,7 @@ std::vector<sf::IntRect> SpriteManager::computeTextureRectangleSequence(sf::Vect
 
     for(std::uint8_t i = 0; i < seqenceLength; i++)
     {
-        textureRectangleSequence.emplace_back((startTexureGridIndex.x + i) * constants::defaultSpriteWidth,
+        textureRectangleSequence.emplace_back((startTexureGridIndex.x + i * rectangleTextureGridSize.x) * constants::defaultSpriteWidth,
                                               startTexureGridIndex.y * constants::defaultSpriteHeight,
                                               rectangleTextureGridSize.x * constants::defaultSpriteWidth,
                                               rectangleTextureGridSize.y * constants::defaultSpriteHeight);
@@ -167,7 +203,7 @@ sf::Sprite* SpriteManager::getWaterSprite()
     return &waterSprite;
 }
 
-Animator* SpriteManager::getAnimator(constants::EntityType entityType, constants::EntityState entityState, constants::Direction direction)
+Animator* SpriteManager::getSharedAnimator(constants::EntityType entityType, constants::EntityState entityState, constants::Direction direction)
 {
     auto iterator = animatorMap.find({entityType, entityState, direction});
     if(iterator == animatorMap.end())
@@ -177,5 +213,20 @@ Animator* SpriteManager::getAnimator(constants::EntityType entityType, constants
     else
     {
         return  iterator->second.get();
+    }
+}
+
+std::weak_ptr<Animator> SpriteManager::getInstanceAnimator(constants::EntityType entityType, constants::EntityState entityState, constants::Direction direction)
+{
+    auto iterator = animationMap.find({entityType, entityState, direction});
+    if(iterator == animationMap.end())
+    {
+        instanceAnimatorList.push_front(std::make_shared<Animator>(handler, nullAnimation.get(), graphics::AnimationMode::Instance));
+        return instanceAnimatorList.front();
+    }
+    else
+    {
+        instanceAnimatorList.push_front(std::make_shared<Animator>(handler, iterator->second.get(), graphics::AnimationMode::Instance));
+        return instanceAnimatorList.front();
     }
 }

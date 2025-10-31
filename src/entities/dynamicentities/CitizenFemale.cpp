@@ -11,8 +11,8 @@ CitizenFemale::CitizenFemale(Handler& handler, sf::Vector2f worldCoordinate)
 
 void CitizenFemale::render() const
 {
-    handler.getSpriteManager().getAnimator(constants::EntityType::CitizenFemale, entityState, direction)->getSprite()->setPosition(worldCoordinate);
-    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getAnimator(constants::EntityType::CitizenFemale, entityState, direction)->getSprite());
+    handler.getSpriteManager().getSharedAnimator(constants::EntityType::CitizenFemale, entityState, direction)->getSprite()->setPosition(worldCoordinate);
+    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getSharedAnimator(constants::EntityType::CitizenFemale, entityState, direction)->getSprite());
 }
 
 void CitizenFemale::applyPathFollowingMovementSpeed()

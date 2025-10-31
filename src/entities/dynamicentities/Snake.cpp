@@ -13,13 +13,13 @@ void Snake::render() const
 {
     if(entityState == constants::EntityState::Idle)
     {
-        handler.getSpriteManager().getAnimator(constants::EntityType::Snake, entityState, lastHorizontalDirection)->getSprite()->setPosition(worldCoordinate);
-        handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getAnimator(constants::EntityType::Snake, entityState, lastHorizontalDirection)->getSprite());
+        handler.getSpriteManager().getSharedAnimator(constants::EntityType::Snake, entityState, lastHorizontalDirection)->getSprite()->setPosition(worldCoordinate);
+        handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getSharedAnimator(constants::EntityType::Snake, entityState, lastHorizontalDirection)->getSprite());
     }
     else
     {
-        handler.getSpriteManager().getAnimator(constants::EntityType::Snake, constants::EntityState::Walk, direction)->getSprite()->setPosition(worldCoordinate);
-        handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getAnimator(constants::EntityType::Snake, constants::EntityState::Walk, direction)->getSprite());
+        handler.getSpriteManager().getSharedAnimator(constants::EntityType::Snake, constants::EntityState::Walk, direction)->getSprite()->setPosition(worldCoordinate);
+        handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getSharedAnimator(constants::EntityType::Snake, constants::EntityState::Walk, direction)->getSprite());
     }
 }
 

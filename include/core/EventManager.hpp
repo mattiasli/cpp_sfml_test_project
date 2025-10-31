@@ -22,6 +22,10 @@ public:
     bool getIsKeyboardLeftKeyReleased() const;
     bool getIsKeyboardRightKeyReleased() const;
 
+    bool getIsKeyboardZKeyPressed() const;
+    bool getIsKeyboardZKeyDown() const;
+    bool getIsKeyboardZKeyReleased() const;
+
     sf::Vector2i getMousePosition() const;
     bool getIsMouseLeftButtonPressed() const;
     bool getIsMouseLeftButtonDown() const;
@@ -39,6 +43,8 @@ private:
     bool isKeyboardDownKeyPressed = false, isKeyboardDownKeyDown = false, isKeyboardDownKeyReleased = false;
     bool isKeyboardLeftKeyPressed = false, isKeyboardLeftKeyDown = false, isKeyboardLeftKeyReleased = false;
     bool isKeyboardRightKeyPressed = false, isKeyboardRightKeyDown = false, isKeyboardRightKeyReleased = false;
+
+    bool isKeyboardZKeyPressed = false, isKeyboardZKeyDown = false, isKeyboardZKeyReleased = false;
 
     sf::Vector2i mousePosition = {0, 0};
     bool isMouseLeftButtonPressed = false, isMouseLeftButtonDown = false, isMouseLeftButtonReleased = false;

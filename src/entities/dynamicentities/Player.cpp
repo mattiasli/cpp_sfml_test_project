@@ -17,8 +17,6 @@ void Player::updateLogic()
 
 void Player::processInput()
 {
-    deltaWorldCoordinate = constants::zeroVector;
-
     if(handler.getEventManager().getIsMouseLeftButtonPressed())
     {
         applyPathFollowingMovementSpeed();
@@ -55,6 +53,7 @@ void Player::processInput()
     if(pathStatus.gridCoordinateVector.empty() &&
        arrowKeyDirection == constants::zeroVector)
     {
+        deltaWorldCoordinate = constants::zeroVector;
         movementSpeed = 0.f;
     }
 
@@ -74,8 +73,8 @@ void Player::processInput()
 
 void Player::render() const
 {
-    handler.getSpriteManager().getAnimator(constants::EntityType::CapedWarrior, entityState, direction)->getSprite()->setPosition(worldCoordinate);
-    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getAnimator(constants::EntityType::CapedWarrior, entityState, direction)->getSprite());
+    handler.getSpriteManager().getSharedAnimator(constants::EntityType::CapedWarrior, entityState, direction)->getSprite()->setPosition(worldCoordinate);
+    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getSharedAnimator(constants::EntityType::CapedWarrior, entityState, direction)->getSprite());
 }
 
 float Player::getDefaultMovementSpeed() const

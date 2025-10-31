@@ -4,6 +4,8 @@
 
 namespace graphics {
 
+    enum class AnimationMode : std::uint8_t {Shared, Instance};
+
     struct EntityVisualKey
     {
         constants::EntityType entityType;

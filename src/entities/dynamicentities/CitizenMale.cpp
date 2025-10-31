@@ -11,8 +11,8 @@ CitizenMale::CitizenMale(Handler& handler, sf::Vector2f worldCoordinate)
 
 void CitizenMale::render() const
 {
-    handler.getSpriteManager().getAnimator(constants::EntityType::CitizenMale, entityState, direction)->getSprite()->setPosition(worldCoordinate);
-    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getAnimator(constants::EntityType::CitizenMale, entityState, direction)->getSprite());
+    handler.getSpriteManager().getSharedAnimator(constants::EntityType::CitizenMale, entityState, direction)->getSprite()->setPosition(worldCoordinate);
+    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getSharedAnimator(constants::EntityType::CitizenMale, entityState, direction)->getSprite());
 }
 
 void CitizenMale::applyPathFollowingMovementSpeed()
