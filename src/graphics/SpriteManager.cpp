@@ -44,7 +44,10 @@ SpriteManager::SpriteManager(Handler& handler)
     animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Run, constants::Direction::Left}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({4, 13}, {1, 1}, 4), 125000.0);
     animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Run, constants::Direction::Right}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({4, 12}, {1, 1}, 4), 125000.0);
 
-    animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Attack, constants::Direction::Left}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({0, 16}, {2, 2}, 4), 62500.0);
+    animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Attack, constants::Direction::Up}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({0, 22}, {2, 2}, 4), 62500.0);
+    animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Attack, constants::Direction::Down}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({0, 20}, {2, 2}, 4), 62500.0);
+    animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Attack, constants::Direction::Left}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({0, 18}, {2, 2}, 4), 62500.0);
+    animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Attack, constants::Direction::Right}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({0, 16}, {2, 2}, 4), 62500.0);
 
     animationMap[{constants::EntityType::GuardSwordsman, constants::EntityState::Idle, constants::Direction::Up}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({12, 7}, {1, 1}, 4), 500000.0);
     animationMap[{constants::EntityType::GuardSwordsman, constants::EntityState::Idle, constants::Direction::Down}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({12, 6}, {1, 1}, 4), 500000.0);
@@ -58,6 +61,19 @@ SpriteManager::SpriteManager(Handler& handler)
     animationMap[{constants::EntityType::GuardSwordsman, constants::EntityState::Run, constants::Direction::Down}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({12, 14}, {1, 1}, 4), 125000.0);
     animationMap[{constants::EntityType::GuardSwordsman, constants::EntityState::Run, constants::Direction::Left}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({12, 13}, {1, 1}, 4), 125000.0);
     animationMap[{constants::EntityType::GuardSwordsman, constants::EntityState::Run, constants::Direction::Right}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({12, 12}, {1, 1}, 4), 125000.0);
+
+    animationMap[{constants::EntityType::GuardSpearman, constants::EntityState::Idle, constants::Direction::Up}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({24, 7}, {1, 1}, 4), 500000.0);
+    animationMap[{constants::EntityType::GuardSpearman, constants::EntityState::Idle, constants::Direction::Down}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({24, 6}, {1, 1}, 4), 500000.0);
+    animationMap[{constants::EntityType::GuardSpearman, constants::EntityState::Idle, constants::Direction::Left}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({24, 5}, {1, 1}, 4), 500000.0);
+    animationMap[{constants::EntityType::GuardSpearman, constants::EntityState::Idle, constants::Direction::Right}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({24, 4}, {1, 1}, 4), 500000.0);
+    animationMap[{constants::EntityType::GuardSpearman, constants::EntityState::Walk, constants::Direction::Up}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({24, 11}, {1, 1}, 4), 187500.0);
+    animationMap[{constants::EntityType::GuardSpearman, constants::EntityState::Walk, constants::Direction::Down}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({24, 10}, {1, 1}, 4), 187500.0);
+    animationMap[{constants::EntityType::GuardSpearman, constants::EntityState::Walk, constants::Direction::Left}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({24, 9}, {1, 1}, 4), 187500.0);
+    animationMap[{constants::EntityType::GuardSpearman, constants::EntityState::Walk, constants::Direction::Right}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({24, 8}, {1, 1}, 4), 187500.0);
+    animationMap[{constants::EntityType::GuardSpearman, constants::EntityState::Run, constants::Direction::Up}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({24, 15}, {1, 1}, 4), 125000.0);
+    animationMap[{constants::EntityType::GuardSpearman, constants::EntityState::Run, constants::Direction::Down}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({24, 14}, {1, 1}, 4), 125000.0);
+    animationMap[{constants::EntityType::GuardSpearman, constants::EntityState::Run, constants::Direction::Left}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({24, 13}, {1, 1}, 4), 125000.0);
+    animationMap[{constants::EntityType::GuardSpearman, constants::EntityState::Run, constants::Direction::Right}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({24, 12}, {1, 1}, 4), 125000.0);
 
     animationMap[{constants::EntityType::CitizenMale, constants::EntityState::Idle, constants::Direction::Up}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({16, 7}, {1, 1}, 4), 500000.0);
     animationMap[{constants::EntityType::CitizenMale, constants::EntityState::Idle, constants::Direction::Down}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({16, 6}, {1, 1}, 4), 500000.0);

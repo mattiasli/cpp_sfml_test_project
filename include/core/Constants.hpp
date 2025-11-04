@@ -3,7 +3,7 @@
 #include <cstdint>
 
 namespace constants {
-    enum class EntityType : std::uint8_t {CapedWarrior, GuardSwordsman, CitizenMale, CitizenFemale, Wolf, Snake};
+    enum class EntityType : std::uint8_t {CapedWarrior, GuardSwordsman, GuardSpearman, CitizenMale, CitizenFemale, Wolf, Snake};
     enum class EntityState : std::uint8_t {Idle, Walk, Run, Attack};
     enum class Direction : std::uint8_t {Up, Down, Left, Right};
 

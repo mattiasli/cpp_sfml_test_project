@@ -1,12 +1,16 @@
 #pragma once
+#include <memory>    // TODO: only for test, remove.
 #include <SFML/Graphics.hpp>
 #include "../entities/dynamicentities/DynamicEntity.hpp"
 #include "../entities/dynamicentities/Player.hpp"
 #include "../entities/dynamicentities/GuardSwordsman.hpp"
+#include "../entities/dynamicentities/GuardSpearman.hpp"
 #include "../entities/dynamicentities/CitizenMale.hpp"
 #include "../entities/dynamicentities/CitizenFemale.hpp"
 #include "../entities/dynamicentities/Wolf.hpp"
 #include "../entities/dynamicentities/Snake.hpp"
+
+#include "../graphics/Animator.hpp"    // TODO: only for test, remove.
 
 class Handler;
 
@@ -23,6 +27,10 @@ public:
 
     int getGridWidth() const;
     int getGridHeight() const;
+
+
+
+    std::weak_ptr<Animator> tempAnimator;    // TODO: only for test, remove.
 
 private:
     Handler& handler;

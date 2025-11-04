@@ -8,7 +8,12 @@ boundingBox(boundingBox)
 {
 }
 
-sf::Vector2f Entity::getWorldCoordinate()
+sf::Vector2f Entity::getWorldCoordinate() const
 {
     return worldCoordinate;
+}
+
+constants::Direction Entity::getDirection() const
+{
+    return direction;
 }

@@ -14,7 +14,8 @@ public:
     virtual void updateLogic() = 0;
     virtual void render() const = 0;
 
-    virtual sf::Vector2f getWorldCoordinate();
+    virtual sf::Vector2f getWorldCoordinate() const;
+    virtual constants::Direction getDirection() const;
 
 protected:
     Handler& handler;
