@@ -1,8 +1,8 @@
 #include "../../../include/entities/dynamicentities/DynamicEntity.hpp"
 #include "../../../include/core/Handler.hpp"
 
-DynamicEntity::DynamicEntity(Handler& handler, sf::Vector2f worldCoordinate, const BoundingBox& boundingBox)
-: Entity(handler, worldCoordinate, boundingBox),
+DynamicEntity::DynamicEntity(Handler& handler, sf::Vector2f worldCoordinate, const BoundingBox& boundingBox, constants::EntityType entityType)
+: Entity(handler, worldCoordinate, boundingBox, entityType),
 map(handler.getMap()),
 coordinateConverter(handler.getCoordinateConverter()),
 deltaXBoundingBox(boundingBox),
@@ -12,13 +12,11 @@ deltaYBoundingBox(boundingBox)
 
 void DynamicEntity::updateLogic()
 {
+    applyIntent();
+    updateInstanceAnimatorFromEntityState();
+    updateDeltaWorldCoordinateFromPathStatus();
     updateDirectionsFromDeltaWorldCoordinate();
-    updateEntityStateFromMovementSpeed();
-    if(!pathStatus.gridCoordinateVector.empty())
-    {
-        updateDeltaWorldCoordinateFromPathStatus();
-    }
-    if(deltaWorldCoordinate != constants::zeroVector)
+    if(deltaWorldCoordinate != constants::zeroVectorF)
     {
         updateBoundingBoxesWorldCoordinates();
         adjustBoundingBoxForTileCollisions();
@@ -90,6 +88,37 @@ void DynamicEntity::adjustBoundingBoxForTileCollisions()
     }
 }
 
+void DynamicEntity::applyIntent()
+{
+    if(dynamicEntityController == nullptr)
+    {
+        return;
+    }
+
+    dynamicEntityController->updateLogic();
+
+    if(dynamicEntityController->getIntent().hasEntityState)
+    {
+        entityState = dynamicEntityController->getIntent().entityState;
+    }
+
+    if(dynamicEntityController->getIntent().hasMovementDirection)
+    {
+        pathStatus.clear();
+        deltaWorldCoordinate = dynamicEntityController->getIntent().movementDirection * dynamicEntityController->getIntent().movementSpeed * static_cast<float>(constants::scale);
+    }
+    else if(dynamicEntityController->getIntent().hasGoalGridCoordinate)
+    {
+        movementSpeed = dynamicEntityController->getIntent().movementSpeed;
+        setPathStatus(handler.getPathFinder().computeAStarPath(handler.getCoordinateConverter().convertToGridCoordinate(boundingBox.getCenterWorldCoordinate()),
+                                                               dynamicEntityController->getIntent().goalGridCoordinate));
+    }
+    else
+    {
+        deltaWorldCoordinate = constants::zeroVectorF;
+    }
+}
+
 void DynamicEntity::setPathStatus(std::vector<sf::Vector2i> gridCoordinateVector)
 {
     std::size_t tentativeIndex = constants::invalidIndex;
@@ -127,14 +156,14 @@ void DynamicEntity::setPathStatus(std::vector<sf::Vector2i> gridCoordinateVector
     }
 }
 
-void DynamicEntity::applyPathFollowingMovementSpeed()
+double DynamicEntity::getMinWaitTimeMicroseconds() const
 {
-    movementSpeed = getDefaultMovementSpeed();
+    return minWaitTimeMicroseconds;
 }
 
-float DynamicEntity::getRunEntityStateThreshold() const
+double DynamicEntity::getMaxWaitTimeMicroseconds() const
 {
-    return runEntityStateThreshold;
+    return maxWaitTimeMicroseconds;
 }
 
 float DynamicEntity::getDefaultMovementSpeed() const
@@ -142,8 +171,33 @@ float DynamicEntity::getDefaultMovementSpeed() const
     return defaultMovementSpeed;
 }
 
-void DynamicEntity::updateDeltaWorldCoordinateFromPathStatus() // TODO: this->
+float DynamicEntity::getRunEntityStateThreshold() const
 {
+    return runEntityStateThreshold;
+}
+
+float DynamicEntity::getDefaultMovementSpeedExpectedValue() const
+{
+    return defaultMovementSpeedExpectedValue;
+}
+
+float DynamicEntity::getDefaultMovementSpeedStandardDeviation() const
+{
+    return defaultMovementSpeedStandardDeviation;
+}
+
+float DynamicEntity::getMovementSpeed() const
+{
+    return movementSpeed;
+}
+
+void DynamicEntity::updateDeltaWorldCoordinateFromPathStatus()
+{
+    if(pathStatus.empty())
+    {
+        return;
+    }
+
     sf::Vector2f targetRelativeWorldCoordinate;
     float distanceSquared;
     sf::Vector2f tenativeDeltaWorldCoordinate;
@@ -159,9 +213,8 @@ void DynamicEntity::updateDeltaWorldCoordinateFromPathStatus() // TODO: this->
 
         if(distanceSquared == 0.f)
         {
-            this->pathStatus.index = 0;
-            this->pathStatus.gridCoordinateVector.clear();
-            this->deltaWorldCoordinate = constants::zeroVector;
+            this->pathStatus.clear();
+            this->deltaWorldCoordinate = constants::zeroVectorF;
             this->movementSpeed = 0.f;
             return;
         }
@@ -179,9 +232,8 @@ void DynamicEntity::updateDeltaWorldCoordinateFromPathStatus() // TODO: this->
 
         if(distanceSquared == 0.f)
         {
-            this->pathStatus.index = 0;
-            this->pathStatus.gridCoordinateVector.clear();
-            this->deltaWorldCoordinate = constants::zeroVector;
+            this->pathStatus.clear();
+            this->deltaWorldCoordinate = constants::zeroVectorF;
             this->movementSpeed = 0.f;
             return;
         }
@@ -201,25 +253,20 @@ void DynamicEntity::updateDeltaWorldCoordinateFromPathStatus() // TODO: this->
     }
 }
 
-void DynamicEntity::updateEntityStateFromMovementSpeed()
+void DynamicEntity::updateInstanceAnimatorFromEntityState()
 {
-    if(getMovementSpeed() == 0.f)
+    if(entityState == constants::EntityState::Attack)
     {
-        entityState = constants::EntityState::Idle;
-    }
-    else if(getMovementSpeed() < getRunEntityStateThreshold())
-    {
-        entityState = constants::EntityState::Walk;
-    }
-    else
-    {
-        entityState = constants::EntityState::Run;
+        if(instanceAnimator.expired())
+        {
+            instanceAnimator = handler.getSpriteManager().getInstanceAnimator(constants::EntityType::CapedWarrior, entityState, direction);
+        }
     }
 }
 
 void DynamicEntity::updateDirectionsFromDeltaWorldCoordinate()
 {
-    if(deltaWorldCoordinate == constants::zeroVector)
+    if(deltaWorldCoordinate == constants::zeroVectorF)
     {
         return;
     }
@@ -252,7 +299,17 @@ void DynamicEntity::updateDirectionsFromDeltaWorldCoordinate()
     }
 }
 
-float DynamicEntity::getMovementSpeed() const
+constants::EntityState DynamicEntity::getEntityState() const
 {
-    return movementSpeed;
+    return entityState;
+}
+
+PathStatus& DynamicEntity::getPathStatus()
+{
+    return pathStatus;
+}
+
+std::weak_ptr<Animator> DynamicEntity::getInstanceAnimator() const
+{
+    return instanceAnimator;
 }

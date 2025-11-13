@@ -17,7 +17,10 @@ namespace constants {
     inline constexpr int defaultSpriteWidth = 16;
     inline constexpr int defaultSpriteHeight = 16;
 
-    inline const sf::Vector2f zeroVector {0, 0};
+    inline const sf::Vector2i offsetLeft8Up8PixelPoint {-8, -8};
+
+    inline const sf::Vector2i zeroVectorI {0, 0};
+    inline const sf::Vector2f zeroVectorF {0, 0};
     inline const sf::IntRect zeroRectangle {0, 0, 0, 0};
     inline const float sin45 {std::sin(45)};
     inline const sf::Vector2i invalidCoordinate {-1, -1};

@@ -1,42 +1,14 @@
 #include "../../../include/entities/dynamicentities/NPCEntity.hpp"
 #include "../../../include/core/Handler.hpp"
 
-NPCEntity::NPCEntity(Handler& handler, sf::Vector2f worldCoordinate, const BoundingBox& boundingBox)
-: DynamicEntity(handler, worldCoordinate, boundingBox)
+NPCEntity::NPCEntity(Handler& handler, sf::Vector2f worldCoordinate, const BoundingBox& boundingBox, constants::EntityType entityType)
+: DynamicEntity(handler, worldCoordinate, boundingBox, entityType)
 {
-    waitTimeRemainingMicroseconds = handler.getProbabilityManager().generateUniformFloat(getMinWaitTimeMicroseconds(), getMaxWaitTimeMicroseconds());
+    dynamicEntityController = std::make_unique<NPCEntityController>(handler, *this);
 }
 
 void NPCEntity::updateLogic()
 {
-    updateAction();
+    applyIntent();
     DynamicEntity::updateLogic();
-}
-
-void NPCEntity::updateAction()
-{
-    if(pathStatus.gridCoordinateVector.empty())
-    {
-    waitTimeRemainingMicroseconds -= constants::microsecondsPerTick;
-    waitTimeRemainingMicroseconds = std::max(0.0, waitTimeRemainingMicroseconds);
-    if(waitTimeRemainingMicroseconds <= 0)
-        {
-        waitTimeRemainingMicroseconds = handler.getProbabilityManager().generateUniformFloat(getMinWaitTimeMicroseconds(), getMaxWaitTimeMicroseconds());
-        applyPathFollowingMovementSpeed();
-        const sf::Vector2i goalGridCoordinate = {handler.getProbabilityManager().generateUniformInteger(0, handler.getMap().getGridWidth() - 1),
-                                                 handler.getProbabilityManager().generateUniformInteger(0, handler.getMap().getGridHeight() - 1)};
-        setPathStatus(handler.getPathFinder().computeAStarPath(handler.getCoordinateConverter().convertToGridCoordinate(getWorldCoordinate()),
-                                                               goalGridCoordinate));
-        }
-    }
-}
-
-double NPCEntity::getMinWaitTimeMicroseconds() const
-{
-    return minWaitTimeMicroseconds;
-}
-
-double NPCEntity::getMaxWaitTimeMicroseconds() const
-{
-    return maxWaitTimeMicroseconds;
 }

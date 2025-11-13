@@ -7,7 +7,7 @@ class Handler;
 
 class Entity {
 public:
-    Entity(Handler& handler, sf::Vector2f worldCoordinate, const BoundingBox& boundingBox);
+    Entity(Handler& handler, sf::Vector2f worldCoordinate, const BoundingBox& boundingBox, constants::EntityType entityType);
 
     virtual ~Entity() = default;
 
@@ -15,11 +15,13 @@ public:
     virtual void render() const = 0;
 
     virtual sf::Vector2f getWorldCoordinate() const;
+    virtual const BoundingBox& getBoundingBox() const;
     virtual constants::Direction getDirection() const;
 
 protected:
     Handler& handler;
     sf::Vector2f worldCoordinate;
     BoundingBox boundingBox;
+    constants::EntityType entityType;
     constants::Direction direction = constants::Direction::Up;
 };

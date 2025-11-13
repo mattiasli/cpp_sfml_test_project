@@ -11,7 +11,8 @@ public:
     Animator(Handler& handler, Animation* animation, graphics::AnimationMode animationMode = graphics::AnimationMode::Shared);
 
     void updateLogic();
-    const Playhead& getPlayhead() const;
+    const sf::Vector2i& getOffsetPixelPoint() const;
+    bool getIsFinished() const;
     sf::Sprite* getSprite();
 
 private:

@@ -1,5 +1,4 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "NPCEntity.hpp"
 
 class Handler;
@@ -10,8 +9,12 @@ public:
 
     void render() const override;
 
+    double getMinWaitTimeMicroseconds() const override;
+    double getMaxWaitTimeMicroseconds() const override;
+    float getDefaultMovementSpeedExpectedValue() const override;
+    float getDefaultMovementSpeedStandardDeviation() const override;
+
 protected:
-    void applyPathFollowingMovementSpeed() override;
 
 private:
     static constexpr float boundingBoxWidth = 14.f;
@@ -21,10 +24,6 @@ private:
 
     static constexpr double minWaitTimeMicroseconds = 2000000.0;
     static constexpr double maxWaitTimeMicroseconds = 64000000.0;
-
     static constexpr float defaultMovementSpeedExpectedValue = 0.5f;
     static constexpr float defaultMovementSpeedStandardDeviation = 0.25f;
-
-    double getMinWaitTimeMicroseconds() const override;
-    double getMaxWaitTimeMicroseconds() const override;
 };

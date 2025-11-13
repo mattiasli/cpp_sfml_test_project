@@ -16,9 +16,14 @@ void Animator::updateLogic()
     sprite.setTextureRect(playhead.getTextureRectangle());
 }
 
-const Playhead& Animator::getPlayhead() const
+const sf::Vector2i& Animator::getOffsetPixelPoint() const
 {
-    return playhead;
+    return playhead.getOffsetPixelPoint();
+}
+
+bool Animator::getIsFinished() const
+{
+    return playhead.getIsFinished();
 }
 
 sf::Sprite* Animator::getSprite()

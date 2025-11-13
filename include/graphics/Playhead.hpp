@@ -12,6 +12,7 @@ public:
 
     void updateLogic();
     const sf::IntRect& getTextureRectangle() const;
+    const sf::Vector2i& getOffsetPixelPoint() const;
     bool getIsFinished() const;
 
 private:

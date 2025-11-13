@@ -50,6 +50,18 @@ const sf::IntRect& Playhead::getTextureRectangle() const
     }
 }
 
+const sf::Vector2i& Playhead::getOffsetPixelPoint() const
+{
+    if(animation != nullptr)
+    {
+        return animation->getOffsetPixelPoint();
+    }
+    else
+    {
+        return constants::zeroVectorI;
+    }
+}
+
 bool Playhead::getIsFinished() const
 {
     return isFinished;

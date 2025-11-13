@@ -5,9 +5,14 @@
 class Handler;
 class DynamicEntity;
 
-class Controller {
+struct WorkingMemory
+{
+    double idleTimeRemainingMicroseconds;
+};
+
+class DynamicEntityController {
 public:
-    Controller(Handler& handler, DynamicEntity& dynamicEntity);
+    DynamicEntityController(Handler& handler, DynamicEntity& dynamicEntity);
     void updateLogic();
     const Intent& getIntent() const;
 
@@ -15,6 +20,7 @@ protected:
     Handler& handler;
     DynamicEntity& dynamicEntity;
     DecisionContext decisionContext;
+    WorkingMemory workingMemory;
     Intent intent;
 
 private:

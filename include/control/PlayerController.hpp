@@ -1,14 +1,16 @@
 #pragma once
-#include "Controller.hpp"
+#include "DynamicEntityController.hpp"
 
 class Handler;
 class DynamicEntity;
 
-class PlayerController : public Controller {
+class PlayerController : public DynamicEntityController {
 public:
     PlayerController(Handler& handler, DynamicEntity& dynamicEntity);
 
 private:
     void gatherDecisionContext() override;
     void synthesizeIntent() override;
+    void synthesizeIdleWalkRunIntent();
+    void synthesizeAttackIntent();
 };

@@ -15,10 +15,10 @@ Map::Map(Handler& handler)
     tempEntityVector.push_back(new GuardSwordsman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({3, 1})));
     tempEntityVector.push_back(new GuardSwordsman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({4, 1})));
 
-    tempEntityVector.push_back(new GuardSpearman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({10, 20})));
-    tempEntityVector.push_back(new GuardSpearman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({11, 20})));
-    tempEntityVector.push_back(new GuardSpearman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({12, 20})));
-    tempEntityVector.push_back(new GuardSpearman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({13, 20})));
+    tempEntityVector.push_back(new GuardSpearman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({14, 20})));
+    tempEntityVector.push_back(new GuardSpearman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({15, 20})));
+    tempEntityVector.push_back(new GuardSpearman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({16, 20})));
+    tempEntityVector.push_back(new GuardSpearman(handler, handler.getCoordinateConverter().convertToWorldCoordinate({17, 20})));
 
     tempEntityVector.push_back(new CitizenMale(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 5})));
     tempEntityVector.push_back(new CitizenMale(handler, handler.getCoordinateConverter().convertToWorldCoordinate({7, 4})));
@@ -47,12 +47,11 @@ Map::Map(Handler& handler)
 
 void Map::updateLogic()
 {
-
+    handler.getSpriteManager().updateLogic();
     for(auto& de : tempEntityVector)
     {
     de->updateLogic();
     }
-    handler.getSpriteManager().updateLogic();
 }
 
 void Map::render()
@@ -94,17 +93,6 @@ void Map::render()
     {
     de->render();
     }
-
-    if(handler.getEventManager().getIsKeyboardZKeyPressed())   /////////////////////// TODO: remove this temporary test.
-    {
-        tempAnimator = handler.getSpriteManager().getInstanceAnimator(constants::EntityType::CapedWarrior, constants::EntityState::Attack, tempEntityVector.front()->getDirection());
-    }
-
-    if(!tempAnimator.expired())
-    {
-        tempAnimator.lock().get()->getSprite()->setPosition(100, 100);
-        handler.getRenderWindowManager().getRenderWindow().draw(*tempAnimator.lock().get()->getSprite());
-    } //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 bool Map::isTileSolid(char tile)

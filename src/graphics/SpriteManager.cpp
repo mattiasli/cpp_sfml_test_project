@@ -44,10 +44,10 @@ SpriteManager::SpriteManager(Handler& handler)
     animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Run, constants::Direction::Left}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({4, 13}, {1, 1}, 4), 125000.0);
     animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Run, constants::Direction::Right}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({4, 12}, {1, 1}, 4), 125000.0);
 
-    animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Attack, constants::Direction::Up}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({0, 22}, {2, 2}, 4), 62500.0);
-    animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Attack, constants::Direction::Down}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({0, 20}, {2, 2}, 4), 62500.0);
-    animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Attack, constants::Direction::Left}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({0, 18}, {2, 2}, 4), 62500.0);
-    animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Attack, constants::Direction::Right}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({0, 16}, {2, 2}, 4), 62500.0);
+    animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Attack, constants::Direction::Up}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({0, 22}, {2, 2}, 4), constants::offsetLeft8Up8PixelPoint, 62500.0);
+    animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Attack, constants::Direction::Down}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({0, 20}, {2, 2}, 4), constants::offsetLeft8Up8PixelPoint, 62500.0);
+    animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Attack, constants::Direction::Left}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({0, 18}, {2, 2}, 4), constants::offsetLeft8Up8PixelPoint, 62500.0);
+    animationMap[{constants::EntityType::CapedWarrior, constants::EntityState::Attack, constants::Direction::Right}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({0, 16}, {2, 2}, 4), constants::offsetLeft8Up8PixelPoint, 62500.0);
 
     animationMap[{constants::EntityType::GuardSwordsman, constants::EntityState::Idle, constants::Direction::Up}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({12, 7}, {1, 1}, 4), 500000.0);
     animationMap[{constants::EntityType::GuardSwordsman, constants::EntityState::Idle, constants::Direction::Down}] = std::make_unique<Animation>(handler, spriteAtlas, computeTextureRectangleSequence({12, 6}, {1, 1}, 4), 500000.0);
@@ -146,7 +146,7 @@ void SpriteManager::updateLogic()
     {
         std::shared_ptr<Animator>& animator = *std::next(iterator);
 
-        if(animator->getPlayhead().getIsFinished())
+        if(animator->getIsFinished())
         {
             instanceAnimatorList.erase_after(iterator);    // TODO: make sure there are no memory leaks.
         }

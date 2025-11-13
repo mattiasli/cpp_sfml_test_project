@@ -2,22 +2,20 @@
 #include "../../../include/core/Handler.hpp"
 
 Wolf::Wolf(Handler& handler, sf::Vector2f worldCoordinate)
-: NPCEntity(handler, worldCoordinate, BoundingBox(handler,
-                                                  worldCoordinate,
-                                                  sf::Vector2f{boundingBoxWidth, boundingBoxHeight},
-                                                  sf::Vector2f{boundingBoxOffsetRelativeXWorldCoordinate, boundingBoxOffsetRelativeYWorldCoordinate}))
+: NPCEntity(handler,
+            worldCoordinate,
+            BoundingBox(handler,
+                        worldCoordinate,
+                        sf::Vector2f{boundingBoxWidth, boundingBoxHeight},
+                        sf::Vector2f{boundingBoxOffsetRelativeXWorldCoordinate, boundingBoxOffsetRelativeYWorldCoordinate}),
+            constants::EntityType::Wolf)
 {
 }
 
 void Wolf::render() const
 {
-    handler.getSpriteManager().getSharedAnimator(constants::EntityType::Wolf, entityState, direction)->getSprite()->setPosition(worldCoordinate);
-    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getSharedAnimator(constants::EntityType::Wolf, entityState, direction)->getSprite());
-}
-
-void Wolf::applyPathFollowingMovementSpeed()
-{
-    movementSpeed = std::min(constants::defaultMaxMovementSpeed, handler.getProbabilityManager().generateLogNormalFloat(defaultMovementSpeedExpectedValue, defaultMovementSpeedStandardDeviation));
+    handler.getSpriteManager().getSharedAnimator(entityType, entityState, direction)->getSprite()->setPosition(worldCoordinate);
+    handler.getRenderWindowManager().getRenderWindow().draw(*handler.getSpriteManager().getSharedAnimator(entityType, entityState, direction)->getSprite());
 }
 
 double Wolf::getMinWaitTimeMicroseconds() const
@@ -28,4 +26,14 @@ double Wolf::getMinWaitTimeMicroseconds() const
 double Wolf::getMaxWaitTimeMicroseconds() const
 {
     return maxWaitTimeMicroseconds;
+}
+
+float Wolf::getDefaultMovementSpeedExpectedValue() const
+{
+    return defaultMovementSpeedExpectedValue;
+}
+
+float Wolf::getDefaultMovementSpeedStandardDeviation() const
+{
+    return defaultMovementSpeedStandardDeviation;
 }

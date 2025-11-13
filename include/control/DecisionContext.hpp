@@ -4,17 +4,35 @@
 
 struct Perception
 {
+    void reset()
+    {
+        *this = Perception{};
+    }
 };
 
 struct ControlInput
 {
-    sf::Vector2f keyboardArrowKeyDirection = constants::zeroVector;
-    sf::Vector2i mouseLeftButtonWorldCoordinate = constants::invalidCoordinate;
-    bool isKeyboardAttackKeyPressed = false;
+    bool hasKeyboardDirection = false;
+    bool hasMouseGoalWorldCoordinate = false;
+
+    sf::Vector2f keyboardDirection;
+    sf::Vector2i mouseGoalWorldCoordinate;
+    bool isKeyboardAttackActive = false;
+
+    void reset()
+    {
+        *this = ControlInput{};
+    }
 };
 
 struct DecisionContext
 {
     Perception perception;
     ControlInput controlInput;
+
+    void reset()
+    {
+        perception.reset();
+        controlInput.reset();
+    }
 };
